@@ -238,7 +238,25 @@ export default class CalculatorsPage {
                     const routeMap = {
                         1: 'geneva-score',
                         2: 'glasgow-coma',
-                        14: 'pesi-score'
+                        3: 'four-score',
+                        4: 'sad-persons',
+                        5: 'pediatric',
+                        6: 'apgar',
+                        7: 'ciwa-ar',
+                        8: 'nihss',
+                        9: 'killip',
+                        10: 'vas',
+                        11: 'fast-ed',
+                        12: 'algover',
+                        13: 'drug-converter',
+                        14: 'pesi-score',
+                        15: 'infusomat',
+                        16: 'glasgow-coma-pediatric',
+                        17: 'odn-scale',
+                        18: 'shsn-scale',
+                        19: 'sgarbossa',
+                        20: 'ett-size',
+                        21: 'qtc-bazett',
                     };
                     const route = routeMap[calc.id];
                     if (route) {

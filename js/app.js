@@ -31,7 +31,25 @@ class App {
             recent: () => import('./pages/recent.js'),
             'geneva-score': () => import('./pages/geneva-score.js'),
             'pesi-score': () => import('./pages/pesi-score.js'),
-            'glasgow-coma': () => import('./pages/glasgow-coma.js')
+            'glasgow-coma': () => import('./pages/glasgow-coma.js'),
+            'glasgow-coma-pediatric': () => import('./pages/glasgow-coma-pediatric.js'),
+            'four-score': () => import('./pages/four-score.js'),
+            'sad-persons': () => import('./pages/sad-persons.js'),
+            'odn-scale': () => import('./pages/odn-scale.js'),
+            'shsn-scale': () => import('./pages/shsn-scale.js'),
+            'sgarbossa': () => import('./pages/sgarbossa.js'),
+            'ett-size': () => import('./pages/ett-size.js'),
+            'qtc-bazett': () => import('./pages/qtc-bazett.js'),
+            'apgar': () => import('./pages/apgar.js'),
+            'ciwa-ar': () => import('./pages/ciwa-ar.js'),
+            'nihss': () => import('./pages/nihss.js'),
+            'killip': () => import('./pages/killip.js'),
+            'vas': () => import('./pages/vas.js'),
+            'fast-ed': () => import('./pages/fast-ed.js'),
+            'algover': () => import('./pages/algover.js'),
+            'drug-converter': () => import('./pages/drug-converter.js'),
+            'pediatric': () => import('./pages/pediatric.js'),
+            'infusomat': () => import('./pages/infusomat.js')
         });
 
         this.router.onRouteChange((route) => {

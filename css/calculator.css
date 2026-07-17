@@ -2,8 +2,38 @@
    CALCULATOR DETAIL PAGE
    ============================================ */
 
+/* ============================================
+   ОБЩИЙ ОТСТУП ДЛЯ СТРАНИЦ КАЛЬКУЛЯТОРОВ
+   ============================================ */
 .calc-page {
-    padding-bottom: 180px !important; /* место для плашки результата */
+    padding-bottom: 200px !important;
+}
+
+/* Drug converter — больше контента в результате */
+.page-content.calc-page:has(.drug-result-volume) {
+    padding-bottom: 280px !important;
+}
+
+/* Мобильная адаптация — ещё больше места */
+@media (max-width: 600px) {
+    .calc-page {
+        padding-bottom: 220px !important;
+    }
+    
+    .page-content.calc-page:has(.drug-result-volume) {
+        padding-bottom: 320px !important;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 400px) {
+    .calc-page {
+        padding-bottom: 240px !important;
+    }
+    
+    .page-content.calc-page:has(.drug-result-volume) {
+        padding-bottom: 360px !important;
+    }
 }
 
 .back-button {
@@ -1013,5 +1043,2684 @@
     
     .reference-modal-body {
         padding: 16px 20px 24px;
+    }
+}
+
+/* ============================================
+   ПРЕДУПРЕЖДЕНИЕ В РЕЗУЛЬТАТЕ (план суицида)
+   ============================================ */
+.result-warning {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--md-shape-sm);
+    font: 600 12px/18px var(--md-font-family);
+    line-height: 1.4;
+}
+
+/* ============================================
+   ТАБЛИЦА ОДН
+   ============================================ */
+
+.odn-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 16px;
+    border-radius: var(--md-shape-lg);
+    border: 1px solid var(--md-outline-variant);
+    -webkit-overflow-scrolling: touch;
+}
+
+.odn-table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.odn-table th,
+.odn-table td {
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid var(--md-outline-variant);
+    vertical-align: middle;
+}
+
+.odn-param-header {
+    background: var(--md-surface-container);
+    color: var(--md-on-surface);
+    font-weight: 600;
+    text-align: left !important;
+    white-space: nowrap;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+.odn-degree-header {
+    background: var(--md-surface-container);
+    color: var(--md-on-surface-variant);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    min-width: 100px;
+}
+
+.odn-param-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    white-space: nowrap;
+    background: var(--md-surface-container-low);
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.odn-param-cell .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.odn-cell {
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--md-on-surface-variant);
+}
+
+.odn-cell:hover {
+    background: var(--md-surface-container);
+}
+
+/* Выбранная ячейка */
+.odn-cell.selected {
+    background: var(--md-primary) !important;
+    color: var(--md-on-primary) !important;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 2px var(--md-primary);
+}
+
+/* Подсветка колонки наиболее вероятной степени */
+.odn-cell.column-highlight {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+}
+
+/* Цветовые акценты для заголовков степеней */
+.odn-degree-0 { border-top: 3px solid #4CAF50; }
+.odn-degree-1 { border-top: 3px solid #8BC34A; }
+.odn-degree-2 { border-top: 3px solid #FFC107; }
+.odn-degree-3 { border-top: 3px solid #FF9800; }
+.odn-degree-4 { border-top: 3px solid #F44336; }
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+    .odn-table {
+        min-width: 600px;
+    }
+    
+    .odn-table th,
+    .odn-table td {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+    
+    .odn-param-cell {
+        font-size: 12px;
+    }
+    
+    .odn-degree-header {
+        font-size: 10px;
+        min-width: 80px;
+    }
+}
+
+/* ============================================
+   SGARBOSSA — ТАБЛИЦА ВЕРОЯТНОСТЕЙ
+   ============================================ */
+
+.sgarbossa-probability-card {
+    margin-bottom: 16px;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.sgarbossa-probability-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1px;
+    background: var(--md-outline-variant);
+}
+
+.sgarbossa-prob-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    background: var(--md-surface-container-lowest);
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.sgarbossa-prob-row.active {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.sgarbossa-prob-score {
+    font: 500 13px/1 var(--md-font-family);
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.sgarbossa-prob-value {
+    font: 700 18px/1 var(--md-font-family);
+}
+
+.sgarbossa-prob-row.active .sgarbossa-prob-score {
+    opacity: 1;
+}
+
+@media (max-width: 400px) {
+    .sgarbossa-probability-table {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .sgarbossa-prob-value {
+        font-size: 15px;
+    }
+}
+
+/* ============================================
+   ETT SIZE — ВВОД ВОЗРАСТА И РЕЗУЛЬТАТ
+   ============================================ */
+
+.ett-input-section {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.ett-input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 15px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+}
+
+.ett-input-label .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+.ett-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ett-age-input {
+    width: 90px;
+    padding: 12px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 20px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.ett-age-input::-webkit-outer-spin-button,
+.ett-age-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ett-age-input:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .ett-age-input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.ett-age-unit {
+    font: 400 16px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.ett-formulas-hint {
+    margin-top: 10px;
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.8;
+}
+
+/* Результат ETT */
+.ett-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 20px 16px !important;
+    position: relative;
+}
+
+.ett-result-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.ett-result-column {
+    flex: 1;
+    text-align: center;
+}
+
+.ett-result-type {
+    font: 500 12px/16px var(--md-font-family);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    margin-bottom: 6px;
+}
+
+.ett-result-main {
+    font: 700 32px/1 var(--md-font-family);
+    margin-bottom: 8px;
+}
+
+.ett-result-range {
+    font: 400 13px/18px var(--md-font-family);
+    opacity: 0.7;
+}
+
+.ett-result-range .ett-highlight {
+    font-weight: 700;
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ett-result-divider-v {
+    width: 1px;
+    height: 60px;
+    background: currentColor;
+    opacity: 0.2;
+    flex-shrink: 0;
+}
+
+.ett-result-note {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: var(--md-shape-sm);
+    font: 400 12px/18px var(--md-font-family);
+    text-align: center;
+}
+
+.ett-result-tip {
+    margin-top: 8px;
+    font: 500 12px/16px var(--md-font-family);
+    text-align: center;
+    opacity: 0.9;
+}
+
+@media (max-width: 400px) {
+    .ett-result-main {
+        font-size: 26px;
+    }
+    
+    .ett-result-grid {
+        gap: 10px;
+    }
+}
+
+/* ============================================
+   QTC BAZETT — ПОЛЯ ВВОДА И РЕЗУЛЬТАТ
+   ============================================ */
+
+.qtc-inputs {
+    margin-bottom: 16px;
+    padding: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.qtc-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.qtc-input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.qtc-input-label .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.qtc-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.qtc-field {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 20px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.qtc-field::-webkit-outer-spin-button,
+.qtc-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.qtc-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .qtc-field:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.qtc-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.qtc-unit {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+    min-width: 50px;
+}
+
+.qtc-formula-hint {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+    text-align: center;
+    padding-top: 4px;
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+/* Результат QTc */
+.qtc-result {
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+.qtc-main-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+.qtc-big-number {
+    font: 700 40px/1 var(--md-font-family);
+}
+
+.qtc-big-label {
+    font: 400 12px/1 var(--md-font-family);
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.qtc-details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.qtc-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.qtc-detail-label {
+    opacity: 0.8;
+}
+
+.qtc-detail-value {
+    font-weight: 500;
+}
+
+.qtc-gender-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.qtc-gender-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font: 500 13px/18px var(--md-font-family);
+    padding: 4px 10px;
+    border-radius: var(--md-shape-full);
+    background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .qtc-gender-item {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.qtc-gender-item .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.qtc-status-normal { color: #2E7D32; font-weight: 600; }
+.qtc-status-borderline { color: #F57F17; font-weight: 600; }
+.qtc-status-prolonged { color: #C62828; font-weight: 700; }
+
+[data-theme="dark"] .qtc-status-normal { color: #81C784; }
+[data-theme="dark"] .qtc-status-borderline { color: #FFD54F; }
+[data-theme="dark"] .qtc-status-prolonged { color: #EF9A9A; }
+
+@media (max-width: 400px) {
+    .qtc-result {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    .qtc-gender-row {
+        justify-content: center;
+    }
+    
+    .qtc-big-number {
+        font-size: 34px;
+    }
+}
+/* ============================================
+   APGAR — ПЕРЕКЛЮЧАТЕЛЬ ВРЕМЕНИ
+   ============================================ */
+
+.apgar-time-switcher {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.apgar-time-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--md-surface-container-low);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.apgar-time-btn:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+}
+
+.apgar-time-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary-container);
+}
+
+.apgar-time-btn .material-symbols-rounded {
+    font-size: 32px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+}
+
+.apgar-time-btn.active .material-symbols-rounded {
+    color: var(--md-on-primary-container);
+}
+
+.apgar-time-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.apgar-time-label {
+    font: 500 14px/18px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.apgar-time-btn.active .apgar-time-label {
+    color: var(--md-on-primary-container);
+}
+
+.apgar-time-score {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.apgar-time-btn.active .apgar-time-score {
+    color: var(--md-on-primary-container);
+    opacity: 0.85;
+}
+
+/* ============================================
+   APGAR — РЕЗУЛЬТАТ
+   ============================================ */
+
+.apgar-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 16px !important;
+    position: relative;
+}
+
+.apgar-result-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.apgar-result-cell {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: var(--md-shape-md);
+    background: rgba(0, 0, 0, 0.08);
+    opacity: 0.6;
+    transition: all 0.3s;
+}
+
+[data-theme="dark"] .apgar-result-cell {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.apgar-result-cell.partial {
+    opacity: 0.85;
+}
+
+.apgar-result-cell.filled {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .apgar-result-cell.filled {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.apgar-cell-label {
+    font: 500 11px/14px var(--md-font-family);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.apgar-cell-value {
+    font: 700 36px/1 var(--md-font-family);
+    margin-bottom: 2px;
+}
+
+.apgar-cell-range {
+    font: 400 11px/14px var(--md-font-family);
+    opacity: 0.7;
+}
+
+.apgar-result-divider {
+    font: 500 24px/1 var(--md-font-family);
+    opacity: 0.5;
+    padding: 0 4px;
+}
+
+/* Тренды */
+.apgar-trend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--md-shape-full);
+    font: 500 13px/18px var(--md-font-family);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.apgar-trend .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.apgar-trend.trend-up {
+    background: rgba(46, 125, 50, 0.2);
+    color: #1B5E20;
+}
+
+.apgar-trend.trend-down {
+    background: rgba(198, 40, 40, 0.2);
+    color: #B71C1C;
+}
+
+.apgar-trend.trend-same {
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+}
+
+[data-theme="dark"] .apgar-trend.trend-up {
+    background: rgba(129, 199, 132, 0.25);
+    color: #A5D6A7;
+}
+
+[data-theme="dark"] .apgar-trend.trend-down {
+    background: rgba(239, 154, 154, 0.25);
+    color: #EF9A9A;
+}
+
+.apgar-interpretation {
+    font: 400 13px/18px var(--md-font-family);
+    text-align: center;
+    opacity: 0.95;
+}
+
+.apgar-interpretation strong {
+    font-weight: 600;
+}
+
+@media (max-width: 400px) {
+    .apgar-cell-value {
+        font-size: 28px;
+    }
+    
+    .apgar-time-btn {
+        padding: 12px;
+    }
+    
+    .apgar-time-btn .material-symbols-rounded {
+        font-size: 26px;
+    }
+}
+
+/* ============================================
+   CIWA-AR — ПРОГРЕСС-БАР
+   ============================================ */
+
+.ciwa-progress-card {
+    margin-bottom: 16px;
+    padding: 14px 16px !important;
+}
+
+.ciwa-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ciwa-progress-label {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.ciwa-progress-value {
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.ciwa-progress-bar {
+    height: 6px;
+    background: var(--md-surface-container-high);
+    border-radius: var(--md-shape-full);
+    overflow: hidden;
+}
+
+.ciwa-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--md-primary), var(--md-tertiary));
+    border-radius: var(--md-shape-full);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   CIWA-AR — КОМПАКТНЫЕ RADIO
+   ============================================ */
+
+.ciwa-items {
+    gap: 2px !important;
+    padding: 4px !important;
+}
+
+.ciwa-radio-item {
+    padding: 8px 10px !important;
+    gap: 10px !important;
+}
+
+.ciwa-radio-item .gcs-radio-circle {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.ciwa-radio-item .gcs-radio-dot {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+.ciwa-radio-item .gcs-radio-title {
+    font-size: 13px !important;
+    line-height: 18px !important;
+}
+
+.ciwa-radio-item .gcs-radio-points {
+    min-width: 22px !important;
+    height: 22px !important;
+    font-size: 12px !important;
+}
+
+/* ============================================
+   CIWA-AR — РЕЗУЛЬТАТ
+   ============================================ */
+
+.ciwa-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 16px !important;
+    text-align: center;
+    position: relative;
+}
+
+.ciwa-result .result-score {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    min-width: auto;
+}
+
+.ciwa-result .result-score-value {
+    font-size: 48px;
+}
+
+.ciwa-result .result-divider {
+    width: 100%;
+    height: 1px;
+    margin: 8px 0;
+    background: currentColor;
+    opacity: 0.2;
+}
+
+.ciwa-result .result-info {
+    text-align: center;
+}
+
+.ciwa-result .result-therapy {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-top: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--md-shape-full);
+    font: 600 12px/1 var(--md-font-family);
+    letter-spacing: 0.3px;
+}
+
+.ciwa-result .result-description {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+@media (max-width: 400px) {
+    .ciwa-result .result-score-value {
+        font-size: 40px;
+    }
+}
+
+/* ============================================
+   NIHSS — ПОДГРУППЫ И ПРИМЕЧАНИЯ
+   ============================================ */
+
+.nihss-subgroup-label {
+    padding: 8px 14px;
+    margin-top: 4px;
+    font: 600 12px/1 var(--md-font-family);
+    color: var(--md-primary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-left: 3px solid var(--md-primary);
+    background: var(--md-surface-container);
+    border-radius: 0 var(--md-shape-xs) var(--md-shape-xs) 0;
+}
+
+.nihss-group-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+    font: 400 12px/18px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.nihss-group-note .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* ============================================
+   KILLIP — КАРТОЧКИ КЛАССОВ
+   ============================================ */
+
+.killip-classes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.killip-class {
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0 !important;
+    overflow: hidden;
+    border-width: 2px !important;
+}
+
+.killip-class:hover {
+    border-color: var(--md-outline);
+    box-shadow: var(--md-elevation-1);
+}
+
+.killip-class.selected {
+    border-color: var(--md-primary) !important;
+    box-shadow: var(--md-elevation-2);
+}
+
+.killip-class-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.killip-class.selected .killip-class-header {
+    background: var(--md-primary-container);
+}
+
+.killip-class-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 18px/1 var(--md-font-family);
+    flex-shrink: 0;
+}
+
+/* Цвета бейджей */
+.killip-class-badge.gcs-15 {
+    background: #4CAF50;
+    color: white;
+}
+.killip-class-badge.gcs-11-12 {
+    background: #FFC107;
+    color: #1a1a1a;
+}
+.killip-class-badge.gcs-8-10 {
+    background: #FF9800;
+    color: white;
+}
+.killip-class-badge.gcs-3 {
+    background: #F44336;
+    color: white;
+}
+
+.killip-class-title {
+    font: 500 16px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    flex: 1;
+}
+
+.killip-class.selected .killip-class-title {
+    color: var(--md-on-primary-container);
+}
+
+.killip-class-description {
+    padding: 12px 16px;
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.killip-section {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.killip-section:last-of-type {
+    border-bottom: none;
+}
+
+.killip-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/18px var(--md-font-family);
+    color: var(--md-primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.killip-section-title .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.killip-list {
+    margin: 0;
+    padding-left: 20px;
+    font: 400 13px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.killip-list li {
+    margin: 4px 0;
+}
+
+.killip-list li::marker {
+    color: var(--md-primary);
+}
+
+.killip-list-management li::marker {
+    color: var(--md-tertiary, #4A148C);
+}
+
+.killip-mortality {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--md-outline-variant);
+    margin-top: 1px;
+}
+
+.killip-mortality-item {
+    padding: 12px 16px;
+    background: var(--md-surface-container-low);
+    text-align: center;
+}
+
+.killip-class.selected .killip-mortality-item {
+    background: var(--md-primary-container);
+}
+
+.killip-mortality-label {
+    font: 500 11px/14px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+}
+
+.killip-mortality-value {
+    font: 700 20px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.killip-class.selected .killip-mortality-value {
+    color: var(--md-on-primary-container);
+}
+
+@media (max-width: 480px) {
+    .killip-class-title {
+        font-size: 14px;
+    }
+    
+    .killip-class-badge {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   VAS — СЛАЙДЕР БОЛИ
+   ============================================ */
+
+.vas-slider-card {
+    margin-bottom: 16px;
+    padding: 24px 20px !important;
+}
+
+.vas-current-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.vas-face {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 12px;
+    transition: transform 0.2s;
+}
+
+.vas-score {
+    font: 700 72px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.vas-label {
+    font: 500 16px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vas-slider-wrapper {
+    position: relative;
+    height: 40px;
+    margin-bottom: 16px;
+}
+
+.vas-slider {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.vas-slider-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 12px;
+    transform: translateY(-50%);
+    background: var(--md-surface-container-high);
+    border-radius: var(--md-shape-full);
+    overflow: hidden;
+}
+
+.vas-slider-fill {
+    height: 100%;
+    background: linear-gradient(90deg, 
+        #4CAF50 0%, 
+        #FFC107 40%, 
+        #FF9800 70%, 
+        #F44336 100%
+    );
+    border-radius: var(--md-shape-full);
+    transition: width 0.15s;
+}
+
+.vas-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-align: center;
+}
+
+.vas-scale-labels small {
+    display: block;
+    font-size: 10px;
+    margin-top: 2px;
+    opacity: 0.7;
+}
+
+.vas-quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 4px;
+}
+
+.vas-quick-btn {
+    aspect-ratio: 1;
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-sm);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface);
+    font: 600 14px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.vas-quick-btn:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+}
+
+.vas-quick-btn.active {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+    transform: scale(1.1);
+    box-shadow: var(--md-elevation-2);
+}
+
+/* Цвета результата VAS */
+.result-content.result-vas-0 {
+    background: #C8E6C9;
+    color: #1B5E20;
+}
+[data-theme="dark"] .result-content.result-vas-0 {
+    background: #1B5E20;
+    color: #C8E6C9;
+}
+
+.result-content.result-vas-1-3 {
+    background: #DCEDC8;
+    color: #33691E;
+}
+[data-theme="dark"] .result-content.result-vas-1-3 {
+    background: #33691E;
+    color: #DCEDC8;
+}
+
+.result-content.result-vas-4-6 {
+    background: var(--md-warning-container);
+    color: #E65100;
+}
+
+.result-content.result-vas-7-10 {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+}
+
+.result-content .result-therapy {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: var(--md-shape-sm);
+    font: 500 13px/18px var(--md-font-family);
+}
+
+[data-theme="dark"] .result-content .result-therapy {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+    .vas-score {
+        font-size: 56px;
+    }
+    
+    .vas-face {
+        font-size: 48px;
+    }
+    
+    .vas-quick-btn {
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   FAST-ED — ТРИАЖ В РЕЗУЛЬТАТЕ
+   ============================================ */
+
+.result-triage {
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 6px 0;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: var(--md-shape-full);
+    font: 600 13px/1 var(--md-font-family);
+    letter-spacing: 0.3px;
+}
+
+[data-theme="dark"] .result-triage {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   ALGOVER — ПОЛЯ ВВОДА
+   ============================================ */
+
+.algover-inputs {
+    margin-bottom: 16px;
+    padding: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.algover-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.algover-input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.algover-input-label .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.algover-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.algover-field {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 20px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.algover-field::-webkit-outer-spin-button,
+.algover-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.algover-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .algover-field:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.algover-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.algover-unit {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+    min-width: 70px;
+}
+
+.algover-formula-hint {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+/* ============================================
+   ALGOVER — ВИЗУАЛЬНАЯ ШКАЛА
+   ============================================ */
+
+.algover-scale-card {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.algover-scale {
+    position: relative;
+    height: 64px;
+    display: flex;
+    border-radius: var(--md-shape-md);
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.algover-scale-segment {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s;
+}
+
+.algover-scale-segment:last-child {
+    border-right: none;
+}
+
+.seg-normal {
+    background: #4CAF50;
+    color: white;
+}
+
+.seg-sub {
+    background: #8BC34A;
+    color: #1a1a1a;
+}
+
+.seg-mod {
+    background: #FFC107;
+    color: #1a1a1a;
+}
+
+.seg-sev {
+    background: #FF9800;
+    color: white;
+}
+
+.seg-crit {
+    background: #F44336;
+    color: white;
+}
+
+.algover-scale-segment .seg-label {
+    font: 500 11px/1 var(--md-font-family);
+    opacity: 0.85;
+    margin-bottom: 4px;
+}
+
+.algover-scale-segment .seg-title {
+    font: 600 13px/1 var(--md-font-family);
+}
+
+.algover-scale-marker {
+    position: absolute;
+    bottom: -6px;
+    width: 4px;
+    height: 76px;
+    background: var(--md-primary);
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(139, 26, 26, 0.5);
+    transform: translateX(-50%);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.algover-scale-marker::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--md-primary);
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   ALGOVER — РЕЗУЛЬТАТ
+   ============================================ */
+
+.algover-result {
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+.algover-main-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    flex-shrink: 0;
+}
+
+.algover-big-number {
+    font: 700 48px/1 var(--md-font-family);
+}
+
+.algover-big-label {
+    font: 400 13px/1 var(--md-font-family);
+    opacity: 0.8;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.algover-details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.algover-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 400 13px/18px var(--md-font-family);
+    gap: 8px;
+}
+
+.algover-detail-label {
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+.algover-detail-value {
+    font-weight: 600;
+    text-align: right;
+}
+
+.algover-therapy {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/18px var(--md-font-family);
+}
+
+[data-theme="dark"] .algover-therapy {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 480px) {
+    .algover-result {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    .algover-big-number {
+        font-size: 40px;
+    }
+    
+    .algover-detail-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+    
+    .algover-scale-segment .seg-title {
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   DRUG CONVERTER — ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ
+   ============================================ */
+
+.drug-mode-switcher {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.drug-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 8px;
+    background: var(--md-surface-container-low);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.drug-mode-btn:hover {
+    background: var(--md-surface-container);
+}
+
+.drug-mode-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+}
+
+.drug-mode-btn .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+}
+
+.drug-mode-btn.active .material-symbols-rounded {
+    color: var(--md-on-primary-container);
+}
+
+.drug-mode-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.drug-mode-label {
+    font: 500 12px/14px var(--md-font-family);
+    color: var(--md-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.drug-mode-btn.active .drug-mode-label {
+    color: var(--md-on-primary-container);
+}
+
+.drug-mode-subtitle {
+    font: 400 10px/12px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+}
+
+.drug-mode-btn.active .drug-mode-subtitle {
+    color: var(--md-on-primary-container);
+    opacity: 0.85;
+}
+
+/* ============================================
+   DRUG CONVERTER — ПРЕСЕТЫ
+   ============================================ */
+
+.drug-presets {
+    margin-bottom: 16px;
+    padding: 0 !important;
+}
+
+.drug-presets-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-primary);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.drug-presets-summary::-webkit-details-marker {
+    display: none;
+}
+
+.drug-presets-summary .expand-icon {
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+.drug-presets[open] .drug-presets-summary .expand-icon {
+    transform: rotate(180deg);
+}
+
+.drug-presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+
+.drug-preset-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-sm);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+}
+
+.drug-preset-btn:hover {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+}
+
+.drug-preset-btn:active {
+    transform: scale(0.97);
+}
+
+.drug-preset-btn .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+}
+
+.drug-preset-name {
+    font: 400 11px/14px var(--md-font-family);
+    color: var(--md-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================================
+   DRUG CONVERTER — КАРТОЧКИ ВВОДА
+   ============================================ */
+
+.drug-input-card {
+    margin-bottom: 12px;
+    padding: 14px 16px !important;
+}
+
+.drug-input-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 10px;
+}
+
+.drug-input-title .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.drug-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.drug-field {
+    flex: 1;
+    min-width: 70px;
+    padding: 12px 14px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 18px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.drug-field::-webkit-outer-spin-button,
+.drug-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.drug-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .drug-field:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.drug-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.drug-unit {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.drug-separator {
+    font: 600 16px/1 var(--md-font-family);
+    color: var(--md-primary);
+    padding: 0 2px;
+}
+
+.drug-hint {
+    margin-top: 8px;
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+    text-align: center;
+}
+
+/* ============================================
+   DRUG CONVERTER — РЕЗУЛЬТАТ
+   ============================================ */
+
+.drug-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 16px !important;
+    position: relative;
+}
+
+.drug-result-main {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.drug-result-big {
+    font: 700 44px/1 var(--md-font-family);
+}
+
+.drug-result-unit {
+    font: 500 18px/1 var(--md-font-family);
+    opacity: 0.8;
+}
+
+.drug-result-eq {
+    font: 500 28px/1 var(--md-font-family);
+    opacity: 0.6;
+}
+
+.drug-result-volume .drug-result-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.drug-result-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.drug-result-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font: 400 13px/18px var(--md-font-family);
+    padding: 2px 0;
+}
+
+.drug-result-label {
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+.drug-result-value {
+    font-weight: 600;
+    text-align: right;
+}
+
+.drug-ampoules {
+    margin-top: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: var(--md-shape-md);
+}
+
+[data-theme="dark"] .drug-ampoules {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.drug-ampoules-title {
+    font: 500 11px/1 var(--md-font-family);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.drug-ampoules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 6px;
+}
+
+.drug-ampoule-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 4px;
+    background: var(--md-surface-container-lowest);
+    border-radius: var(--md-shape-sm);
+}
+
+[data-theme="dark"] .drug-ampoule-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.drug-ampoule-count {
+    font: 700 18px/1 var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.drug-ampoule-label {
+    font: 400 10px/1 var(--md-font-family);
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.result-warning.error {
+    background: rgba(198, 40, 40, 0.2) !important;
+    color: #C62828 !important;
+}
+
+[data-theme="dark"] .result-warning.error {
+    background: rgba(239, 154, 154, 0.2) !important;
+    color: #EF9A9A !important;
+}
+
+@media (max-width: 480px) {
+    .drug-mode-switcher {
+        grid-template-columns: 1fr;
+    }
+    
+    .drug-mode-btn {
+        padding: 8px;
+    }
+    
+    .drug-result-big {
+        font-size: 36px;
+    }
+    
+    .drug-presets-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .drug-input-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .drug-separator {
+        text-align: center;
+        padding: 4px 0;
+    }
+}
+
+/* ============================================
+   DRUG CONVERTER — БОЛЬШОЙ ОТСТУП СНИЗУ
+   (результат с ампульной сеткой занимает много места)
+   ============================================ */
+
+.drug-converter-page {
+    padding-bottom: 380px !important;
+}
+
+@media (max-width: 600px) {
+    .drug-converter-page {
+        padding-bottom: 460px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .drug-converter-page {
+        padding-bottom: 520px !important;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — ВВОД ПАРАМЕТРОВ
+   ============================================ */
+
+.pediatric-inputs {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.pediatric-input-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+}
+
+.pediatric-input-title .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.pediatric-input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.pediatric-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pediatric-input-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.pediatric-input-label .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.pediatric-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pediatric-field {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 18px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.pediatric-field::-webkit-outer-spin-button,
+.pediatric-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pediatric-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .pediatric-field:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.pediatric-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.pediatric-unit {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+}
+
+/* ============================================
+   PEDIATRIC — СВОДКА ПАРАМЕТРОВ
+   ============================================ */
+
+.pediatric-summary {
+    margin-bottom: 16px;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.pediatric-summary-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.pediatric-summary-zone {
+    padding: 8px 16px;
+    border-radius: var(--md-shape-full);
+    font: 600 13px/1 var(--md-font-family);
+    white-space: nowrap;
+}
+
+.pediatric-summary-weight {
+    font: 700 28px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.estimated-badge {
+    font: 500 11px/1 var(--md-font-family);
+    padding: 4px 8px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pediatric-summary-details {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.summary-label {
+    color: var(--md-on-surface-variant);
+}
+
+.summary-value {
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+/* ============================================
+   PEDIATRIC — СЕКЦИИ
+   ============================================ */
+
+.pediatric-section {
+    margin-bottom: 16px;
+}
+
+.pediatric-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 16px/22px var(--md-font-family);
+    color: var(--md-primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pediatric-section-title .material-symbols-rounded {
+    font-size: 22px;
+}
+
+/* ============================================
+   PEDIATRIC — ПРЕПАРАТЫ
+   ============================================ */
+
+.pediatric-drugs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.pediatric-drug-card {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.drug-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.drug-header .material-symbols-rounded {
+    font-size: 24px;
+    color: var(--md-primary);
+}
+
+.drug-name {
+    font: 600 15px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.drug-doses {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid var(--md-outline-variant);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.drug-dose-main {
+    font: 700 28px/1 var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.drug-dose-volume {
+    font: 500 20px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.drug-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.drug-detail {
+    display: flex;
+    justify-content: space-between;
+    font: 400 12px/16px var(--md-font-family);
+}
+
+.drug-label {
+    color: var(--md-on-surface-variant);
+}
+
+.drug-value {
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.drug-warning {
+    padding: 8px 10px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-sm);
+    font: 500 11px/16px var(--md-font-family);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ============================================
+   PEDIATRIC — ОБОРУДОВАНИЕ
+   ============================================ */
+
+.pediatric-equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.pediatric-equip-card {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.equip-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--md-shape-sm);
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.equip-icon .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.equip-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.equip-name {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.equip-value {
+    font: 700 18px/1 var(--md-font-family);
+    color: var(--md-primary);
+    margin: 2px 0;
+}
+
+.equip-details {
+    font: 400 11px/14px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+@media (max-width: 600px) {
+    .pediatric-input-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pediatric-drugs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pediatric-equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pediatric-summary-weight {
+        font-size: 24px;
+    }
+    
+    .drug-dose-main {
+        font-size: 24px;
+    }
+}
+
+/* ============================================
+   INFUSOMAT — СЕКЦИИ
+   ============================================ */
+
+.infusomat-section {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.infusomat-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 15px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+}
+
+.infusomat-section-title .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+/* ============================================
+   INFUSOMAT — ВЫБОР ПРЕПАРАТА
+   ============================================ */
+
+.infusomat-select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 16px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.infusomat-select:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+.infusomat-drug-info {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-md);
+}
+
+.drug-info-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.drug-info-header .material-symbols-rounded {
+    font-size: 28px;
+    color: var(--md-primary);
+}
+
+.drug-info-name {
+    font: 600 16px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.drug-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.drug-info-row {
+    display: flex;
+    justify-content: space-between;
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.drug-info-label {
+    color: var(--md-on-surface-variant);
+}
+
+.drug-info-value {
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.drug-info-warning {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+}
+
+/* ============================================
+   INFUSOMAT — ФОРМЫ ВЫПУСКА
+   ============================================ */
+
+.infusomat-forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.infusomat-form-btn {
+    padding: 12px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.infusomat-form-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.infusomat-form-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+}
+
+.form-btn-label {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.infusomat-form-btn.active .form-btn-label {
+    color: var(--md-on-primary-container);
+}
+
+.form-btn-details {
+    font: 400 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.infusomat-form-btn.active .form-btn-details {
+    color: var(--md-on-primary-container);
+    opacity: 0.85;
+}
+
+/* ============================================
+   INFUSOMAT — РАЗВЕДЕНИЕ
+   ============================================ */
+
+.infusomat-dilution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.infusomat-dilution-btn {
+    padding: 10px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.infusomat-dilution-btn:hover {
+    background: var(--md-surface-container-high);
+}
+
+.infusomat-dilution-btn.active {
+    background: var(--md-secondary-container);
+    border-color: var(--md-secondary);
+}
+
+.dilution-btn-label {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 2px;
+}
+
+.infusomat-dilution-btn.active .dilution-btn-label {
+    color: var(--md-on-secondary-container);
+}
+
+.dilution-btn-total {
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.infusomat-dilution-btn.active .dilution-btn-total {
+    color: var(--md-on-secondary-container);
+    opacity: 0.85;
+}
+
+/* ============================================
+   INFUSOMAT — ВВОД ДОЗЫ И ВЕСА
+   ============================================ */
+
+.infusomat-dose-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.dose-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dose-input-label {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.infusomat-field {
+    padding: 12px 14px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 18px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.infusomat-field::-webkit-outer-spin-button,
+.infusomat-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.infusomat-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .infusomat-field:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.infusomat-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.infusomat-dose-presets {
+    padding-top: 12px;
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+.presets-label {
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-bottom: 8px;
+}
+
+.presets-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.preset-btn {
+    padding: 8px 14px;
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-full);
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.preset-btn:hover {
+    background: var(--md-surface-container-high);
+}
+
+.preset-btn.active {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+/* ============================================
+   INFUSOMAT — РЕЗУЛЬТАТ
+   ============================================ */
+
+.infusomat-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 20px 16px !important;
+}
+
+.infusomat-result-main {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.infusomat-result-speed {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+}
+
+.speed-value {
+    font: 700 56px/1 var(--md-font-family);
+}
+
+.speed-unit {
+    font: 500 18px/1 var(--md-font-family);
+    opacity: 0.8;
+}
+
+.infusomat-result-alt {
+    font: 500 16px/1 var(--md-font-family);
+    opacity: 0.7;
+    margin-top: 4px;
+}
+
+.infusomat-result-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: var(--md-shape-md);
+}
+
+[data-theme="dark"] .infusomat-result-details {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.result-detail-row {
+    display: flex;
+    justify-content: space-between;
+    font: 400 13px/18px var(--md-font-family);
+    gap: 8px;
+}
+
+.result-detail-label {
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+.result-detail-value {
+    font-weight: 600;
+    text-align: right;
+}
+
+@media (max-width: 600px) {
+    .infusomat-forms-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .infusomat-dilution-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .speed-value {
+        font-size: 48px;
+    }
+    
+    .infusomat-dose-inputs {
+        grid-template-columns: 1fr;
     }
 }
