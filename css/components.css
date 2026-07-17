@@ -395,17 +395,18 @@
 }
 
 /* ============================================
-   13. HOME TILES GRID (прямоугольные, 2 колонки)
-   Принудительные промежутки 8px во всех направлениях
+   13. HOME TILES GRID (прямоугольные)
    ============================================ */
+
+/* По умолчанию — 1 КОЛОНКА (для телефонов) */
 .home-tiles-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;           /* ОСНОВНОЙ промежуток */
-    row-gap: 8px !important;        /* принудительно по вертикали */
-    column-gap: 8px !important;     /* принудительно по горизонтали */
-    margin: 0 0 8px 0 !important;  /* только нижний отступ */
-    padding: 0 !important;          /* убираем внутренние отступы */
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    row-gap: 8px !important;
+    column-gap: 8px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
 }
 
 /* Прямоугольная плитка */
@@ -413,16 +414,16 @@
     background: var(--md-primary-container) !important;
     border: none !important;
     cursor: pointer;
-    padding: 16px 18px !important;
+    padding: 14px 16px !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 14px !important;
+    gap: 12px !important;
     transition: box-shadow 0.2s, transform 0.15s;
-    min-height: 80px !important;
+    min-height: 72px !important;
     position: relative !important;
     border-radius: var(--md-shape-lg) !important;
-    margin: 0 !important;           /* УБИРАЕМ любые внешние отступы */
+    margin: 0 !important;
 }
 
 .home-tile:hover {
@@ -434,10 +435,11 @@
     transform: scale(0.98);
 }
 
+/* Иконка слева */
 .home-tile-icon {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 14px !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
     background: var(--md-primary) !important;
     color: var(--md-on-primary) !important;
     display: flex !important;
@@ -445,29 +447,27 @@
     justify-content: center !important;
     flex-shrink: 0 !important;
     box-shadow: var(--md-elevation-1) !important;
-    margin: 0 !important;
 }
 
 .home-tile-icon .material-symbols-rounded {
-    font-size: 26px !important;
+    font-size: 24px !important;
 }
 
+/* Контент посередине */
 .home-tile-content {
     flex: 1 !important;
     min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 3px !important;
-    margin: 0 !important;
+    gap: 2px !important;
 }
 
 .home-tile-title {
-    font: 500 15px/20px var(--md-font-family) !important;
+    font: 500 14px/18px var(--md-font-family) !important;
     color: var(--md-on-primary-container) !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 !important;
 }
 
 .home-tile-subtitle {
@@ -477,188 +477,58 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 !important;
 }
 
+/* Стрелка справа */
 .home-tile-arrow {
     color: var(--md-on-primary-container) !important;
     opacity: 0.5;
     font-size: 22px !important;
     flex-shrink: 0 !important;
     transition: opacity 0.2s, transform 0.2s;
-    margin: 0 !important;
 }
 
 .home-tile:hover .home-tile-arrow {
     opacity: 0.8;
     transform: translateX(2px);
 }
+
 /* ============================================
-   КОМПАКТНЫЕ ПЛИТКИ (Избранное / Недавнее)
-   Стиль основных плиток, высота в 2 раза меньше
+   ПЛАНШЕТЫ И DESKTOP (≥ 700px) — 2 КОЛОНКИ
    ============================================ */
-.home-compact-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 6px !important;
-    margin: 0 0 8px 0 !important;
-    padding: 0 !important;
-}
-
-.home-compact-tile {
-    background: var(--md-primary-container) !important;
-    border: none !important;
-    cursor: pointer;
-    padding: 8px 12px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-    transition: box-shadow 0.2s, transform 0.15s;
-    min-height: 40px !important;
-    position: relative !important;
-    border-radius: var(--md-shape-md) !important;
-    margin: 0 !important;
-}
-
-.home-compact-tile:hover {
-    box-shadow: var(--md-elevation-2);
-    transform: translateY(-1px);
-}
-
-.home-compact-tile:active {
-    transform: scale(0.98);
-}
-
-/* Недавнее — чуть другой оттенок */
-.home-compact-tile.recent {
-    background: var(--md-secondary-container) !important;
-}
-
-.home-compact-tile.recent .home-compact-icon {
-    background: var(--md-secondary) !important;
-    color: var(--md-on-secondary) !important;
-}
-
-.home-compact-tile.recent .home-compact-title {
-    color: var(--md-on-secondary-container) !important;
-}
-
-.home-compact-tile.recent .home-compact-subtitle {
-    color: var(--md-on-secondary-container) !important;
-}
-
-.home-compact-tile.recent .home-compact-arrow {
-    color: var(--md-on-secondary-container) !important;
-}
-
-/* Иконка компактная */
-.home-compact-icon {
-    width: 28px !important;
-    height: 28px !important;
-    border-radius: 8px !important;
-    background: var(--md-primary) !important;
-    color: var(--md-on-primary) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-}
-
-.home-compact-icon .material-symbols-rounded {
-    font-size: 16px !important;
-}
-
-/* Контент */
-.home-compact-content {
-    flex: 1 !important;
-    min-width: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-}
-
-.home-compact-title {
-    font: 500 12px/16px var(--md-font-family) !important;
-    color: var(--md-on-primary-container) !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.home-compact-subtitle {
-    font: 400 10px/14px var(--md-font-family) !important;
-    color: var(--md-on-primary-container) !important;
-    opacity: 0.8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Стрелка */
-.home-compact-arrow {
-    color: var(--md-on-primary-container) !important;
-    opacity: 0.4;
-    font-size: 18px !important;
-    flex-shrink: 0 !important;
-    transition: opacity 0.2s;
-}
-
-.home-compact-tile:hover .home-compact-arrow {
-    opacity: 0.7;
-}
-
-@media (max-width: 400px) {
-    .home-compact-grid {
-        grid-template-columns: 1fr !important;
+@media (min-width: 700px) {
+    .home-tiles-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
     }
 }
 
-@media (min-width: 600px) {
-    .home-compact-tile {
-        padding: 10px 14px !important;
-        min-height: 44px !important;
+/* Крупные планшеты и desktop (≥ 1000px) — чуть больше */
+@media (min-width: 1000px) {
+    .home-tiles-grid {
+        gap: 12px !important;
     }
-    .home-compact-icon {
-        width: 32px !important;
-        height: 32px !important;
+    .home-tile {
+        padding: 16px 18px !important;
+        min-height: 80px !important;
     }
-    .home-compact-icon .material-symbols-rounded {
-        font-size: 18px !important;
+    .home-tile-icon {
+        width: 48px !important;
+        height: 48px !important;
     }
-    .home-compact-title {
+    .home-tile-icon .material-symbols-rounded {
+        font-size: 26px !important;
+    }
+    .home-tile-title {
+        font-size: 15px !important;
+    }
+    .home-tile-subtitle {
         font-size: 13px !important;
     }
 }
 
-/* ============ АДАПТИВНОСТЬ ============ */
-
-@media (max-width: 400px) {
-    .home-tiles-grid {
-        grid-template-columns: 1fr !important;
-        gap: 8px !important;
-        row-gap: 8px !important;
-        column-gap: 8px !important;
-    }
-    .home-tile {
-        padding: 14px 16px !important;
-        min-height: 72px !important;
-    }
-    .home-tile-icon {
-        width: 44px !important;
-        height: 44px !important;
-    }
-    .home-tile-icon .material-symbols-rounded {
-        font-size: 24px !important;
-    }
-}
-
-@media (min-width: 600px) {
-    .home-tiles-grid {
-        gap: 8px !important;
-        row-gap: 8px !important;
-        column-gap: 8px !important;
-    }
+/* Большие десктопы (≥ 1400px) */
+@media (min-width: 1400px) {
     .home-tile {
         padding: 18px 20px !important;
         min-height: 88px !important;
@@ -666,37 +536,13 @@
     .home-tile-icon {
         width: 52px !important;
         height: 52px !important;
+        border-radius: 14px !important;
     }
     .home-tile-icon .material-symbols-rounded {
         font-size: 28px !important;
     }
     .home-tile-title {
         font-size: 16px !important;
-    }
-    .home-tile-subtitle {
-        font-size: 13px !important;
-    }
-}
-
-@media (min-width: 840px) {
-    .home-tiles-grid {
-        gap: 8px !important;
-        row-gap: 8px !important;
-        column-gap: 8px !important;
-    }
-    .home-tile {
-        padding: 20px 22px !important;
-        min-height: 96px !important;
-    }
-    .home-tile-icon {
-        width: 56px !important;
-        height: 56px !important;
-    }
-    .home-tile-icon .material-symbols-rounded {
-        font-size: 30px !important;
-    }
-    .home-tile-title {
-        font-size: 17px !important;
     }
 }
 
@@ -1343,4 +1189,137 @@ textarea:focus {
 [data-theme="dark"] .filter-chip.chip-selected {
     background: var(--md-primary);
     color: var(--md-on-primary);
+}
+
+/* ============================================
+   КОМПАКТНЫЕ ПЛИТКИ (Избранное / Недавнее)
+   Стиль основных плиток, высота в 2 раза меньше
+   ============================================ */
+.home-compact-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+}
+
+.home-compact-tile {
+    background: var(--md-primary-container) !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 8px 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    transition: box-shadow 0.2s, transform 0.15s;
+    min-height: 40px !important;
+    position: relative !important;
+    border-radius: var(--md-shape-md) !important;
+    margin: 0 !important;
+}
+
+.home-compact-tile:hover {
+    box-shadow: var(--md-elevation-2);
+    transform: translateY(-1px);
+}
+
+.home-compact-tile:active {
+    transform: scale(0.98);
+}
+
+/* Недавнее — другой оттенок */
+.home-compact-tile.recent {
+    background: var(--md-secondary-container) !important;
+}
+
+.home-compact-tile.recent .home-compact-icon {
+    background: var(--md-secondary) !important;
+    color: var(--md-on-secondary) !important;
+}
+
+.home-compact-tile.recent .home-compact-title,
+.home-compact-tile.recent .home-compact-subtitle,
+.home-compact-tile.recent .home-compact-arrow {
+    color: var(--md-on-secondary-container) !important;
+}
+
+/* Иконка компактная */
+.home-compact-icon {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    background: var(--md-primary) !important;
+    color: var(--md-on-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.home-compact-icon .material-symbols-rounded {
+    font-size: 16px !important;
+}
+
+/* Контент */
+.home-compact-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+}
+
+.home-compact-title {
+    font: 500 12px/16px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-compact-subtitle {
+    font: 400 10px/14px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Стрелка */
+.home-compact-arrow {
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.4;
+    font-size: 18px !important;
+    flex-shrink: 0 !important;
+    transition: opacity 0.2s;
+}
+
+.home-compact-tile:hover .home-compact-arrow {
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 400px) {
+    .home-compact-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (min-width: 600px) {
+    .home-compact-tile {
+        padding: 10px 14px !important;
+        min-height: 44px !important;
+    }
+    .home-compact-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    .home-compact-icon .material-symbols-rounded {
+        font-size: 18px !important;
+    }
+    .home-compact-title {
+        font-size: 13px !important;
+    }
 }
