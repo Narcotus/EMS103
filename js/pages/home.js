@@ -98,16 +98,12 @@ export default class HomePage {
                         <span class="material-symbols-rounded" style="font-size: 20px; color: var(--md-primary);">star</span>
                         Избранное
                     </span>
-                    <button class="md-button md-button-text" style="padding: 4px 12px; height: 32px; font-size: 12px;" data-navigate="favorites">
-                        Все →
-                    </button>
+                    <button class="md-button md-button-text" style="padding: 4px 12px; height: 32px; font-size: 12px;" data-navigate="favorites">Все →</button>
                 </div>
                 <div class="home-compact-grid">
                     ${favoriteItems.slice(0, 4).map(item => `
                         <div class="card home-compact-tile ripple" data-fav-id="${item.id}" data-section="${item.section || ''}">
-                            <div class="home-compact-icon">
-                                <span class="material-symbols-rounded">${item.icon}</span>
-                            </div>
+                            <div class="home-compact-icon"><span class="material-symbols-rounded">${item.icon}</span></div>
                             <div class="home-compact-content">
                                 <div class="home-compact-title">${item.title}</div>
                                 <div class="home-compact-subtitle">${item.subtitle || ''}</div>
@@ -123,16 +119,12 @@ export default class HomePage {
                         <span class="material-symbols-rounded" style="font-size: 20px; color: var(--md-primary);">history</span>
                         Недавнее
                     </span>
-                    <button class="md-button md-button-text" style="padding: 4px 12px; height: 32px; font-size: 12px;" data-navigate="recent">
-                        Все →
-                    </button>
+                    <button class="md-button md-button-text" style="padding: 4px 12px; height: 32px; font-size: 12px;" data-navigate="recent">Все →</button>
                 </div>
                 <div class="home-compact-grid">
                     ${recentItems.slice(0, 4).map(item => `
                         <div class="card home-compact-tile recent ripple" data-recent-id="${item.id}" data-section="${item.section || ''}">
-                            <div class="home-compact-icon">
-                                <span class="material-symbols-rounded">${item.icon}</span>
-                            </div>
+                            <div class="home-compact-icon"><span class="material-symbols-rounded">${item.icon}</span></div>
                             <div class="home-compact-content">
                                 <div class="home-compact-title">${item.title}</div>
                                 <div class="home-compact-subtitle">${item.subtitle || ''}</div>
