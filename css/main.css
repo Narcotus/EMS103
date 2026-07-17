@@ -1,0 +1,446 @@
+/* ============================================
+   EMS 103 - Layout & Navigation
+   Полная адаптивность: mobile / tablet / desktop
+   ============================================ */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    background: var(--md-surface);
+}
+
+body {
+    font-family: var(--md-font-family);
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+}
+
+/* Safe area для iPhone с "чёлкой" */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* ============================================
+   TOP APP BAR
+   ============================================ */
+.top-app-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--top-app-bar-height);
+    background: var(--md-surface);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    z-index: 100;
+    transition: background-color 0.2s, box-shadow 0.2s, left 0.3s ease;
+}
+
+.top-app-bar.scrolled {
+    background: var(--md-surface-container-lowest);
+    border-bottom: 1px solid var(--md-outline-variant);
+    box-shadow: var(--md-elevation-1);
+}
+
+.top-app-bar .title {
+    flex: 1;
+    padding: 0 8px;
+    font: 500 22px/28px var(--md-font-family);
+    color: var(--md-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-app-bar .title .subtitle {
+    display: block;
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+/* Скрыть бургер на desktop */
+.top-app-bar .menu-button {
+    display: flex;
+}
+
+/* ============================================
+   NAVIGATION DRAWER
+   ============================================ */
+.nav-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--drawer-width);
+    max-width: 85vw;
+    background: var(--md-surface-container-lowest);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+    z-index: 200;
+    overflow-y: auto;
+    padding: 8px 12px;
+    border-right: 1px solid var(--md-outline-variant);
+}
+
+.nav-drawer.open {
+    transform: translateX(0);
+    box-shadow: var(--md-elevation-3);
+}
+
+.nav-drawer-header {
+    padding: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.nav-drawer-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-drawer-header .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--md-shape-md);
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.nav-drawer-header .app-name {
+    font: 500 18px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.nav-drawer-header .app-description {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-top: 2px;
+}
+
+.nav-drawer-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    height: 56px;
+    border-radius: var(--md-shape-full);
+    cursor: pointer;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 4px 0;
+    transition: background-color 0.15s;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-drawer-item:hover {
+    background: var(--md-surface-container);
+}
+
+.nav-drawer-item.active {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+}
+
+.nav-drawer-item .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.nav-drawer-divider {
+    height: 1px;
+    background: var(--md-outline-variant);
+    margin: 8px 0;
+}
+
+.nav-drawer-section-title {
+    padding: 16px 24px 8px;
+    font: 500 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   SCRIM (затемнение фона)
+   ============================================ */
+.scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    z-index: 150;
+}
+
+.scrim.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   APP CONTENT (основная область)
+   ============================================ */
+.app-content {
+    margin-top: var(--top-app-bar-height);
+    margin-bottom: var(--bottom-nav-height);
+    padding: 0 16px 16px;
+    min-height: calc(100vh - var(--top-app-bar-height) - var(--bottom-nav-height));
+    transition: margin 0.3s ease;
+}
+
+.page-header {
+    padding: 24px 0 16px;
+}
+
+.page-header h1 {
+    font: 400 28px/36px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin: 0 0 4px;
+}
+
+.page-header p {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 0;
+}
+
+/* ============================================
+   BOTTOM NAVIGATION
+   ============================================ */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-height);
+    background: var(--md-surface-container-lowest);
+    display: flex;
+    align-items: stretch;
+    z-index: 100;
+    border-top: 1px solid var(--md-outline-variant);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    color: var(--md-on-surface-variant);
+    transition: color 0.2s;
+}
+
+.bottom-nav-item .icon-container {
+    width: 64px;
+    height: 32px;
+    border-radius: var(--md-shape-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.bottom-nav-item.active .icon-container {
+    background: var(--md-secondary-container);
+}
+
+.bottom-nav-item .material-symbols-rounded {
+    font-size: 24px;
+    transition: all 0.2s;
+}
+
+.bottom-nav-item.active {
+    color: var(--md-on-surface);
+}
+
+.bottom-nav-item.active .material-symbols-rounded {
+    font-variation-settings: 'FILL' 1;
+}
+
+.bottom-nav-item .label {
+    font: 500 12px/16px var(--md-font-family);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0 4px;
+}
+
+/* ============================================
+   PAGE TRANSITIONS
+   ============================================ */
+.page-enter {
+    animation: pageEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+/* ============ TABLET (840-1199px) ============ */
+@media (min-width: 840px) {
+    .app-content {
+        max-width: 840px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 24px 24px;
+    }
+    
+    .page-header {
+        padding: 32px 0 24px;
+    }
+    
+    .page-header h1 {
+        font-size: 36px;
+        line-height: 44px;
+    }
+    
+    /* Nav-drawer шире */
+    .nav-drawer {
+        width: 360px;
+    }
+}
+
+/* ============ DESKTOP (≥ 1200px) ============ */
+@media (min-width: 1200px) {
+    /* Постоянный drawer */
+    .nav-drawer {
+        transform: translateX(0);
+        box-shadow: none;
+        max-width: var(--drawer-width);
+        border-right: 1px solid var(--md-outline-variant);
+        z-index: 90;
+    }
+    
+    /* Top bar сдвигается вправо от drawer */
+    .top-app-bar {
+        left: var(--drawer-width);
+        right: 0;
+    }
+    
+    /* Скрыть кнопку-бургер */
+    .top-app-bar .menu-button {
+        display: none;
+    }
+    
+    /* App content сдвигается от drawer */
+    .app-content {
+        margin-left: var(--drawer-width);
+        margin-bottom: 0; /* нет bottom nav */
+        min-height: calc(100vh - var(--top-app-bar-height));
+        padding: 0 32px 32px;
+        max-width: 1200px;
+    }
+    
+    /* СКРЫТЬ bottom nav */
+    .bottom-nav {
+        display: none;
+    }
+    
+    /* Скрыть scrim */
+    .scrim {
+        display: none !important;
+    }
+    
+    /* FAB сдвигается от drawer */
+    .fab {
+        right: 32px;
+        bottom: 32px;
+    }
+    
+    /* Snackbar сдвигается от drawer */
+    .snackbar {
+        left: calc(var(--drawer-width) + 32px);
+        right: 32px;
+        bottom: 32px;
+    }
+    
+    /* Карточки в 2 колонки */
+    .card-grid,
+    [style*="grid-template-columns: repeat(2"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* ============ LARGE DESKTOP (≥ 1600px) ============ */
+@media (min-width: 1600px) {
+    .app-content {
+        max-width: 1400px;
+        margin-left: calc(var(--drawer-width) + (100vw - var(--drawer-width) - 1400px) / 2);
+        padding: 0 48px 48px;
+    }
+    
+    .card-grid,
+    [style*="grid-template-columns: repeat(2"],
+    [style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* ============ ОЧЕНЬ БОЛЬШИЕ ЭКРАНЫ ============ */
+@media (min-width: 1920px) {
+    .app-content {
+        max-width: 1600px;
+    }
+}
+
+/* ============================================
+   PRINT (для печати)
+   ============================================ */
+@media print {
+    .top-app-bar,
+    .bottom-nav,
+    .nav-drawer,
+    .scrim,
+    .fab,
+    .snackbar {
+        display: none !important;
+    }
+    
+    .app-content {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    
+    <title>EMS 103 — Скорая помощь Минск</title>
+    <meta name="description" content="Неофициальное справочное приложение для бригад скорой медицинской помощи г. Минска.">
+    <meta name="keywords" content="скорая помощь, СМП, EMS, 103, Минск, Беларусь, медицина">
+    <meta name="author" content="EMS 103 Team">
+    <meta name="application-name" content="EMS 103">
+    
+    <!-- PWA / ТЕМЫ (бордовый) -->
+    <meta name="theme-color" content="#8B1A1A">
+    <meta name="color-scheme" content="light dark">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- APPLE iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="EMS 103">
+    
+    <!-- MICROSOFT -->
+    <meta name="msapplication-TileColor" content="#8B1A1A">
+    <meta name="msapplication-TileImage" content="icons/mstile-144x144.png">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EMS 103 — Скорая помощь Минск">
+    <meta property="og:description" content="Справочное приложение для бригад скорой медицинской помощи">
+    <meta property="og:image" content="icons/og-image.png">
+    <meta property="og:locale" content="ru_RU">
+    
+    <!-- ИКОНКИ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="icons/favicon.ico">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/apple-touch-icon-167.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152.png">
+    
+    <!-- PWA МАНИФЕСТ -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- ШРИФТЫ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/md3-theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- =============================================
+         КРИТИЧНО: Скрипт инициализации темы ДО загрузки CSS
+         Предотвращает мигание и неправильный фон
+         ============================================= -->
+    <script>
+        (function() {
+            try {
+                const mode = localStorage.getItem('ems103-theme-mode') || 'auto';
+                let theme = 'light';
+                
+                if (mode === 'dark') {
+                    theme = 'dark';
+                } else if (mode === 'light') {
+                    theme = 'light';
+                } else if (mode === 'time') {
+                    const hour = new Date().getHours();
+                    theme = (hour >= 19 || hour < 6) ? 'dark' : 'light';
+                } else {
+                    // auto - следует за системой
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                // Устанавливаем ЯВНО (light или dark) — не auto!
+                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.style.colorScheme = theme;
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <!-- =============================================
+         Inline стили загрузочного экрана
+         БЕЗ @media queries — тема управляется через data-theme
+         ============================================= -->
+    <style>
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            background: var(--md-surface, #FBF9F8);
+            color: var(--md-on-surface, #201A19);
+        }
+        
+        .initial-loader {
+            position: fixed; 
+            inset: 0;
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            background: var(--md-surface, #FBF9F8); 
+            z-index: 9999;
+            font-family: 'Roboto', sans-serif;
+            transition: opacity 0.3s;
+        }
+        .initial-loader.hidden { 
+            opacity: 0; 
+            pointer-events: none; 
+        }
+        .initial-loader .logo {
+            width: 80px; 
+            height: 80px; 
+            border-radius: 20px;
+            background: var(--md-primary, #8B1A1A); 
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            color: white; 
+            font-size: 48px; 
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(139, 26, 26, 0.4);
+        }
+        .initial-loader .title {
+            color: var(--md-on-surface, #201A19); 
+            font-size: 22px; 
+            font-weight: 500;
+        }
+        .initial-loader .subtitle {
+            color: var(--md-on-surface-variant, #534341); 
+            font-size: 14px; 
+            margin-top: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/md3-theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/calculator.css">  <!-- НОВАЯ СТРОКА -->
+</head>
+<body>
+    <!-- ЭКРАН ЗАГРУЗКИ -->
+    <div id="initial-loader" class="initial-loader">
+        <div class="logo">
+            <span class="material-symbols-rounded" style="font-size: 48px;">local_hospital</span>
+        </div>
+        <div class="title">EMS 103</div>
+        <div class="subtitle">Скорая помощь · Минск</div>
+    </div>
+    
+    <noscript>
+        <div style="padding: 32px; text-align: center; font-family: sans-serif;">
+            <h1 style="color: #8B1A1A;">⚠️ JavaScript отключён</h1>
+            <p>Для работы EMS 103 включите JavaScript.</p>
+        </div>
+    </noscript>
+    
+    <header id="top-bar"></header>
+    <div id="scrim" class="scrim" role="presentation"></div>
+    <aside id="nav-drawer" class="nav-drawer" role="navigation" aria-label="Основная навигация"></aside>
+    <main id="app-content" class="app-content" role="main">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Загрузка приложения...</p>
+        </div>
+    </main>
+    <nav id="bottom-nav" class="bottom-nav" role="navigation" aria-label="Быстрая навигация"></nav>
+    <div id="snackbar" class="snackbar" role="status" aria-live="polite"></div>
+    <div id="modal-root"></div>
+    
+    <script type="module" src="js/app.js"></script>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('initial-loader');
+                if (loader) {
+                    loader.classList.add('hidden');
+                    setTimeout(() => loader.remove(), 300);
+                }
+            }, 400);
+        });
+    </script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                    .then(reg => console.log('✅ SW:', reg.scope))
+                    .catch(err => console.warn('⚠️ SW error:', err));
+            });
+        }
+    </script>
+    
+    <script>
+        window.EMS103 = {
+            version: '1.2.0',
+            buildDate: '2026-07-17',
+            city: 'Минск',
+            theme: 'bordeaux'
+        };
+    </script>
+</body>
+</html>

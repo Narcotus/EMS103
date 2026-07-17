@@ -1,0 +1,1017 @@
+/* ============================================
+   CALCULATOR DETAIL PAGE
+   ============================================ */
+
+.calc-page {
+    padding-bottom: 180px !important; /* место для плашки результата */
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 8px 8px;
+    background: transparent;
+    border: none;
+    color: var(--md-primary);
+    font: 500 14px/20px var(--md-font-family);
+    cursor: pointer;
+    border-radius: var(--md-shape-full);
+    transition: background-color 0.15s;
+    margin-bottom: 8px;
+}
+
+.back-button:hover {
+    background: var(--md-surface-container);
+}
+
+.back-button .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.calc-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.calc-header-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--md-elevation-2);
+}
+
+.calc-header-icon .material-symbols-rounded {
+    font-size: 32px;
+}
+
+.calc-header-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.calc-header-content h1 {
+    font: 400 24px/32px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin: 0 0 4px;
+}
+
+.calc-subtitle {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 0;
+}
+
+.calc-description {
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   CALC ITEMS (чекбоксы)
+   ============================================ */
+
+.calc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.calc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.calc-item:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+}
+
+.calc-item.checked {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    box-shadow: var(--md-elevation-1);
+}
+
+.calc-item-checkbox {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 2px solid var(--md-outline);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.calc-item.checked .calc-item-checkbox {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+}
+
+.calc-item-checkbox .check-icon {
+    color: var(--md-on-primary);
+    font-size: 18px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s;
+}
+
+.calc-item.checked .check-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.calc-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.calc-item-title {
+    font: 400 15px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    transition: color 0.2s;
+}
+
+.calc-item.checked .calc-item-title {
+    color: var(--md-on-primary-container);
+    font-weight: 500;
+}
+
+.calc-item-points {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    padding: 6px 10px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-full);
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.calc-item.checked .calc-item-points {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+/* ============================================
+   RESULT PANEL (sticky bottom)
+   ============================================ */
+
+.result-panel {
+    position: fixed;
+    bottom: var(--bottom-nav-height);
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: var(--md-surface-container-lowest);
+    border-top: 1px solid var(--md-outline-variant);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 90;
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.result-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: var(--md-shape-lg);
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+/* Цветовая градация */
+.result-content.result-success {
+    background: var(--md-success-container);
+    color: var(--md-on-success-container, #1B5E20);
+}
+
+.result-content.result-warning {
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container, #E65100);
+}
+
+.result-content.result-error {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+}
+
+.result-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.result-score-value {
+    font: 500 40px/1 var(--md-font-family);
+    font-weight: 700;
+}
+
+.result-score-label {
+    font: 400 11px/1 var(--md-font-family);
+    opacity: 0.8;
+    margin-top: 4px;
+    text-transform: lowercase;
+}
+
+.result-divider {
+    width: 1px;
+    height: 48px;
+    background: currentColor;
+    opacity: 0.2;
+    flex-shrink: 0;
+}
+
+.result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.result-label {
+    font: 600 16px/22px var(--md-font-family);
+    margin-bottom: 4px;
+}
+
+.result-description {
+    font: 400 13px/18px var(--md-font-family);
+    opacity: 0.9;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.result-reset {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08);
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.15s, transform 0.2s;
+}
+
+.result-reset:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.result-reset:active {
+    transform: rotate(180deg);
+}
+
+/* На desktop учитываем ширину drawer */
+@media (min-width: 1200px) {
+    .result-panel {
+        left: var(--drawer-width);
+        bottom: 0;
+    }
+}
+
+/* На мобильных компактный вид */
+@media (max-width: 480px) {
+    .result-content {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .result-score {
+        min-width: 64px;
+    }
+    
+    .result-score-value {
+        font-size: 32px;
+    }
+    
+    .result-description {
+        -webkit-line-clamp: 1;
+    }
+    
+    .calc-page {
+        padding-bottom: 160px !important;
+    }
+}
+/* ============================================
+   СПРАВОЧНАЯ ИНФОРМАЦИЯ (сворачиваемый блок)
+   ============================================ */
+
+.calc-reference {
+    margin-bottom: 16px;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.calc-reference-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    font: 500 15px/22px var(--md-font-family);
+    color: var(--md-primary);
+    list-style: none;
+    user-select: none;
+    transition: background-color 0.15s;
+}
+
+.calc-reference-summary::-webkit-details-marker {
+    display: none;
+}
+
+.calc-reference-summary:hover {
+    background: var(--md-surface-container);
+}
+
+.calc-reference-summary .expand-icon {
+    margin-left: auto;
+    font-size: 22px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calc-reference[open] .calc-reference-summary .expand-icon {
+    transform: rotate(180deg);
+}
+
+.calc-reference-content {
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid var(--md-outline-variant);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calc-reference-content p {
+    margin: 12px 0 0;
+    font: 400 14px/22px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.calc-reference-content p:first-child {
+    margin-top: 16px;
+}
+
+/* Убираем маркеры списка, если они появятся */
+.calc-reference-summary::marker,
+.calc-reference-summary::-webkit-details-marker {
+    display: none;
+    content: '';
+}
+/* ============================================
+   НОРМАТИВНАЯ ССЫЛКА (курсивом с иконкой)
+   ============================================ */
+
+.calc-legal-reference {
+    margin: 20px 0 4px 0;
+    padding: 14px 16px;
+    background: var(--md-surface-container-low);
+    border-left: 3px solid var(--md-primary);
+    border-radius: 0 var(--md-shape-sm) var(--md-shape-sm) 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.calc-legal-reference .material-symbols-rounded {
+    color: var(--md-primary);
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.calc-legal-reference em {
+    font: italic 400 13px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    font-style: italic;
+}
+
+/* Тёмная тема — чуть светлее */
+[data-theme="dark"] .calc-legal-reference {
+    background: var(--md-surface-container);
+}
+
+/* ============================================
+   ПОЛЕ ВВОДА ВОЗРАСТА
+   ============================================ */
+
+.calc-item-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    margin-bottom: 8px;
+}
+
+.calc-age-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.calc-age-input {
+    width: 56px;
+    padding: 8px 4px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-sm);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 16px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.calc-age-input::-webkit-outer-spin-button,
+.calc-age-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-age-input:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    background: var(--md-surface-container-lowest);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+[data-theme="dark"] .calc-age-input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.2);
+}
+
+.calc-age-unit {
+    font: 400 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+}
+
+/* ============================================
+   ВАЖНОЕ ЗАМЕЧАНИЕ
+   ============================================ */
+
+.calc-important-note {
+    margin: 16px 0 0 0;
+    padding: 12px 16px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container, #795548);
+    border-radius: var(--md-shape-sm);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font: 500 14px/20px var(--md-font-family);
+}
+
+.calc-important-note .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ============================================
+   СМЕРТНОСТЬ В РЕЗУЛЬТАТЕ
+   ============================================ */
+
+.result-mortality {
+    font: 600 13px/18px var(--md-font-family);
+    margin-top: 2px;
+    opacity: 0.95;
+}
+
+/* ============================================
+   5 КЛАССОВ PESI - цветовая градация
+   ============================================ */
+
+/* Класс I — очень низкий (зелёный) */
+.result-content.result-pesi-1 {
+    background: var(--md-success-container);
+    color: #1B5E20;
+}
+
+/* Класс II — низкий (бирюзовый) */
+.result-content.result-pesi-2 {
+    background: #B2EBF2;
+    color: #006064;
+}
+
+[data-theme="dark"] .result-content.result-pesi-2 {
+    background: #004D40;
+    color: #B2EBF2;
+}
+
+/* Класс III — умеренный (жёлтый) */
+.result-content.result-pesi-3 {
+    background: var(--md-warning-container);
+    color: #E65100;
+}
+
+/* Класс IV — высокий (оранжевый) */
+.result-content.result-pesi-4 {
+    background: #FFCC80;
+    color: #BF360C;
+}
+
+[data-theme="dark"] .result-content.result-pesi-4 {
+    background: #6D2C00;
+    color: #FFCC80;
+}
+
+/* Класс V — очень высокий (красный) */
+.result-content.result-pesi-5 {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+}
+
+/* ============================================
+   GCS — RADIO ГРУППЫ
+   ============================================ */
+
+.gcs-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.gcs-group {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-lg);
+    overflow: hidden;
+}
+
+.gcs-group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.gcs-group-header .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.gcs-group-title {
+    flex: 1;
+}
+
+.gcs-group-value {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    background: var(--md-surface-container-lowest);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    transition: all 0.2s;
+}
+
+.gcs-group-value.has-value {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.gcs-group-items {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.gcs-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--md-shape-sm);
+    cursor: pointer;
+    transition: background-color 0.15s;
+    user-select: none;
+}
+
+.gcs-radio-item:hover {
+    background: var(--md-surface-container);
+}
+
+.gcs-radio-item.selected {
+    background: var(--md-primary-container);
+}
+
+.gcs-radio-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--md-outline);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.gcs-radio-item.selected .gcs-radio-circle {
+    border-color: var(--md-primary);
+    border-width: 2px;
+}
+
+.gcs-radio-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--md-primary);
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gcs-radio-item.selected .gcs-radio-dot {
+    transform: scale(1);
+}
+
+.gcs-radio-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.gcs-radio-title {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.gcs-radio-item.selected .gcs-radio-title {
+    color: var(--md-on-primary-container);
+    font-weight: 500;
+}
+
+.gcs-radio-points {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    background: var(--md-surface-container-high);
+    border-radius: var(--md-shape-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.gcs-radio-item.selected .gcs-radio-points {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+/* ============================================
+   НЕПОЛНАЯ ОЦЕНКА (когда не все параметры выбраны)
+   ============================================ */
+
+.result-content.result-incomplete {
+    background: var(--md-surface-container);
+    color: var(--md-on-surface-variant);
+    border: 1px dashed var(--md-outline);
+}
+
+/* ============================================
+   8 ЦВЕТОВЫХ ГРАДАЦИЙ ШКАЛЫ ГЛАЗГО
+   ============================================ */
+
+.result-content.result-gcs-15 {
+    background: #C8E6C9;
+    color: #1B5E20;
+}
+[data-theme="dark"] .result-content.result-gcs-15 {
+    background: #1B5E20;
+    color: #C8E6C9;
+}
+
+.result-content.result-gcs-14 {
+    background: #DCEDC8;
+    color: #33691E;
+}
+[data-theme="dark"] .result-content.result-gcs-14 {
+    background: #33691E;
+    color: #DCEDC8;
+}
+
+.result-content.result-gcs-13 {
+    background: #F0F4C3;
+    color: #827717;
+}
+[data-theme="dark"] .result-content.result-gcs-13 {
+    background: #827717;
+    color: #F0F4C3;
+}
+
+.result-content.result-gcs-11-12 {
+    background: #FFF9C4;
+    color: #F57F17;
+}
+[data-theme="dark"] .result-content.result-gcs-11-12 {
+    background: #F57F17;
+    color: #FFF9C4;
+}
+
+.result-content.result-gcs-8-10 {
+    background: var(--md-warning-container);
+    color: #E65100;
+}
+
+.result-content.result-gcs-6-7 {
+    background: #FFCC80;
+    color: #BF360C;
+}
+[data-theme="dark"] .result-content.result-gcs-6-7 {
+    background: #BF360C;
+    color: #FFCC80;
+}
+
+.result-content.result-gcs-4-5 {
+    background: #FFAB91;
+    color: #BF360C;
+}
+[data-theme="dark"] .result-content.result-gcs-4-5 {
+    background: #BF360C;
+    color: #FFAB91;
+}
+
+.result-content.result-gcs-3 {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+}
+
+/* ============================================
+   ПРАКТИЧЕСКИЕ РЕКОМЕНДАЦИИ
+   ============================================ */
+
+.calc-tips .calc-reference-summary {
+    color: var(--md-tertiary);
+}
+
+.gcs-tips-list {
+    margin: 16px 0 8px;
+    padding-left: 24px;
+}
+
+.gcs-tips-list li {
+    margin: 10px 0;
+    font: 400 14px/22px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.gcs-tips-list li::marker {
+    color: var(--md-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   ИНФОРМАЦИОННАЯ КНОПКА (такого же размера как иконка калькулятора)
+   ============================================ */
+
+.calc-header-info-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--md-surface-container);
+    color: var(--md-primary);
+    border: 1px solid var(--md-outline-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    box-shadow: var(--md-elevation-1);
+}
+
+.calc-header-info-btn:hover {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-color: var(--md-primary);
+    box-shadow: var(--md-elevation-2);
+    transform: translateY(-1px);
+}
+
+.calc-header-info-btn:active {
+    transform: scale(0.95);
+}
+
+.calc-header-info-btn .material-symbols-rounded {
+    font-size: 28px;
+}
+
+/* ============================================
+   МОДАЛЬНОЕ ОКНО СПРАВОЧНОЙ ИНФОРМАЦИИ
+   ============================================ */
+
+.reference-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    padding: 16px;
+}
+
+.reference-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.reference-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.reference-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 85vh;
+    background: var(--md-surface-container-lowest);
+    border-radius: var(--md-shape-xl);
+    box-shadow: var(--md-elevation-4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reference-modal.open .reference-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.reference-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    flex-shrink: 0;
+}
+
+.reference-modal-header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.reference-modal-header-icon .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.reference-modal-title {
+    flex: 1;
+    font: 500 18px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin: 0;
+}
+
+.reference-modal-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+}
+
+.reference-modal-close:hover {
+    background: var(--md-surface-container);
+}
+
+.reference-modal-close .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.reference-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px 24px;
+}
+
+.reference-modal-body p {
+    margin: 0 0 14px;
+    font: 400 14px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.reference-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+.reference-modal-body .calc-important-note {
+    margin: 16px 0;
+}
+
+.reference-modal-body .calc-legal-reference {
+    margin: 16px 0 0;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+    .reference-modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+    
+    .reference-modal-content {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: var(--md-shape-xl) var(--md-shape-xl) 0 0;
+        transform: translateY(100%);
+    }
+    
+    .reference-modal.open .reference-modal-content {
+        transform: translateY(0);
+    }
+    
+    .reference-modal-header {
+        padding: 16px 20px;
+    }
+    
+    .reference-modal-body {
+        padding: 16px 20px 24px;
+    }
+}

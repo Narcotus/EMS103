@@ -1,0 +1,201 @@
+/* ============================================
+   Material Design 3 - БОРДОВАЯ ТЕМА
+   Полная поддержка light/dark/auto
+   ============================================ */
+
+/* ============ СВЕТЛАЯ ТЕМА (базовая) ============ */
+:root,
+[data-theme="light"] {
+    /* Primary (бордовый) */
+    --md-primary: #8B1A1A;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #FFDAD6;
+    --md-on-primary-container: #410002;
+    
+    /* Secondary */
+    --md-secondary: #775653;
+    --md-on-secondary: #FFFFFF;
+    --md-secondary-container: #FFDAD6;
+    --md-on-secondary-container: #2C1513;
+    
+    /* Tertiary */
+    --md-tertiary: #745B2E;
+    --md-on-tertiary: #FFFFFF;
+    --md-tertiary-container: #FFDEA6;
+    --md-on-tertiary-container: #281900;
+    
+    /* Error */
+    --md-error: #BA1A1A;
+    --md-on-error: #FFFFFF;
+    --md-error-container: #FFDAD6;
+    --md-on-error-container: #410002;
+    
+    /* Success / Warning */
+    --md-success: #2E7D32;
+    --md-success-container: #C8E6C9;
+    --md-warning: #F57C00;
+    --md-warning-container: #FFE0B2;
+    
+    /* Surface - ВЫРАЖЕННЫЕ СЛОИ */
+    --md-surface: #FBF9F8;
+    --md-surface-dim: #DDD9D7;
+    --md-surface-bright: #FBF9F8;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F5F0EE;
+    --md-surface-container: #EFE8E5;
+    --md-surface-container-high: #E7DFDC;
+    --md-surface-container-highest: #DFD7D4;
+    --md-on-surface: #201A19;
+    --md-on-surface-variant: #534341;
+    
+    /* Outline - КОНТРАСТНЫЕ ГРАНИЦЫ */
+    --md-outline: #857371;
+    --md-outline-variant: #C4AEAB;
+    
+    /* Inverse */
+    --md-inverse-surface: #362F2E;
+    --md-inverse-on-surface: #FBEEEC;
+    --md-inverse-primary: #FFB4AB;
+    
+    /* Elevation - с бордовым оттенком */
+    --md-elevation-1: 0 1px 3px 0 rgba(139, 26, 26, 0.08), 0 1px 2px -1px rgba(0,0,0,0.05);
+    --md-elevation-2: 0 2px 6px 0 rgba(139, 26, 26, 0.10), 0 1px 3px 0 rgba(0,0,0,0.06);
+    --md-elevation-3: 0 4px 10px 0 rgba(139, 26, 26, 0.12), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --md-elevation-4: 0 8px 16px 0 rgba(139, 26, 26, 0.14), 0 3px 6px -2px rgba(0,0,0,0.08);
+    
+    /* Shape */
+    --md-shape-xs: 4px;
+    --md-shape-sm: 8px;
+    --md-shape-md: 12px;
+    --md-shape-lg: 16px;
+    --md-shape-xl: 28px;
+    --md-shape-full: 999px;
+    
+    /* Layout */
+    --bottom-nav-height: 80px;
+    --top-app-bar-height: 64px;
+    --drawer-width: 360px;
+    
+    /* Typography */
+    --md-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ============ ТЁМНАЯ ТЕМА ============ */
+[data-theme="dark"] {
+    --md-primary: #FFB4AB;
+    --md-on-primary: #561E1C;
+    --md-primary-container: #733430;
+    --md-on-primary-container: #FFDAD6;
+    
+    --md-secondary: #E7BDB8;
+    --md-on-secondary: #442927;
+    --md-secondary-container: #5D3F3C;
+    --md-on-secondary-container: #FFDAD6;
+    
+    --md-tertiary: #E3C28C;
+    --md-on-tertiary: #412D04;
+    --md-tertiary-container: #5A4319;
+    --md-on-tertiary-container: #FFDEA6;
+    
+    --md-error: #FFB4AB;
+    --md-on-error: #690005;
+    --md-error-container: #93000A;
+    
+    --md-surface: #181110;
+    --md-surface-dim: #181110;
+    --md-surface-bright: #3F3736;
+    --md-surface-container-lowest: #0F0908;
+    --md-surface-container-low: #201A19;
+    --md-surface-container: #251E1D;
+    --md-surface-container-high: #2F2827;
+    --md-surface-container-highest: #3A3332;
+    --md-on-surface: #F0DFDD;
+    --md-on-surface-variant: #D8C2BF;
+    
+    --md-outline: #A08D8A;
+    --md-outline-variant: #534341;
+    
+    --md-success: #81C784;
+    --md-warning: #FFB74D;
+    
+    --md-inverse-surface: #F0DFDD;
+    --md-inverse-on-surface: #362F2E;
+    --md-inverse-primary: #8B1A1A;
+    
+    --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.35), 0 1px 2px -1px rgba(0,0,0,0.3);
+    --md-elevation-2: 0 2px 6px 0 rgba(0, 0, 0, 0.40), 0 1px 3px 0 rgba(0,0,0,0.3);
+    --md-elevation-3: 0 4px 10px 0 rgba(0, 0, 0, 0.45), 0 2px 4px -1px rgba(0,0,0,0.3);
+    --md-elevation-4: 0 8px 16px 0 rgba(0, 0, 0, 0.50), 0 3px 6px -2px rgba(0,0,0,0.35);
+}
+
+/* ============ АВТО (следует за системой) ============ */
+[data-theme="auto"] {
+    /* По умолчанию — светлая, наследуется из :root */
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+        --md-primary: #FFB4AB;
+        --md-on-primary: #561E1C;
+        --md-primary-container: #733430;
+        --md-on-primary-container: #FFDAD6;
+        
+        --md-secondary: #E7BDB8;
+        --md-on-secondary: #442927;
+        --md-secondary-container: #5D3F3C;
+        
+        --md-tertiary: #E3C28C;
+        --md-on-tertiary: #412D04;
+        --md-tertiary-container: #5A4319;
+        
+        --md-error: #FFB4AB;
+        
+        --md-surface: #181110;
+        --md-surface-dim: #181110;
+        --md-surface-bright: #3F3736;
+        --md-surface-container-lowest: #0F0908;
+        --md-surface-container-low: #201A19;
+        --md-surface-container: #251E1D;
+        --md-surface-container-high: #2F2827;
+        --md-surface-container-highest: #3A3332;
+        --md-on-surface: #F0DFDD;
+        --md-on-surface-variant: #D8C2BF;
+        
+        --md-outline: #A08D8A;
+        --md-outline-variant: #534341;
+        
+        --md-success: #81C784;
+        --md-warning: #FFB74D;
+        
+        --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.35), 0 1px 2px -1px rgba(0,0,0,0.3);
+        --md-elevation-2: 0 2px 6px 0 rgba(0, 0, 0, 0.40), 0 1px 3px 0 rgba(0,0,0,0.3);
+        --md-elevation-3: 0 4px 10px 0 rgba(0, 0, 0, 0.45), 0 2px 4px -1px rgba(0,0,0,0.3);
+    }
+}
+
+/* ============ ТИПОГРАФИКА MD3 ============ */
+.display-large { font: 500 57px/64px var(--md-font-family); letter-spacing: -0.25px; }
+.display-medium { font: 500 45px/52px var(--md-font-family); }
+.display-small { font: 400 36px/44px var(--md-font-family); }
+
+.headline-large { font: 400 32px/40px var(--md-font-family); }
+.headline-medium { font: 400 28px/36px var(--md-font-family); }
+.headline-small { font: 400 24px/32px var(--md-font-family); }
+
+.title-large { font: 500 22px/28px var(--md-font-family); }
+.title-medium { font: 500 16px/24px var(--md-font-family); letter-spacing: 0.15px; }
+.title-small { font: 500 14px/20px var(--md-font-family); letter-spacing: 0.1px; }
+
+.body-large { font: 400 16px/24px var(--md-font-family); letter-spacing: 0.5px; }
+.body-medium { font: 400 14px/20px var(--md-font-family); letter-spacing: 0.25px; }
+.body-small { font: 400 12px/16px var(--md-font-family); letter-spacing: 0.4px; }
+
+.label-large { font: 500 14px/20px var(--md-font-family); letter-spacing: 0.1px; }
+.label-medium { font: 500 12px/16px var(--md-font-family); letter-spacing: 0.5px; }
+.label-small { font: 500 11px/16px var(--md-font-family); letter-spacing: 0.5px; }
+
+/* ============ ПЛАВНЫЙ ПЕРЕХОД ТЕМЫ ============ */
+body.theme-transition,
+body.theme-transition * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
