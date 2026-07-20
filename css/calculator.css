@@ -2998,7 +2998,7 @@
 }
 
 /* ============================================
-   PEDIATRIC — ВВОД ПАРАМЕТРОВ
+   PEDIATRIC — ВВОД ПАРАМЕТРОВ (обновлено)
    ============================================ */
 
 .pediatric-inputs {
@@ -3021,12 +3021,15 @@
 }
 
 .pediatric-input-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    flex-direction: row;
     gap: 12px;
+    align-items: flex-end;
 }
 
 .pediatric-input-group {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -3045,22 +3048,21 @@
     color: var(--md-primary);
 }
 
-.pediatric-input-row {
+.pediatric-field-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .pediatric-field {
-    flex: 1;
-    min-width: 0;
-    padding: 10px 12px;
+    width: 100%;
+    padding: 12px 40px 12px 14px;
     border: 2px solid var(--md-outline);
     border-radius: var(--md-shape-md);
     background: var(--md-surface-container-lowest);
     color: var(--md-on-surface);
-    font: 500 18px/1 var(--md-font-family);
-    text-align: center;
+    font: 500 16px/1 var(--md-font-family);
+    text-align: left;
     transition: all 0.2s;
     -moz-appearance: textfield;
 }
@@ -3074,6 +3076,7 @@
 .pediatric-field:focus {
     outline: none;
     border-color: var(--md-primary);
+    background: var(--md-surface-container-lowest);
     box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
 }
 
@@ -3084,12 +3087,42 @@
 .pediatric-field::placeholder {
     color: var(--md-on-surface-variant);
     opacity: 0.5;
+    font-size: 14px;
+    font-weight: 400;
 }
 
-.pediatric-unit {
-    font: 500 13px/1 var(--md-font-family);
+.pediatric-field-unit {
+    position: absolute;
+    right: 12px;
+    font: 500 14px/1 var(--md-font-family);
     color: var(--md-on-surface-variant);
-    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+.pediatric-field:focus + .pediatric-field-unit {
+    color: var(--md-primary);
+}
+
+/* Убираем старые стили */
+.pediatric-input-row,
+.pediatric-unit,
+.pediatric-limit-hint {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .pediatric-input-grid {
+        flex-direction: column;
+    }
+    
+    .pediatric-input-group {
+        width: 100%;
+    }
+    
+    .pediatric-field {
+        padding: 12px 40px 12px 14px;
+    }
 }
 
 /* ============================================
@@ -3722,5 +3755,1353 @@
     
     .infusomat-dose-inputs {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — ИНФУЗИОННАЯ ТЕРАПИЯ
+   ============================================ */
+
+.pediatric-infusion-card {
+    padding: 0 !important;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.infusion-bolus, .infusion-maintenance {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
+.infusion-bolus {
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+}
+
+.infusion-maintenance {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+}
+
+.infusion-title {
+    font: 500 11px/1 var(--md-font-family);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.infusion-value {
+    font: 700 26px/1 var(--md-font-family);
+    margin: 4px 0;
+}
+
+.infusion-subtitle {
+    font: 400 11px/14px var(--md-font-family);
+    opacity: 0.85;
+}
+
+/* Drug card — дополнительные детали */
+.drug-detail {
+    font-size: 11px;
+}
+
+.drug-detail .drug-value {
+    text-align: right;
+    max-width: 55%;
+    font-size: 11px;
+}
+
+@media (max-width: 600px) {
+    .pediatric-infusion-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .defib-value {
+        font-size: 36px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC DRUG — ОДНОКРАТНАЯ ДОЗА
+   ============================================ */
+
+.drug-dose-section {
+    padding: 12px 0;
+    border-top: 1px solid var(--md-outline-variant);
+    border-bottom: 1px solid var(--md-outline-variant);
+    margin: 8px 0;
+}
+
+.drug-dose-label {
+    font: 500 11px/1 var(--md-font-family);
+    color: var(--md-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.drug-doses {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.drug-dose-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.drug-dose-main {
+    font: 700 28px/1 var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.drug-dose-volume {
+    font: 600 24px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.drug-dose-unit {
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.drug-dose-separator {
+    font: 500 20px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.6;
+}
+
+.drug-age-warning {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-radius: var(--md-shape-sm);
+    font: 600 11px/16px var(--md-font-family);
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .drug-dose-main {
+        font-size: 24px;
+    }
+    
+    .drug-dose-volume {
+        font-size: 20px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC DRUG — ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ
+   ============================================ */
+
+.drug-dose-note {
+    font: 400 11px/14px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-align: center;
+    margin-top: 6px;
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.drug-detail.highlight {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    padding: 4px 8px;
+    border-radius: var(--md-shape-xs);
+    margin: 2px -8px;
+}
+
+.drug-detail.highlight .drug-label,
+.drug-detail.highlight .drug-value {
+    color: inherit !important;
+    font-weight: 600;
+}
+
+.ampoules-info {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px dashed var(--md-outline-variant);
+}
+
+.ampoules-info .drug-value {
+    color: var(--md-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   PEDIATRIC — ВЗРОСЛАЯ ДОЗИРОВКА
+   ============================================ */
+
+.adult-dose-card {
+    border-color: var(--md-tertiary, #6750A4) !important;
+    background: linear-gradient(to bottom, 
+        color-mix(in srgb, var(--md-tertiary-container) 20%, transparent), 
+        var(--md-surface-container-low)) !important;
+}
+
+.adult-dose-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin: -14px -14px 12px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-md) var(--md-shape-md) 0 0;
+}
+
+.adult-dose-banner .material-symbols-rounded {
+    font-size: 28px;
+}
+
+.adult-dose-text {
+    flex: 1;
+}
+
+.adult-dose-title {
+    font: 600 13px/1 var(--md-font-family);
+    letter-spacing: 0.3px;
+}
+
+.adult-dose-subtitle {
+    font: 400 11px/1 var(--md-font-family);
+    opacity: 0.85;
+    margin-top: 3px;
+}
+
+.drug-detail.limited {
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    padding: 4px 8px;
+    border-radius: var(--md-shape-xs);
+    margin: 2px -8px;
+}
+
+.drug-detail.limited .drug-label,
+.drug-detail.limited .drug-value {
+    color: inherit !important;
+}
+
+.drug-detail.limited .drug-value {
+    font-weight: 700;
+}
+
+.max-dose-info .drug-value {
+    color: var(--md-tertiary, #6750A4);
+    font-weight: 700;
+}
+
+/* ============================================
+   PEDIATRIC — ДЕФИБРИЛЛЯЦИЯ (полный стиль)
+   ============================================ */
+
+.pediatric-defib-card {
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: var(--md-shape-lg);
+}
+
+.defib-header {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--md-error-container), color-mix(in srgb, var(--md-error-container) 80%, var(--md-error)));
+    color: var(--md-on-error-container);
+}
+
+.defib-main {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.defib-value {
+    font: 700 48px/1 var(--md-font-family);
+    color: var(--md-on-error-container);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.defib-label {
+    font: 500 14px/1 var(--md-font-family);
+    opacity: 0.9;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.defib-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: var(--md-shape-md);
+}
+
+[data-theme="dark"] .defib-legend {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.defib-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-error-container);
+}
+
+.defib-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.defib-timeline {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    background: var(--md-surface-container-low);
+}
+
+.defib-step {
+    display: flex;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: var(--md-shape-md);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.defib-step::before {
+    content: '';
+    position: absolute;
+    left: 29px;
+    top: 100%;
+    width: 2px;
+    height: 8px;
+    background: var(--md-outline-variant);
+}
+
+.defib-step:last-child::before {
+    display: none;
+}
+
+.defib-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 15px/1 var(--md-font-family);
+    flex-shrink: 0;
+    z-index: 1;
+    box-shadow: var(--md-elevation-1);
+}
+
+.defib-step-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.defib-step-title {
+    font: 600 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.defib-step-desc {
+    font: 400 13px/18px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.defib-step-desc strong {
+    color: var(--md-on-surface);
+    font-weight: 700;
+}
+
+.defib-step-desc em {
+    font-style: italic;
+    opacity: 0.85;
+}
+
+/* Типы шагов */
+.defib-step.shock {
+    background: var(--md-error-container);
+}
+
+.defib-step.shock .defib-step-num {
+    background: var(--md-error);
+    color: var(--md-on-error);
+}
+
+.defib-step.shock .defib-step-title {
+    color: var(--md-on-error-container);
+    font-weight: 700;
+}
+
+.defib-step.shock .defib-step-desc {
+    color: var(--md-on-error-container);
+    opacity: 0.9;
+}
+
+.defib-step.shock.max-shock {
+    background: var(--md-error);
+    box-shadow: var(--md-elevation-2);
+}
+
+.defib-step.shock.max-shock .defib-step-num {
+    background: var(--md-on-error);
+    color: var(--md-error);
+}
+
+.defib-step.shock.max-shock .defib-step-title,
+.defib-step.shock.max-shock .defib-step-desc {
+    color: var(--md-on-error);
+}
+
+.defib-step.cpr {
+    background: var(--md-primary-container);
+}
+
+.defib-step.cpr .defib-step-num {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.defib-step.cpr .defib-step-title {
+    color: var(--md-on-primary-container);
+    font-weight: 700;
+}
+
+.defib-step.cpr .defib-step-desc {
+    color: var(--md-on-primary-container);
+    opacity: 0.9;
+}
+
+.defib-step.drug {
+    background: var(--md-tertiary-container);
+}
+
+.defib-step.drug .defib-step-num {
+    background: var(--md-tertiary, #6750A4);
+    color: var(--md-on-tertiary, #FFFFFF);
+}
+
+.defib-step.drug .defib-step-title {
+    color: var(--md-on-tertiary-container);
+    font-weight: 700;
+}
+
+.defib-step.drug .defib-step-desc {
+    color: var(--md-on-tertiary-container);
+    opacity: 0.9;
+}
+
+.defib-max-note {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--md-shape-sm);
+    font: 600 11px/16px var(--md-font-family);
+    display: inline-block;
+    border-left: 3px solid currentColor;
+}
+
+.defib-footer {
+    padding: 14px 20px;
+    background: var(--md-surface-container);
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+.defib-footer-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font: 400 13px/18px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.defib-footer-note .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+    .defib-value {
+        font-size: 40px;
+    }
+    
+    .defib-label {
+        font-size: 12px;
+    }
+    
+    .defib-legend {
+        padding: 10px;
+    }
+    
+    .defib-legend-item {
+        font-size: 11px;
+        line-height: 14px;
+    }
+    
+    .defib-timeline {
+        padding: 16px 12px;
+    }
+    
+    .defib-step {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .defib-step-num {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+    
+    .defib-step::before {
+        left: 25px;
+    }
+    
+    .defib-step-title {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    
+    .defib-step-desc {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .defib-value {
+        font-size: 36px;
+    }
+    
+    .defib-step-num {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+    
+    .defib-step::before {
+        left: 23px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — ВИТАЛЬНЫЕ ПОКАЗАТЕЛИ (ввод)
+   ============================================ */
+
+.vitals-inputs {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.vitals-input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.vital-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.vital-input-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.vital-input-label .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.vital-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vital-field {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 16px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.vital-field::-webkit-outer-spin-button,
+.vital-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.vital-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.15);
+}
+
+.vital-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.vital-separator {
+    font: 500 16px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.vital-unit {
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+}
+
+.vital-norm {
+    font: 400 11px/14px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.85;
+    font-style: italic;
+}
+
+/* ============================================
+   PEDIATRIC — СВОДКА (Лента Брослоу + Нормы)
+   ============================================ */
+
+.pediatric-summary {
+    margin-bottom: 16px;
+    padding: 0 !important;
+    overflow: hidden;
+    border-width: 2px !important;
+    border-radius: var(--md-shape-lg) !important;
+}
+
+.pediatric-summary-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.broselow-zone-badge {
+    padding: 10px 20px;
+    border-radius: var(--md-shape-full);
+    font: 600 14px/1 var(--md-font-family);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: var(--md-elevation-2);
+}
+
+.broselow-zone-label {
+    white-space: nowrap;
+}
+
+.broselow-weight {
+    font: 700 32px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.estimated-badge {
+    font: 500 11px/1 var(--md-font-family);
+    padding: 4px 10px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.pediatric-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--md-outline-variant);
+}
+
+.summary-column {
+    padding: 16px 20px;
+    background: var(--md-surface-container-lowest);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.broselow-column {
+    border-right: 1px solid var(--md-outline-variant);
+}
+
+.summary-column-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--md-primary);
+    margin-bottom: 4px;
+}
+
+.summary-column-title .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 400 14px/20px var(--md-font-family);
+    gap: 12px;
+}
+
+.summary-label {
+    color: var(--md-on-surface-variant);
+    flex-shrink: 0;
+}
+
+.summary-value {
+    font-weight: 500;
+    color: var(--md-on-surface);
+    text-align: right;
+}
+
+.summary-row.summary-estimated {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--md-outline-variant);
+}
+
+.summary-row.summary-estimated .summary-label {
+    color: var(--md-primary);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.summary-row.summary-estimated .summary-value {
+    color: var(--md-primary);
+    font-weight: 600;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+    .pediatric-summary-header {
+        padding: 12px 16px;
+        gap: 12px;
+    }
+    
+    .broselow-zone-badge {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    .broselow-weight {
+        font-size: 24px;
+    }
+    
+    .pediatric-summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .broselow-column {
+        border-right: none;
+        border-bottom: 1px solid var(--md-outline-variant);
+    }
+    
+    .summary-column {
+        padding: 14px 16px;
+    }
+    
+    .summary-row {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 400px) {
+    .broselow-weight {
+        font-size: 20px;
+    }
+    
+    .broselow-zone-badge {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — НОРЭПИНЕФРИН (ИНФУЗОМАТ)
+   ============================================ */
+
+.norepinephrine-card {
+    grid-column: 1 / -1; /* Занимает всю ширину сетки */
+    background: linear-gradient(135deg, 
+        var(--md-error-container) 0%, 
+        color-mix(in srgb, var(--md-error-container) 80%, var(--md-surface-container-low)) 100%) !important;
+    border-color: var(--md-error) !important;
+    border-width: 2px !important;
+}
+
+.ne-dilution-section {
+    padding: 12px 0;
+    border-top: 1px solid var(--md-outline-variant);
+    margin-top: 8px;
+}
+
+.ne-dilution-label {
+    font: 500 11px/1 var(--md-font-family);
+    color: var(--md-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.ne-dilution-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.ne-dilution-btn {
+    padding: 10px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ne-dilution-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.ne-dilution-btn.active {
+    background: var(--md-error);
+    border-color: var(--md-error);
+    color: var(--md-on-error);
+    box-shadow: var(--md-elevation-2);
+}
+
+.ne-concentration {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-sm);
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.ne-conc-label {
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.ne-conc-value {
+    font: 700 20px/1 var(--md-font-family);
+    color: var(--md-primary);
+}
+
+.ne-conc-detail {
+    font: 400 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.8;
+}
+
+.ne-speed-section {
+    padding: 12px;
+    background: var(--md-primary-container);
+    border-radius: var(--md-shape-md);
+    margin: 10px 0;
+}
+
+.ne-speed-title {
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-primary-container);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ne-speed-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+.ne-speed-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+.ne-speed-value {
+    font: 700 24px/1 var(--md-font-family);
+    color: var(--md-on-primary-container);
+}
+
+.ne-speed-unit {
+    font: 500 11px/1 var(--md-font-family);
+    color: var(--md-on-primary-container);
+    opacity: 0.85;
+}
+
+.ne-speed-separator {
+    font: 500 18px/1 var(--md-font-family);
+    color: var(--md-on-primary-container);
+    opacity: 0.5;
+}
+
+.ne-titration {
+    padding: 10px 12px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-sm);
+    margin: 10px 0;
+    border-left: 3px solid var(--md-primary);
+}
+
+.ne-titration-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 600 12px/1 var(--md-font-family);
+    color: var(--md-primary);
+    margin-bottom: 6px;
+}
+
+.ne-titration-title .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.ne-titration-desc {
+    font: 400 12px/18px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+@media (max-width: 600px) {
+    .vitals-input-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pediatric-summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ne-speed-value {
+        font-size: 20px;
+    }
+    
+    .ne-speed-grid {
+        gap: 4px;
+    }
+}
+
+@media (max-width: 400px) {
+    .ne-dilution-btn {
+        padding: 8px 4px;
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — ПОДСКАЗКИ О ПРЕДЕЛАХ
+   ============================================ */
+
+.pediatric-limit-hint {
+    font: 400 10px/12px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 2px;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   PEDIATRIC — БАННЕР ПРЕДУПРЕЖДЕНИЙ О ПРЕДЕЛАХ
+   ============================================ */
+
+.limits-warning {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-md);
+    border-left: 4px solid var(--md-tertiary, #6750A4);
+    animation: warningAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes warningAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.limits-warning-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 14px/1 var(--md-font-family);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.limits-warning-header .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.limits-warning-list {
+    margin: 0;
+    padding-left: 20px;
+    font: 400 13px/20px var(--md-font-family);
+}
+
+.limits-warning-list li {
+    margin: 2px 0;
+}
+
+.limits-warning-list li::marker {
+    color: var(--md-on-tertiary-container);
+    opacity: 0.7;
+}
+
+/* Подсветка поля, когда значение на границе */
+.pediatric-field:invalid,
+.pediatric-field[aria-invalid="true"] {
+    border-color: var(--md-error);
+    background: color-mix(in srgb, var(--md-error-container) 30%, var(--md-surface-container-lowest));
+}
+
+/* ============================================
+   PEDIATRIC — ЖЕЛУДОЧНЫЙ ЗОНД (расширенная карточка)
+   ============================================ */
+
+.equip-wide {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, 
+        var(--md-surface-container-low) 0%, 
+        var(--md-surface-container) 100%) !important;
+    border-color: var(--md-primary) !important;
+    border-width: 2px !important;
+}
+
+.equip-wide .equip-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+}
+
+.equip-wide .equip-icon .material-symbols-rounded {
+    font-size: 26px;
+}
+
+.equip-wide .equip-value {
+    font-size: 24px;
+    color: var(--md-primary);
+    margin: 4px 0;
+}
+
+.equip-route {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 3px 10px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-radius: var(--md-shape-full);
+    font: 600 11px/1 var(--md-font-family);
+    letter-spacing: 0.3px;
+}
+
+.equip-warning {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/18px var(--md-font-family);
+    border-left: 3px solid var(--md-error);
+}
+
+.equip-alternative {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/18px var(--md-font-family);
+    border-left: 3px solid var(--md-tertiary, #6750A4);
+}
+
+.equip-safety-notes {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--md-outline-variant);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.safety-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font: 400 12px/18px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.safety-note .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.safety-note strong {
+    font-weight: 600;
+    color: var(--md-on-surface);
+}
+
+.safety-note.safety-warning {
+    padding: 6px 10px;
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-radius: var(--md-shape-sm);
+    font-weight: 500;
+}
+
+.safety-note.safety-warning .material-symbols-rounded {
+    color: var(--md-error);
+}
+
+.safety-note.safety-warning strong {
+    color: var(--md-on-error-container);
+}
+
+@media (max-width: 600px) {
+    .equip-wide {
+        padding: 14px !important;
+    }
+    
+    .equip-wide .equip-value {
+        font-size: 22px;
+    }
+    
+    .safety-note {
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
+
+/* ============================================
+   PEDIATRIC — ПОДСВЕТКА РАСЧЁТА ПОРЦИИ
+   ============================================ */
+
+.safety-note.safety-highlight {
+    padding: 10px 14px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-radius: var(--md-shape-md);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    border-left: 4px solid var(--md-primary);
+}
+
+.safety-note.safety-highlight .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-on-primary-container);
+}
+
+.safety-note.safety-highlight strong {
+    color: var(--md-on-primary-container);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* ============================================
+   PEDIATRIC — СПОЙЛЕР "ОСТАЛЬНЫЕ ПРЕПАРАТЫ"
+   ============================================ */
+
+.drugs-spoiler {
+    margin-bottom: 16px;
+    padding: 0 !important;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.drugs-spoiler-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    transition: background-color 0.2s;
+}
+
+.drugs-spoiler-summary::-webkit-details-marker {
+    display: none;
+}
+
+.drugs-spoiler-summary:hover {
+    background: var(--md-surface-container);
+}
+
+.drugs-spoiler[open] .drugs-spoiler-summary {
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.spoiler-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.spoiler-left .material-symbols-rounded {
+    font-size: 24px;
+    color: var(--md-primary);
+}
+
+.spoiler-title {
+    font: 500 16px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.spoiler-count {
+    padding: 4px 10px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-radius: var(--md-shape-full);
+    font: 600 12px/1 var(--md-font-family);
+}
+
+.spoiler-arrow {
+    font-size: 24px;
+    color: var(--md-on-surface-variant);
+    transition: transform 0.3s;
+}
+
+.drugs-spoiler[open] .spoiler-arrow {
+    transform: rotate(180deg);
+}
+
+.drugs-spoiler-content {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: spoilerOpen 0.3s ease-out;
+}
+
+@keyframes spoilerOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.spoiler-category {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.spoiler-category:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.spoiler-category-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spoiler-category-title .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+@media (max-width: 600px) {
+    .drugs-spoiler-summary {
+        padding: 14px 16px;
+    }
+    
+    .spoiler-title {
+        font-size: 15px;
+    }
+    
+    .drugs-spoiler-content {
+        padding: 14px 16px;
+        gap: 16px;
+    }
+    
+    .spoiler-category {
+        padding-bottom: 14px;
+    }
+    
+    .spoiler-category-title {
+        font-size: 12px;
     }
 }

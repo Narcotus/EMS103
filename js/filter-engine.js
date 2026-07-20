@@ -1,20 +1,13 @@
-// ============================================
-// Универсальный движок фильтрации с мультикатегориями
-// ============================================
-
 export class FilterEngine {
     constructor() {
         this.items = [];
         this.selectedCategories = new Set();
         this.searchQuery = '';
-        this.sortOrder = 'default';
+        this.sortOrder = 'default'; // 'default' | 'alphabet-asc' | 'alphabet-desc'
+        this.filterMode = 'or'; // 'and' | 'or'
     }
 
-    /**
-     * Устанавливает исходные данные
-     */
     setItems(items) {
-        // Нормализация: поддерживаем и category (старое) и categories (новое)
         this.items = items.map(item => {
             let categories = [];
             if (Array.isArray(item.categories)) {
@@ -26,9 +19,10 @@ export class FilterEngine {
         });
     }
 
-    /**
-     * Получить все уникальные категории
-     */
+    setFilterMode(mode) {
+        this.filterMode = mode === 'and' ? 'and' : 'or';
+    }
+
     getCategories() {
         const allCats = new Set();
         this.items.forEach(item => {
@@ -37,9 +31,6 @@ export class FilterEngine {
         return [...allCats].sort((a, b) => a.localeCompare(b, 'ru'));
     }
 
-    /**
-     * Переключить категорию (мульти-выбор)
-     */
     toggleCategory(category) {
         if (this.selectedCategories.has(category)) {
             this.selectedCategories.delete(category);
@@ -48,38 +39,64 @@ export class FilterEngine {
         }
     }
 
-    /**
-     * Сбросить все категории
-     */
     clearCategories() {
         this.selectedCategories.clear();
     }
 
-    /**
-     * Установить поисковый запрос
-     */
     setSearch(query) {
         this.searchQuery = query.trim().toLowerCase();
     }
 
-    /**
-     * Установить сортировку
-     */
     setSort(order) {
         this.sortOrder = order;
     }
 
-    /**
-     * Получить отфильтрованные элементы
-     */
+    // Циклическое переключение сортировки
+    cycleSortOrder() {
+        if (this.sortOrder === 'default') {
+            this.sortOrder = 'alphabet-asc';
+        } else if (this.sortOrder === 'alphabet-asc') {
+            this.sortOrder = 'alphabet-desc';
+        } else {
+            this.sortOrder = 'default';
+        }
+        return this.sortOrder;
+    }
+
+    getSortLabel() {
+        switch (this.sortOrder) {
+            case 'alphabet-asc': return 'А-Я';
+            case 'alphabet-desc': return 'Я-А';
+            default: return 'По умолчанию';
+        }
+    }
+
+    getSortIcon() {
+        switch (this.sortOrder) {
+            case 'alphabet-asc': return 'arrow_upward';
+            case 'alphabet-desc': return 'arrow_downward';
+            default: return 'sort';
+        }
+    }
+
     getFiltered() {
         let result = [...this.items];
 
-        // Фильтр по категориям (OR: элемент входит если есть хотя бы одна из выбранных)
+        // Фильтр по категориям
         if (this.selectedCategories.size > 0) {
-            result = result.filter(item => 
-                item._categories.some(cat => this.selectedCategories.has(cat))
-            );
+            if (this.filterMode === 'and') {
+                // AND: элемент должен содержать ВСЕ выбранные категории
+                result = result.filter(item => {
+                    return [...this.selectedCategories].every(cat => 
+                        item._categories.includes(cat)
+                    );
+                });
+            } else {
+                // OR: элемент содержит хотя бы одну
+                result = result.filter(item => 
+                    item._categories.some(cat => this.selectedCategories.has(cat))
+                );
+            }
         }
 
         // Фильтр по поиску
@@ -108,14 +125,12 @@ export class FilterEngine {
         return result;
     }
 
-    /**
-     * Получить состояние для UI
-     */
     getState() {
         return {
             selectedCategories: [...this.selectedCategories],
             searchQuery: this.searchQuery,
             sortOrder: this.sortOrder,
+            filterMode: this.filterMode,
             totalCount: this.items.length,
             filteredCount: this.getFiltered().length
         };

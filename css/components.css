@@ -1294,3 +1294,537 @@ textarea:focus {
     .home-compact-icon .material-symbols-rounded { font-size: 18px !important; }
     .home-compact-title { font-size: 13px !important; }
 }
+
+/* ============================================
+   ПОИСК + КНОПКА ФИЛЬТРА
+   ============================================ */
+
+.search-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.search-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 20px;
+    color: var(--md-on-surface-variant);
+    pointer-events: none;
+}
+
+.search-wrapper input[type="search"] {
+    width: 100%;
+    padding: 12px 12px 12px 42px;
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface);
+    font: 400 15px/1 var(--md-font-family);
+    transition: all 0.2s;
+}
+
+.search-wrapper input[type="search"]:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    background: var(--md-surface-container-lowest);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.1);
+}
+
+[data-theme="dark"] .search-wrapper input[type="search"]:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.15);
+}
+
+.search-wrapper input[type="search"]::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+}
+
+/* Скрываем стандартную кнопку очистки в search */
+.search-wrapper input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* Кнопка фильтра */
+.filter-toggle-btn {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.filter-toggle-btn:hover {
+    background: var(--md-surface-container);
+    color: var(--md-primary);
+    border-color: var(--md-outline);
+}
+
+.filter-toggle-btn.has-active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary-container);
+}
+
+.filter-toggle-btn .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.filter-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    background: var(--md-error);
+    color: var(--md-on-error);
+    border-radius: 10px;
+    font: 700 11px/20px var(--md-font-family);
+    text-align: center;
+    border: 2px solid var(--md-surface);
+}
+
+/* ============================================
+   КОМПАКТНЫЕ КАРТОЧКИ КАЛЬКУЛЯТОРОВ
+   ============================================ */
+
+.calculators-list-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calc-compact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.calc-compact-card:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-1);
+}
+
+.calc-compact-card:active {
+    transform: scale(0.99);
+}
+
+.calc-compact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.calc-compact-icon .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.calc-compact-title {
+    flex: 1;
+    min-width: 0;
+    font: 500 15px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.calc-compact-arrow {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   BOTTOM SHEET ФИЛЬТРОВ
+   ============================================ */
+
+.filter-sheet-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.filter-sheet-wrapper.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.filter-sheet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.filter-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 85vh;
+    background: var(--md-surface-container-lowest);
+    border-radius: 24px 24px 0 0;
+    box-shadow: var(--md-elevation-4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-sheet-wrapper.open .filter-sheet {
+    transform: translateY(0);
+}
+
+.filter-sheet-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.filter-sheet-handle {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: var(--md-outline);
+    border-radius: 2px;
+}
+
+.filter-sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 17px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    flex: 1;
+    margin-top: 12px;
+}
+
+.filter-sheet-title .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+.filter-sheet-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+    margin-top: 12px;
+}
+
+.filter-sheet-close:hover {
+    background: var(--md-surface-container);
+}
+
+.filter-sheet-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-section-title {
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filter-mode-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.filter-mode-hint .material-symbols-rounded {
+    font-size: 14px;
+}
+
+/* Кнопка сортировки */
+.sort-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    color: var(--md-on-surface);
+    font: 500 15px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.sort-toggle-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.sort-toggle-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary-container);
+}
+
+.sort-toggle-btn .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.sort-toggle-btn.active .material-symbols-rounded {
+    color: var(--md-on-primary-container);
+}
+
+.sort-label {
+    font-weight: 500;
+}
+
+.sort-hint {
+    margin-left: auto;
+    font: 400 12px/1 var(--md-font-family);
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+/* Чипы категорий */
+.filter-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--md-surface-container);
+    border: 1.5px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-full);
+    color: var(--md-on-surface);
+    font: 500 13px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-chip:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.filter-chip.selected {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.filter-chip .check-icon {
+    font-size: 16px;
+    display: none;
+}
+
+.filter-chip.selected .check-icon {
+    display: inline-block;
+}
+
+/* Футер bottom sheet */
+.filter-sheet-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-low);
+    flex-shrink: 0;
+}
+
+.filter-sheet-footer .md-button {
+    flex: 1;
+}
+
+/* На desktop — центрированная модалка */
+@media (min-width: 700px) {
+    .filter-sheet-wrapper {
+        align-items: center;
+        padding: 16px;
+    }
+    
+    .filter-sheet {
+        border-radius: 24px;
+        max-height: 80vh;
+        transform: scale(0.9) translateY(20px);
+    }
+    
+    .filter-sheet-wrapper.open .filter-sheet {
+        transform: scale(1) translateY(0);
+    }
+    
+    .filter-sheet-handle {
+        display: none;
+    }
+    
+    .filter-sheet-title {
+        margin-top: 0;
+    }
+    
+    .filter-sheet-close {
+        margin-top: 0;
+    }
+}
+
+/* На маленьких мобильных */
+@media (max-width: 400px) {
+    .calc-compact-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .calc-compact-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .calc-compact-title {
+        font-size: 14px;
+    }
+    
+    .filter-chip {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   КНОПКА СБРОСА ФИЛЬТРОВ (справа от фильтра)
+   ============================================ */
+
+.filter-reset-btn {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--md-error);
+    border-radius: var(--md-shape-md);
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    animation: resetBtnAppear 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes resetBtnAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+}
+
+.filter-reset-btn:hover {
+    background: var(--md-error);
+    color: var(--md-on-error);
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-2);
+}
+
+.filter-reset-btn:active {
+    transform: scale(0.95);
+}
+
+.filter-reset-btn .material-symbols-rounded {
+    font-size: 22px;
+}
+
+/* Подзаголовок со счётчиком */
+.calc-subtitle-info {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 4px 0 0;
+}
+
+.calc-subtitle-info #filtered-count {
+    font-weight: 600;
+    color: var(--md-primary);
+    transition: color 0.2s;
+}
