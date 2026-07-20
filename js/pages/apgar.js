@@ -117,11 +117,6 @@ export default class ApgarPage {
 
     renderFullPage() {
         this.container.innerHTML = `
-            <div class="page-content calc-page">
-                <button class="back-button" onclick="window.location.hash='calculators'">
-                    <span class="material-symbols-rounded">arrow_back</span>
-                    <span>Назад к калькуляторам</span>
-                </button>
 
                 ${renderCalcHeader(this.data)}
 

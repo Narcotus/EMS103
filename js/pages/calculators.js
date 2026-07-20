@@ -351,7 +351,6 @@ export default class CalculatorsPage {
                         17: 'odn-scale',
                         18: 'shsn-scale',
                         19: 'sgarbossa',
-                        20: 'ett-size',
                         21: 'qtc-bazett'
                     };
                     const route = routeMap[calc.id];

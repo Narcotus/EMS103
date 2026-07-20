@@ -19,7 +19,7 @@ export class SearchEngine {
                 this.loadJSON('data/orders.json'),
                 this.loadJSON('data/guidelines.json'),
                 this.loadJSON('data/calculators.json'),
-                this.loadJSON('data/reference.json')
+                this.loadJSON('data/references.json')
             ]);
 
             // Индексируем каждый раздел

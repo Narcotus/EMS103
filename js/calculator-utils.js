@@ -3,19 +3,27 @@
 // ============================================
 
 /**
- * Рендерит заголовок калькулятора с информационной кнопкой
+ * Рендерит заголовок калькулятора с breadcrumb и info-кнопкой
  */
 export function renderCalcHeader(data) {
     return `
+        <div class="calc-breadcrumb-minimal">
+            <a href="#calculators" class="breadcrumb-back-link">
+                <span class="material-symbols-rounded">arrow_back</span>
+                <span>Калькуляторы</span>
+            </a>
+        </div>
         <div class="calc-header">
-            <div class="calc-header-icon">
-                <span class="material-symbols-rounded">${data.icon}</span>
-            </div>
             <div class="calc-header-content">
-                <h1>${data.title}</h1>
-                <p class="calc-subtitle">${data.subtitle}</p>
+                <div class="calc-icon-wrapper">
+                    <span class="material-symbols-rounded">${data.icon || 'calculate'}</span>
+                </div>
+                <div class="calc-header-text">
+                    <h1 class="calc-title">${data.title}</h1>
+                    ${data.subtitle ? `<p class="calc-subtitle">${data.subtitle}</p>` : ''}
+                </div>
             </div>
-            <button class="calc-header-info-btn" id="info-btn" aria-label="О шкале">
+            <button class="calc-info-btn" id="calc-info-btn" aria-label="Информация">
                 <span class="material-symbols-rounded">info</span>
             </button>
         </div>
@@ -26,14 +34,12 @@ export function renderCalcHeader(data) {
  * Создаёт и открывает модальное окно со справочной информацией
  */
 export function openReferenceModal(data) {
-    // Удаляем предыдущее модальное окно, если есть
     const existing = document.getElementById('reference-modal');
     if (existing) existing.remove();
-    
+
     const modal = document.createElement('div');
     modal.id = 'reference-modal';
     modal.className = 'reference-modal';
-    
     modal.innerHTML = `
         <div class="reference-modal-backdrop"></div>
         <div class="reference-modal-content">
@@ -63,28 +69,24 @@ export function openReferenceModal(data) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
-    // Анимация открытия
+
     requestAnimationFrame(() => {
         modal.classList.add('open');
     });
-    
-    // Блокируем прокрутку body
+
     document.body.style.overflow = 'hidden';
-    
-    // Закрытие
+
     const close = () => {
         modal.classList.remove('open');
         document.body.style.overflow = '';
         setTimeout(() => modal.remove(), 250);
     };
-    
+
     modal.querySelector('.reference-modal-backdrop')?.addEventListener('click', close);
     modal.querySelector('.reference-modal-close')?.addEventListener('click', close);
-    
-    // Закрытие по Escape
+
     const escHandler = (e) => {
         if (e.key === 'Escape') {
             close();
@@ -96,9 +98,10 @@ export function openReferenceModal(data) {
 
 /**
  * Подключает обработчик клика на info-кнопку
+ * ИСПРАВЛЕНО: ищет правильный ID 'calc-info-btn'
  */
 export function bindInfoButton(data) {
-    const btn = document.getElementById('info-btn');
+    const btn = document.getElementById('calc-info-btn');
     if (btn) {
         btn.addEventListener('click', () => openReferenceModal(data));
     }

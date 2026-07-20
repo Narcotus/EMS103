@@ -67,12 +67,7 @@ export default class DrugConverterPage {
     renderFullPage() {
         this.container.innerHTML = `
             <div class="page-content calc-page drug-converter-page">
-                <button class="back-button" onclick="window.location.hash='calculators'">
-                    <span class="material-symbols-rounded">arrow_back</span>
-                    <span>Назад к калькуляторам</span>
-                </button>
-
-                ${renderCalcHeader(this.data)}
+            ${renderCalcHeader(this.data)}
 
                 <div class="calc-description card card-outlined">
                     <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -181,149 +176,145 @@ export default class DrugConverterPage {
         `;
     }
 
-    renderResult() {
-        // Режим 1: только конвертация концентрации
-        if (this.mode === 'concentration') {
-            if (this.concentrationPercent === null && this.concentrationMgMl === null) {
-                return this.renderEmpty('Введите концентрацию', '% или мг/мл');
-            }
-            const percent = this.concentrationPercent;
-            const mgMl = this.concentrationMgMl;
-            return `
-                <div class="result-content result-success drug-result">
-                    <div class="drug-result-main">
-                        <div class="drug-result-big">${percent !== null ? percent + '%' : mgMl + ' мг/мл'}</div>
-                        <div class="drug-result-eq">=</div>
-                        <div class="drug-result-big">${mgMl !== null ? mgMl + ' мг/мл' : percent + '%'}</div>
+        renderResult() {
+
+            // ── Режим 1: только конвертация концентрации ──
+            if (this.mode === 'concentration') {
+                if (this.concentrationPercent === null && this.concentrationMgMl === null) {
+                    return this.renderEmpty('Введите концентрацию', '% или мг/мл');
+                }
+
+                const percent = this.concentrationPercent;
+                const mgMl = this.concentrationMgMl;
+
+                return `
+                    <div class="result-content result-success">
+                        <div class="result-score">
+                            <div class="result-score-value">${percent !== null ? percent + '%' : mgMl + ''}</div>
+                            <div class="result-score-label">${percent !== null ? 'процент' : 'мг/мл'}</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-info">
+                            <div class="result-label">= ${mgMl !== null ? mgMl + ' мг/мл' : percent + '%'}</div>
+                            <div class="result-description">
+                                Формула: 1% = 10 мг/мл
+                            </div>
+                        </div>
+                        <button class="result-reset" aria-label="Сбросить">
+                            <span class="material-symbols-rounded">refresh</span>
+                        </button>
                     </div>
-                    <button class="result-reset" aria-label="Сбросить" style="position:absolute;top:8px;right:8px;width:36px;height:36px;">
-                        <span class="material-symbols-rounded" style="font-size:20px;">refresh</span>
+                `;
+            }
+
+            // ── Режим 2: расчёт по дозе в мг ──
+            if (this.mode === 'dose') {
+                if (this.concentrationMgMl === null || this.doseMg === null || this.concentrationMgMl === 0) {
+                    return this.renderEmpty('Введите концентрацию и дозу', 'для расчёта объёма');
+                }
+                const volumeMl = this.doseMg / this.concentrationMgMl;
+                return this.renderVolumeResult(volumeMl, this.doseMg);
+            }
+
+            // ── Режим 3: расчёт по весу ──
+            if (this.mode === 'weight') {
+                if (this.concentrationMgMl === null || this.dosePerKg === null || this.weightKg === null || this.concentrationMgMl === 0) {
+                    return this.renderEmpty('Заполните все поля', 'концентрация, мг/кг, вес');
+                }
+                const totalDose = this.dosePerKg * this.weightKg;
+                const volumeMl = totalDose / this.concentrationMgMl;
+                return this.renderVolumeResult(volumeMl, totalDose, true);
+            }
+        }
+
+        renderEmpty(label, description) {
+            return `
+                <div class="result-content result-incomplete">
+                    <div class="result-score">
+                        <div class="result-score-value">—</div>
+                        <div class="result-score-label">ожидание</div>
+                    </div>
+                    <div class="result-divider"></div>
+                    <div class="result-info">
+                        <div class="result-label">${label}</div>
+                        <div class="result-description">${description}</div>
+                    </div>
+                    <button class="result-reset" aria-label="Сбросить">
+                        <span class="material-symbols-rounded">refresh</span>
                     </button>
                 </div>
             `;
         }
 
-        // Режим 2: расчёт по дозе в мг
-        if (this.mode === 'dose') {
-            if (this.concentrationMgMl === null || this.doseMg === null || this.concentrationMgMl === 0) {
-                return this.renderEmpty('Введите концентрацию и дозу', 'для расчёта объёма');
+        renderVolumeResult(volumeMl, doseMg, fromWeight = false) {
+            const volRounded = Math.round(volumeMl * 100) / 100;
+            const doseRounded = Math.round(doseMg * 100) / 100;
+
+            // Определяем цвет результата
+            let colorClass = 'result-success';
+            if (volRounded > 100) colorClass = 'result-error';
+            else if (volRounded > 20 || volRounded < 0.1) colorClass = 'result-warning';
+
+            // Предупреждения
+            const warnings = [];
+            if (volRounded > 20) {
+                warnings.push({ icon: 'warning', text: `Большой объём (${volRounded} мл). Проверьте концентрацию!`, type: 'warn' });
             }
-            const volumeMl = this.doseMg / this.concentrationMgMl;
-            return this.renderVolumeResult(volumeMl, this.doseMg);
-        }
-
-        // Режим 3: расчёт по весу
-        if (this.mode === 'weight') {
-            if (this.concentrationMgMl === null || this.dosePerKg === null || this.weightKg === null || this.concentrationMgMl === 0) {
-                return this.renderEmpty('Заполните все поля', 'концентрация, мг/кг, вес');
+            if (volRounded < 0.1) {
+                warnings.push({ icon: 'error', text: 'Очень малый объём — сложно точно дозировать. Используйте более разведённый раствор.', type: 'error' });
             }
-            const totalDose = this.dosePerKg * this.weightKg;
-            const volumeMl = totalDose / this.concentrationMgMl;
-            return this.renderVolumeResult(volumeMl, totalDose, true);
-        }
-    }
+            if (volRounded > 100) {
+                warnings.push({ icon: 'error', text: 'Экстремально большой объём! Проверьте расчёт.', type: 'error' });
+            }
 
-    renderEmpty(label, description) {
-        return `
-            <div class="result-content result-incomplete">
-                <div class="result-score">
-                    <div class="result-score-value">—</div>
-                    <div class="result-score-label">нет данных</div>
-                </div>
-                <div class="result-divider"></div>
-                <div class="result-info">
-                    <div class="result-label">${label}</div>
-                    <div class="result-description">${description}</div>
-                </div>
-                <button class="result-reset" aria-label="Сбросить">
-                    <span class="material-symbols-rounded">refresh</span>
-                </button>
-            </div>
-        `;
-    }
+            return `
+                <div class="result-content ${colorClass}">
 
-    renderVolumeResult(volumeMl, totalDoseMg, fromWeight = false) {
-        const volRounded = Math.round(volumeMl * 100) / 100;
-        const doseRounded = Math.round(totalDoseMg * 100) / 100;
-
-        // Предупреждения
-        let warnings = [];
-        if (volRounded > 20) {
-            warnings.push({ icon: 'warning', text: `Большой объём (${volRounded} мл). Проверьте концентрацию!`, type: 'warn' });
-        }
-        if (volRounded < 0.1) {
-            warnings.push({ icon: 'error', text: 'Очень малый объём — сложно точно дозировать. Используйте более разведённый раствор.', type: 'error' });
-        }
-        if (volRounded > 100) {
-            warnings.push({ icon: 'error', text: 'Экстремально большой объём! Проверьте расчёт.', type: 'error' });
-        }
-
-        // Альтернативные объёмы в ампулах
-        const ampoules0_5 = (volumeMl / 0.5).toFixed(1);
-        const ampoules1 = (volumeMl / 1).toFixed(1);
-        const ampoules2 = (volumeMl / 2).toFixed(1);
-        const ampoules5 = (volumeMl / 5).toFixed(1);
-        const ampoules10 = (volumeMl / 10).toFixed(1);
-
-        return `
-            <div class="result-content result-success drug-result drug-result-volume">
-                <div class="drug-result-main">
-                    <div class="drug-result-big">${volRounded}</div>
-                    <div class="drug-result-unit">мл</div>
-                </div>
-                <div class="result-divider" style="width: 100%; height: 1px; margin: 8px 0;"></div>
-                <div class="drug-result-details">
-                    <div class="drug-result-row">
-                        <span class="drug-result-label">Суммарная доза:</span>
-                        <span class="drug-result-value">${doseRounded} мг</span>
+                    <div class="result-score">
+                        <div class="result-score-value">${volRounded}</div>
+                        <div class="result-score-label">мл</div>
                     </div>
-                    ${fromWeight ? `
-                        <div class="drug-result-row">
-                            <span class="drug-result-label">Расчёт:</span>
-                            <span class="drug-result-value">${this.dosePerKg} мг/кг × ${this.weightKg} кг</span>
+
+                    <div class="result-divider"></div>
+
+                    <div class="result-info">
+                        <div class="result-label">Объём для введения</div>
+                        <div class="result-description">
+                            <div class="drug-detail-row">
+                                <span>Суммарная доза:</span>
+                                <strong>${doseRounded} мг</strong>
+                            </div>
+                            ${fromWeight ? `
+                            <div class="drug-detail-row">
+                                <span>Расчёт:</span>
+                                <strong>${this.dosePerKg} мг/кг × ${this.weightKg} кг</strong>
+                            </div>
+                            ` : ''}
+                            <div class="drug-detail-row">
+                                <span>Концентрация:</span>
+                                <strong>${this.concentrationPercent}% (${this.concentrationMgMl} мг/мл)</strong>
+                            </div>
                         </div>
-                    ` : ''}
-                    <div class="drug-result-row">
-                        <span class="drug-result-label">Концентрация:</span>
-                        <span class="drug-result-value">${this.concentrationPercent}% (${this.concentrationMgMl} мг/мл)</span>
                     </div>
+
+                    <button class="result-reset" aria-label="Сбросить">
+                        <span class="material-symbols-rounded">refresh</span>
+                    </button>
                 </div>
 
-                <div class="drug-ampoules">
-                    <div class="drug-ampoules-title">Это соответствует:</div>
-                    <div class="drug-ampoules-grid">
-                        ${this.renderAmpoule('0.5 мл', ampoules0_5)}
-                        ${this.renderAmpoule('1 мл', ampoules1)}
-                        ${this.renderAmpoule('2 мл', ampoules2)}
-                        ${this.renderAmpoule('5 мл', ampoules5)}
-                        ${this.renderAmpoule('10 мл', ampoules10)}
-                    </div>
+                <!-- Предупреждения -->
+                ${warnings.length > 0 ? `
+                <div class="drug-warnings">
+                    ${warnings.map(w => `
+                        <div class="drug-warning-item drug-warning-${w.type}">
+                            <span class="material-symbols-rounded">${w.icon}</span>
+                            <span>${w.text}</span>
+                        </div>
+                    `).join('')}
                 </div>
-
-                ${warnings.map(w => `
-                    <div class="result-warning ${w.type === 'error' ? 'error' : ''}">
-                        <span class="material-symbols-rounded">${w.icon}</span>
-                        ${w.text}
-                    </div>
-                `).join('')}
-
-                <button class="result-reset" aria-label="Сбросить" style="position:absolute;top:8px;right:8px;width:36px;height:36px;">
-                    <span class="material-symbols-rounded" style="font-size:20px;">refresh</span>
-                </button>
-            </div>
-        `;
-    }
-
-    renderAmpoule(label, count) {
-        const num = parseFloat(count);
-        if (isNaN(num) || num < 0.01 || num > 1000) return '';
-        return `
-            <div class="drug-ampoule-item">
-                <div class="drug-ampoule-count">${count}</div>
-                <div class="drug-ampoule-label">× ${label}</div>
-            </div>
-        `;
-    }
+                ` : ''}
+            `;
+        }
 
     setupEventListeners() {
         // Переключение режимов

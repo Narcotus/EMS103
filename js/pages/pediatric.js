@@ -390,7 +390,18 @@ export default class PediatricPage {
                 }
             },
             equipment: {
-                ett: { name: 'Эндотрахеальная трубка', icon: 'air', unit: 'мм (ID)' },
+                ettUncuffed: { 
+                    name: 'ЭТТ без манжеты', 
+                    icon: 'air', 
+                    unit: 'мм (ID)'
+                },
+                ettCuffed: { 
+                    name: 'ЭТТ с манжетой', 
+                    icon: 'air', 
+                    unit: 'мм (ID)',
+                    minCuffPressure: 20,
+                    maxCuffPressure: 25
+                },
                 laryngoscope: { name: 'Клинок ларингоскопа', icon: 'visibility', unit: 'размер' },
                 mask: { name: 'Маска ИВЛ', icon: 'face', unit: 'размер' },
                 gastricTube: { 
@@ -432,11 +443,6 @@ export default class PediatricPage {
 
     renderFullPage() {
         this.container.innerHTML = `
-            <div class="page-content calc-page pediatric-page">
-                <button class="back-button" onclick="window.location.hash='calculators'">
-                    <span class="material-symbols-rounded">arrow_back</span>
-                    <span>Назад к калькуляторам</span>
-                </button>
 
                 ${renderCalcHeader(this.data)}
 
@@ -640,7 +646,7 @@ export default class PediatricPage {
                     ${this.renderDrug('atropine', estimatedWeight)}
                     ${this.renderDrug('prednisolone', estimatedWeight)}
                     ${this.renderNorepinephrineCard(estimatedWeight)}
-                </div>
+                </div>  
             </div>
 
             <!-- ОСТАЛЬНЫЕ ПРЕПАРАТЫ (спойлер) -->
@@ -760,7 +766,8 @@ export default class PediatricPage {
                     Оборудование
                 </div>
                 <div class="pediatric-equipment-grid">
-                    ${this.renderEquipment('ett', estimatedWeight)}
+                    ${this.renderEquipment('ettUncuffed', estimatedWeight)}
+                    ${this.renderEquipment('ettCuffed', estimatedWeight)}
                     ${this.renderEquipment('laryngoscope', estimatedWeight)}
                     ${this.renderEquipment('mask', estimatedWeight)}
                     ${this.renderEquipment('tidalVolume', estimatedWeight)}
@@ -1192,71 +1199,298 @@ export default class PediatricPage {
         let extraInfo = '';
 
         switch (equipId) {
-            case 'ett':
-                if (this.ageYears && this.ageYears > 1) {
-                    const ettSize = Math.round((4 + this.ageYears / 4) * 2) / 2;
-                    value = `${ettSize} ${equip.unit}`;
-                    details = 'Без манжеты (формула Коула)';
+            case 'ettUncuffed': {
+                const age = this.ageYears;
+                let extraInfo = '';
+                if (age !== null && age > 1) {
+                    const uncuffedSize = Math.round((4 + age / 4) * 2) / 2;
+                    const depth = Math.round(3 * uncuffedSize * 10) / 10;
+                    const depthAlt = Math.round((12 + age / 2) * 10) / 10;
+                    const styletSize = uncuffedSize <= 4.0 ? '6 Fr' : (uncuffedSize <= 5.5 ? '10 Fr' : '14 Fr');
+
+                    value = `${uncuffedSize} ${equip.unit}`;
+                    details = `Формула Коула: 4 + возраст/4`;
+
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-additional">
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">straighten</span>
+                                    <span class="ett-additional-label">Глубина интубации:</span>
+                                    <span class="ett-additional-value">${depth} см (от губ)</span>
+                                </div>
+                                <div class="ett-additional-item ett-additional-alt">
+                                    <span class="material-symbols-rounded">swap_horiz</span>
+                                    <span class="ett-additional-label">Альтернативно:</span>
+                                    <span class="ett-additional-value">${depthAlt} см (12 + возраст/2)</span>
+                                </div>
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">linear_scale</span>
+                                    <span class="ett-additional-label">Размер стилета:</span>
+                                    <span class="ett-additional-value">${styletSize}</span>
+                                </div>
+                            </div>
+                            <div class="ett-safety-notes">
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">info</span>
+                                    <span>Классический выбор для детей < 8 лет</span>
+                                </div>
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">verified</span>
+                                    <span>Верификация: аускультация + капнография</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (age !== null && age <= 1) {
+                    let size = '3.0';
+                    if (age < 0.08) size = '3.0';
+                    else if (age < 0.5) size = '3.5';
+                    else size = '3.5–4.0';
+
+                    const depthInfant = age < 0.08 ? '9' : (age < 0.5 ? '10' : '11');
+
+                    value = `${size} ${equip.unit}`;
+                    details = age < 0.08 ? 'новорождённый' : `${age.toFixed(1)} лет`;
+
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-additional">
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">straighten</span>
+                                    <span class="ett-additional-label">Глубина:</span>
+                                    <span class="ett-additional-value">${depthInfant} см (от губ)</span>
+                                </div>
+                            </div>
+                            <div class="ett-safety-notes">
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">check_circle</span>
+                                    <span>Предпочтительный вариант для детей < 1 года</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
                 } else {
-                    value = '3.5 мм';
-                    details = 'Для детей < 1 года';
+                    value = '—';
+                    details = 'Укажите возраст';
                 }
                 break;
+            }
 
-            case 'laryngoscope':
-                if (weight < 5) value = '0 (прямой)';
-                else if (weight < 10) value = '1 (прямой)';
-                else if (weight < 20) value = '2 (прямой/изогнутый)';
-                else value = '3 (изогнутый)';
-                details = 'Miller или Macintosh';
-                break;
+            case 'ettCuffed': {
+                const age = this.ageYears;
+                let extraInfo = '';
+                if (age !== null && age > 1) {
+                    const cuffedSize = Math.round((3.5 + age / 4) * 2) / 2;
+                    const depth = Math.round(3 * cuffedSize * 10) / 10;
+                    const depthAlt = Math.round((12 + age / 2) * 10) / 10;
+                    const styletSize = cuffedSize <= 4.0 ? '6 Fr' : (cuffedSize <= 5.5 ? '10 Fr' : '14 Fr');
+                    const cuffVolume = cuffedSize <= 4.0 ? '2–3' : (cuffedSize <= 5.0 ? '3–5' : (cuffedSize <= 6.0 ? '5–7' : '7–10'));
 
-            case 'mask':
-                if (weight < 5) value = '0-1';
-                else if (weight < 10) value = '2';
-                else if (weight < 20) value = '3';
-                else if (weight < 40) value = '4';
-                else value = '5';
-                details = 'Размер по весу';
+                    value = `${cuffedSize} ${equip.unit}`;
+                    details = `Формула: 3.5 + возраст/4`;
+
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-additional">
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">straighten</span>
+                                    <span class="ett-additional-label">Глубина интубации:</span>
+                                    <span class="ett-additional-value">${depth} см (от губ)</span>
+                                </div>
+                                <div class="ett-additional-item ett-additional-alt">
+                                    <span class="material-symbols-rounded">swap_horiz</span>
+                                    <span class="ett-additional-label">Альтернативно:</span>
+                                    <span class="ett-additional-value">${depthAlt} см (12 + возраст/2)</span>
+                                </div>
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">speed</span>
+                                    <span class="ett-additional-label">Давление в манжете:</span>
+                                    <span class="ett-additional-value">${equip.minCuffPressure}–${equip.maxCuffPressure} см H₂O</span>
+                                </div>
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">water_drop</span>
+                                    <span class="ett-additional-label">Объём манжеты:</span>
+                                    <span class="ett-additional-value">${cuffVolume} мл воздуха</span>
+                                </div>
+                                <div class="ett-additional-item">
+                                    <span class="material-symbols-rounded">linear_scale</span>
+                                    <span class="ett-additional-label">Размер стилета:</span>
+                                    <span class="ett-additional-value">${styletSize}</span>
+                                </div>
+                            </div>
+                            <div class="ett-safety-notes">
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">info</span>
+                                    <span>Современные манжеты высокого объёма/низкого давления безопасны в любом возрасте</span>
+                                </div>
+                                <div class="safety-note safety-warning">
+                                    <span class="material-symbols-rounded">warning</span>
+                                    <span>Контроль давления манжеты каждые 4–6 часов, утечка при 20–25 см H₂O</span>
+                                </div>
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">verified</span>
+                                    <span>Верификация: аускультация + капнография + симметричная экскурсия</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (age !== null && age <= 1) {
+                    value = '—';
+                    details = 'Не применяется до 1 года';
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-safety-notes">
+                                <div class="safety-note safety-warning">
+                                    <span class="material-symbols-rounded">warning</span>
+                                    <span>У детей < 1 года используйте ЭТТ без манжеты</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    value = '—';
+                    details = 'Укажите возраст';
+                }
                 break;
+            }
+
+            case 'laryngoscope': {
+                if (weight === null || weight === undefined || isNaN(weight)) {
+                    value = '—';
+                    details = 'Укажите вес или возраст';
+                } else {
+                    if (weight < 3) {
+                        value = '0';
+                        details = 'Прямой (Miller) · < 3 кг';
+                    } else if (weight < 5) {
+                        value = '0';
+                        details = 'Прямой (Miller) · 3–5 кг';
+                    } else if (weight < 10) {
+                        value = '1';
+                        details = 'Прямой (Miller) · 5–10 кг';
+                    } else if (weight < 20) {
+                        value = '2';
+                        details = 'Прямой/Изогнутый · 10–20 кг';
+                    } else if (weight < 40) {
+                        value = '2';
+                        details = 'Изогнутый (Macintosh) · 20–40 кг';
+                    } else {
+                        value = '3';
+                        details = 'Изогнутый (Macintosh) · > 40 кг';
+                    }
+                }
+                break;
+            }
+
+            case 'mask': {
+                if (weight === null || weight === undefined || isNaN(weight)) {
+                    value = '—';
+                    details = 'Укажите вес или возраст';
+                } else {
+                    if (weight < 3) {
+                        value = '0';
+                        details = 'Новорождённый · < 3 кг';
+                    } else if (weight < 5) {
+                        value = '1';
+                        details = 'Младенец · 3–5 кг';
+                    } else if (weight < 10) {
+                        value = '2';
+                        details = 'Ребёнок · 5–10 кг';
+                    } else if (weight < 20) {
+                        value = '3';
+                        details = 'Ребёнок · 10–20 кг';
+                    } else if (weight < 40) {
+                        value = '4';
+                        details = 'Подросток · 20–40 кг';
+                    } else {
+                        value = '5';
+                        details = 'Взрослая · > 40 кг';
+                    }
+                }
+                break;
+            }
 
             case 'gastricTube': {
-                // Зонд для промывания желудка (орогастральный)
                 const age = this.ageYears;
                 let ageGroup = '';
                 let sizeRange = '';
-                let volumePerPortion = Math.round(weight * 10); // 10 мл/кг
-                const maxVolume = 300; // максимум 200-300 мл
+                let volumePerPortion = weight ? Math.round(weight * 10) : 0;
+                const maxVolume = 300;
 
-                if (age !== null && age < 1) {
-                    value = '—';
-                    details = 'Не рекомендуется';
-                    warning = '⛔ До 1 года крупнокалиберный зонд может вызвать брадикардию и ларингоспазм';
-                    extraInfo = '<div class="equip-alternative">Альтернатива: активированный уголь (при показаниях) + консультация токсиколога</div>';
-                    ageGroup = 'До 1 года';
-                } else if ((age !== null && age >= 1 && age < 4) || (age === null && weight >= 10 && weight < 16)) {
-                    sizeRange = '18–20';
-                    value = `${sizeRange} ${equip.unit}`;
-                    ageGroup = age !== null ? `${age.toFixed(1)} лет` : `${weight.toFixed(0)} кг`;
-                    details = `${ageGroup} (10–15 кг)`;
-                } else if ((age !== null && age >= 4 && age < 8) || (age === null && weight >= 16 && weight < 23)) {
-                    sizeRange = '20–22';
-                    value = `${sizeRange} ${equip.unit}`;
-                    ageGroup = age !== null ? `${age.toFixed(1)} лет` : `${weight.toFixed(0)} кг`;
-                    details = `${ageGroup} (16–22 кг)`;
-                } else if ((age !== null && age >= 8 && age < 13) || (age === null && weight >= 23 && weight < 41)) {
-                    sizeRange = '22–24';
-                    value = `${sizeRange} ${equip.unit}`;
-                    ageGroup = age !== null ? `${age.toFixed(1)} лет` : `${weight.toFixed(0)} кг`;
-                    details = `${ageGroup} (23–40 кг)`;
-                } else if ((age !== null && age >= 13) || (age === null && weight >= 41)) {
-                    sizeRange = '26–28';
-                    value = `${sizeRange} ${equip.unit}`;
-                    ageGroup = age !== null ? `${age.toFixed(1)} лет` : `${weight.toFixed(0)} кг`;
-                    details = `${ageGroup} (> 40 кг)`;
-                } else {
+                // Проверка наличия параметров
+                if ((age === null || age === undefined) && (!weight || weight === null || weight === undefined)) {
                     value = '—';
                     details = 'Укажите возраст или вес';
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-safety-notes">
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">info</span>
+                                    <span>Введите возраст или вес ребёнка для расчёта размера зонда</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (age !== null && age < 1) {
+                    value = '—';
+                    details = 'Не рекомендуется';
+                    ageGroup = 'До 1 года';
+                    warning = '⛔ До 1 года крупнокалиберный зонд может вызвать брадикардию и ларингоспазм';
+                    extraInfo = '<div class="equip-alternative">Альтернатива: активированный уголь (при показаниях) + консультация токсиколога</div>';
+                } else if (age !== null && age >= 1 && age < 4) {
+                    sizeRange = '18–20';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${age.toFixed(1)} лет`;
+                    details = `${ageGroup} (10–15 кг)`;
+                } else if (age !== null && age >= 4 && age < 8) {
+                    sizeRange = '20–22';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${age.toFixed(1)} лет`;
+                    details = `${ageGroup} (16–22 кг)`;
+                } else if (age !== null && age >= 8 && age < 13) {
+                    sizeRange = '22–24';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${age.toFixed(1)} лет`;
+                    details = `${ageGroup} (23–40 кг)`;
+                } else if (age !== null && age >= 13) {
+                    sizeRange = '26–28';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${age.toFixed(1)} лет`;
+                    details = `${ageGroup} (> 40 кг)`;
+                } else if (weight >= 10 && weight < 16) {
+                    sizeRange = '18–20';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${weight.toFixed(0)} кг`;
+                    details = `${ageGroup} (1–3 года)`;
+                } else if (weight >= 16 && weight < 23) {
+                    sizeRange = '20–22';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${weight.toFixed(0)} кг`;
+                    details = `${ageGroup} (4–7 лет)`;
+                } else if (weight >= 23 && weight < 41) {
+                    sizeRange = '22–24';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${weight.toFixed(0)} кг`;
+                    details = `${ageGroup} (8–12 лет)`;
+                } else if (weight >= 41) {
+                    sizeRange = '26–28';
+                    value = `${sizeRange} ${equip.unit}`;
+                    ageGroup = `${weight.toFixed(0)} кг`;
+                    details = `${ageGroup} (13–18 лет)`;
+                } else {
+                    value = '—';
+                    details = 'Недостаточно данных';
+                    extraInfo = `
+                        <div class="ett-details">
+                            <div class="ett-safety-notes">
+                                <div class="safety-note">
+                                    <span class="material-symbols-rounded">info</span>
+                                    <span>Вес менее 10 кг — зонд не рекомендуется</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
                 }
 
                 // Ограничение объёма порции максимумом
@@ -1265,12 +1499,12 @@ export default class PediatricPage {
                 }
 
                 // Дополнительные клинические примечания с расчётом порции
-                if (value !== '—') {
+                if (value !== '—' && sizeRange) {
                     extraInfo = `
-                        <div class="equip-safety-notes">
+                        <div class="ett-details">
                             <div class="safety-note safety-highlight">
                                 <span class="material-symbols-rounded">calculate</span>
-                                <span>Объём одной порции: <strong>${volumePerPortion} мл</strong> (${weight.toFixed(1)} кг × 10 мл/кг)</span>
+                                <span>Объём одной порции: <strong>${volumePerPortion} мл</strong> (${weight ? weight.toFixed(1) : '?'} кг × 10 мл/кг)</span>
                             </div>
                             <div class="safety-note">
                                 <span class="material-symbols-rounded">check_circle</span>

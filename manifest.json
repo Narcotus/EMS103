@@ -1,73 +1,73 @@
 {
-    "name": "EMS 103 — Скорая помощь Минск",
-    "short_name": "EMS 103",
-    "description": "Неофициальное справочное приложение для бригад скорой медицинской помощи г. Минска",
-    "start_url": "./index.html",
-    "scope": "./",
-    "display": "standalone",
-    "orientation": "portrait",
-    "background_color": "#FFF8F7",
-    "theme_color": "#8B1A1A",
-    "categories": ["medical", "health", "utilities"],
-    "lang": "ru-RU",
-    "dir": "ltr",
-    "id": "ems-103-minsk",
-    "icons": [
-        {
-            "src": "icons/favicon-16x16.png",
-            "sizes": "16x16",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/favicon-32x32.png",
-            "sizes": "32x32",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "icons/icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "icons/maskable-icon.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
-        },
-        {
-            "src": "icons/apple-touch-icon-180.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        }
-    ],
-    "shortcuts": [
-        {
-            "name": "Калькуляторы",
-            "short_name": "Калькуляторы",
-            "description": "Медицинские калькуляторы",
-            "url": "./index.html#calculators",
-            "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
-        },
-        {
-            "name": "Справочник",
-            "short_name": "Справочник",
-            "description": "Справочная информация",
-            "url": "./index.html#reference",
-            "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
-        },
-        {
-            "name": "Протоколы",
-            "short_name": "Протоколы",
-            "description": "Клинические рекомендации",
-            "url": "./index.html#guidelines",
-            "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
-        }
-    ]
+  "name": "EMS 103 — Скорая помощь Минск",
+  "short_name": "EMS 103",
+  "description": "Неофициальное справочное приложение для бригад скорой медицинской помощи г. Минска",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF8F7",
+  "theme_color": "#8B1A1A",
+  "categories": ["medical", "health", "utilities"],
+  "lang": "ru-RU",
+  "dir": "ltr",
+  "id": "ems-103-minsk",
+  "icons": [
+    {
+      "src": "icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Калькуляторы",
+      "short_name": "Калькуляторы",
+      "description": "Медицинские калькуляторы",
+      "url": "./index.html#calculators",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Справочник",
+      "short_name": "Справочник",
+      "description": "Справочная информация",
+      "url": "./index.html#reference",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Протоколы",
+      "short_name": "Протоколы",
+      "description": "Клинические рекомендации",
+      "url": "./index.html#guidelines",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }

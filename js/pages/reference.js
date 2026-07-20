@@ -10,7 +10,7 @@ export default class ReferencePage {
 
     async render() {
         try {
-            const res = await fetch('data/reference.json');
+            const res = await fetch('data/references.json');
             const data = await res.json();
             this.engine.setItems(data);
         } catch (e) {

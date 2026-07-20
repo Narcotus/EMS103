@@ -38,7 +38,6 @@ class App {
             'odn-scale': () => import('./pages/odn-scale.js'),
             'shsn-scale': () => import('./pages/shsn-scale.js'),
             'sgarbossa': () => import('./pages/sgarbossa.js'),
-            'ett-size': () => import('./pages/ett-size.js'),
             'qtc-bazett': () => import('./pages/qtc-bazett.js'),
             'apgar': () => import('./pages/apgar.js'),
             'ciwa-ar': () => import('./pages/ciwa-ar.js'),
