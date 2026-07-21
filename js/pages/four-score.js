@@ -92,7 +92,7 @@ export default class FourScorePage {
         });
 
         this.container.innerHTML = `
-
+            <div class="page-content calc-page four-page">
                 ${renderCalcHeader(this.data)}
 
                 <div class="calc-description card card-outlined">

@@ -441,11 +441,10 @@ export default class PediatricPage {
         bindInfoButton(this.data);
     }
 
-    renderFullPage() {
-        this.container.innerHTML = `
-
+        renderFullPage() {
+            this.container.innerHTML = `
+                <div class="page-content calc-page pediatric-page">
                 ${renderCalcHeader(this.data)}
-
                 <div class="calc-description card card-outlined">
                     <div style="display: flex; gap: 10px; align-items: flex-start;">
                         <span class="material-symbols-rounded" style="color: var(--md-primary); font-size: 20px; flex-shrink: 0;">info</span>
@@ -461,47 +460,48 @@ export default class PediatricPage {
                     </div>
                     <div class="pediatric-input-grid">
                         <div class="pediatric-input-group">
-                            <label class="pediatric-input-label">
-                                <span class="material-symbols-rounded">scale</span>
-                                Вес
-                            </label>
                             <div class="pediatric-field-wrapper">
+                                <div class="pediatric-field-bg-left">
+                                    <span class="material-symbols-rounded">scale</span>
+                                    <span>Вес</span>
+                                </div>
+                                <div class="pediatric-field-bg-center">1–120</div>
                                 <input type="number" id="weight-input" class="pediatric-field"
                                     min="${this.limits.weight.min}" 
                                     max="${this.limits.weight.max}" 
                                     step="0.1" 
-                                    placeholder="${this.limits.weight.min}–${this.limits.weight.max}"
                                     inputmode="decimal">
                                 <span class="pediatric-field-unit">кг</span>
                             </div>
                         </div>
                         <div class="pediatric-input-group">
-                            <label class="pediatric-input-label">
-                                <span class="material-symbols-rounded">height</span>
-                                Рост
-                            </label>
                             <div class="pediatric-field-wrapper">
+                                <div class="pediatric-field-bg-left">
+                                    <span class="material-symbols-rounded">height</span>
+                                    <span>Рост</span>
+                                </div>
+                                <div class="pediatric-field-bg-center">40–200</div>
                                 <input type="number" id="height-input" class="pediatric-field"
                                     min="${this.limits.height.min}" 
                                     max="${this.limits.height.max}" 
                                     step="0.5" 
-                                    placeholder="${this.limits.height.min}–${this.limits.height.max}"
                                     inputmode="decimal">
                                 <span class="pediatric-field-unit">см</span>
                             </div>
                         </div>
                         <div class="pediatric-input-group">
-                            <label class="pediatric-input-label">
-                                <span class="material-symbols-rounded">cake</span>
-                                Возраст
-                            </label>
                             <div class="pediatric-field-wrapper">
+                                <div class="pediatric-field-bg-left">
+                                    <span class="material-symbols-rounded">cake</span>
+                                    <span>Возраст</span>
+                                </div>
+                                <div class="pediatric-field-bg-center">0–18</div>
                                 <input type="number" id="age-input" class="pediatric-field"
                                     min="${this.limits.age.min}" 
                                     max="${this.limits.age.max}" 
                                     step="0.1" 
-                                    placeholder="${this.limits.age.min}–${this.limits.age.max}"
                                     inputmode="decimal">
+
                                 <span class="pediatric-field-unit">лет</span>
                             </div>
                         </div>
@@ -511,11 +511,12 @@ export default class PediatricPage {
                 <!-- Баннер предупреждений -->
                 <div id="limits-warning" class="limits-warning" style="display: none;"></div>
 
-                <div id="result-panel">
-                    ${this.renderResults()}
-                </div>
+            <div id="result-panel">
+                ${this.renderResults()}
             </div>
-        `;
+            </div>
+        </div>
+    `;
     }
 
     renderResults() {
@@ -1192,6 +1193,9 @@ export default class PediatricPage {
     // ═══════════════════════════════════════
 
     renderEquipment(equipId, weight) {
+        // Вычисляем эффективный возраст (прямой ввод или оценка по весу/росту)
+        const effectiveAge = this.getEffectiveAge();
+        
         const equip = this.data.equipment[equipId];
         let value = '';
         let details = '';
@@ -1200,8 +1204,9 @@ export default class PediatricPage {
 
         switch (equipId) {
             case 'ettUncuffed': {
-                const age = this.ageYears;
+                const age = effectiveAge; // Используем эффективный возраст
                 let extraInfo = '';
+
                 if (age !== null && age > 1) {
                     const uncuffedSize = Math.round((4 + age / 4) * 2) / 2;
                     const depth = Math.round(3 * uncuffedSize * 10) / 10;
@@ -1272,14 +1277,15 @@ export default class PediatricPage {
                     `;
                 } else {
                     value = '—';
-                    details = 'Укажите возраст';
+                    details = 'Укажите возраст или вес';
                 }
                 break;
             }
 
             case 'ettCuffed': {
-                const age = this.ageYears;
+                const age = effectiveAge; // Используем эффективный возраст
                 let extraInfo = '';
+
                 if (age !== null && age > 1) {
                     const cuffedSize = Math.round((3.5 + age / 4) * 2) / 2;
                     const depth = Math.round(3 * cuffedSize * 10) / 10;
@@ -1350,7 +1356,7 @@ export default class PediatricPage {
                     `;
                 } else {
                     value = '—';
-                    details = 'Укажите возраст';
+                    details = 'Укажите возраст или вес';
                 }
                 break;
             }
@@ -1786,7 +1792,15 @@ export default class PediatricPage {
             this.heightCm = (!isNaN(h) && heightInput.value.trim() !== '') ? h : null;
             this.ageYears = (!isNaN(a) && ageInput.value.trim() !== '') ? a : null;
 
-            this.validateLimits(); // ← НОВОЕ: валидация
+            // Переключаем класс has-value на WRAPPER (не на input)
+            weightInput.closest('.pediatric-field-wrapper')
+                ?.classList.toggle('has-value', weightInput.value.trim() !== '');
+            heightInput.closest('.pediatric-field-wrapper')
+                ?.classList.toggle('has-value', heightInput.value.trim() !== '');
+            ageInput.closest('.pediatric-field-wrapper')
+                ?.classList.toggle('has-value', ageInput.value.trim() !== '');
+
+            this.validateLimits();
             this.updateResults();
         };
 

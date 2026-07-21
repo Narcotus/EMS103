@@ -1,143 +1,240 @@
-// ============================================
-// Storage Manager - управление избранным и недавними
-// ============================================
+/**
+ * Storage wrapper с защитой от переполнения
+ */
 
-const STORAGE_KEYS = {
-    FAVORITES: 'ems103-favorites',
-    RECENT: 'ems103-recent',
-    THEME: 'ems103-theme-mode',
-    SEARCH_HISTORY: 'ems103-search-history'
-};
+const MAX_ITEM_SIZE = 4096; // 4 КБ на элемент (безопасный лимит)
+const MAX_TOTAL_SIZE = 4 * 1024 * 1024; // 4 МБ общий лимит
 
-const MAX_RECENT = 15;
+class Storage {
+    constructor() {
+        this.recentKey = 'recent-calculators';
+        this.favoritesKey = 'favorite-calculators';
+        this.historyKey = 'calculation-history';
+        this.maxRecent = 10;
+        this.maxHistory = 50;
+    }
 
-class StorageManager {
     /**
-     * Читает массив из localStorage
+     * Безопасное сохранение в LocalStorage
      */
-    _read(key) {
+    safeSet(key, value) {
         try {
-            return JSON.parse(localStorage.getItem(key) || '[]');
-        } catch {
-            return [];
+            const jsonString = JSON.stringify(value);
+            
+            // Проверка размера элемента
+            if (jsonString.length > MAX_ITEM_SIZE) {
+                console.warn(`⚠️ Данные для ключа "${key}" слишком велики (${jsonString.length} байт), обрезаем`);
+                return this.setWithTruncation(key, value);
+            }
+            
+            // Проверка общего размера
+            if (!this.checkTotalQuota(jsonString.length)) {
+                console.warn('⚠️ LocalStorage переполнен, очищаем старые данные');
+                this.cleanup();
+            }
+            
+            localStorage.setItem(key, jsonString);
+            return true;
+        } catch (error) {
+            console.error(`❌ Ошибка сохранения в LocalStorage (${key}):`, error);
+            
+            // Если QuotaExceededError — пытаемся очистить
+            if (error.name === 'QuotaExceededError' || 
+                error.code === 22 || 
+                error.code === 1014) {
+                this.cleanup();
+                // Повторная попытка
+                try {
+                    const jsonString = JSON.stringify(value);
+                    localStorage.setItem(key, jsonString);
+                    return true;
+                } catch (retryError) {
+                    console.error('❌ Повторная попытка не удалась:', retryError);
+                    return false;
+                }
+            }
+            
+            return false;
         }
     }
 
     /**
-     * Записывает массив в localStorage
+     * Сохранение с обрезкой данных
      */
-    _write(key, data) {
+    setWithTruncation(key, value) {
         try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (e) {
-            console.error('Storage write error:', e);
+            if (Array.isArray(value)) {
+                // Для массивов — уменьшаем количество элементов
+                const truncated = value.slice(0, Math.floor(value.length / 2));
+                return this.safeSet(key, truncated);
+            }
+            
+            if (typeof value === 'object' && value !== null) {
+                // Для объектов — удаляем большие поля
+                const truncated = {};
+                for (const [k, v] of Object.entries(value)) {
+                    if (typeof v === 'string' && v.length > 500) {
+                        truncated[k] = v.substring(0, 500) + '...';
+                    } else {
+                        truncated[k] = v;
+                    }
+                }
+                return this.safeSet(key, truncated);
+            }
+            
+            return false;
+        } catch (error) {
+            console.error('❌ Ошибка обрезки данных:', error);
+            return false;
         }
     }
 
-    // ============ ИЗБРАННОЕ ============
-
     /**
-     * Получить список избранного
+     * Проверка общего размера LocalStorage
      */
-    getFavorites() {
-        return this._read(STORAGE_KEYS.FAVORITES);
+    checkTotalQuota(newDataSize = 0) {
+        try {
+            let totalSize = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                totalSize += key.length + value.length;
+            }
+            return (totalSize + newDataSize) < MAX_TOTAL_SIZE;
+        } catch (error) {
+            return true; // Если не можем проверить — разрешаем
+        }
     }
 
     /**
-     * Проверить, в избранном ли элемент
+     * Очистка старых данных
      */
-    isFavorite(id) {
-        return this.getFavorites().some(item => item.id === id);
+    cleanup() {
+        try {
+            // Удаляем историю (самая большая)
+            localStorage.removeItem(this.historyKey);
+            
+            // Обрезаем недавние до 5
+            const recent = this.getRecent();
+            if (recent.length > 5) {
+                this.safeSet(this.recentKey, recent.slice(0, 5));
+            }
+            
+            console.log('✅ LocalStorage очищен');
+        } catch (error) {
+            console.error('❌ Ошибка очистки:', error);
+        }
+    }
+
+    /**
+     * Безопасное чтение из LocalStorage
+     */
+    safeGet(key, defaultValue = null) {
+        try {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : defaultValue;
+        } catch (error) {
+            console.error(`❌ Ошибка чтения из LocalStorage (${key}):`, error);
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Добавить в недавние
+     */
+    addRecent(item) {
+        const recent = this.getRecent();
+        const filtered = recent.filter(r => r.id !== item.id);
+        filtered.unshift(item);
+        
+        if (filtered.length > this.maxRecent) {
+            filtered.length = this.maxRecent;
+        }
+        
+        return this.safeSet(this.recentKey, filtered);
+    }
+
+    /**
+     * Получить недавние
+     */
+    getRecent() {
+        return this.safeGet(this.recentKey, []);
     }
 
     /**
      * Добавить в избранное
      */
-    addFavorite(item) {
-        const favorites = this.getFavorites().filter(f => f.id !== item.id);
-        favorites.unshift({
-            ...item,
-            addedAt: new Date().toISOString()
-        });
-        this._write(STORAGE_KEYS.FAVORITES, favorites);
+    addFavorite(id) {
+        const favorites = this.getFavorites();
+        if (!favorites.includes(id)) {
+            favorites.push(id);
+            return this.safeSet(this.favoritesKey, favorites);
+        }
+        return true;
     }
 
     /**
      * Удалить из избранного
      */
     removeFavorite(id) {
-        const favorites = this.getFavorites().filter(f => f.id !== id);
-        this._write(STORAGE_KEYS.FAVORITES, favorites);
+        const favorites = this.getFavorites();
+        const filtered = favorites.filter(f => f !== id);
+        return this.safeSet(this.favoritesKey, filtered);
     }
 
     /**
-     * Переключить избранное (toggle)
+     * Получить избранное
      */
-    toggleFavorite(item) {
-        if (this.isFavorite(item.id)) {
-            this.removeFavorite(item.id);
-            return false;
-        } else {
-            this.addFavorite(item);
-            return true;
-        }
+    getFavorites() {
+        return this.safeGet(this.favoritesKey, []);
     }
 
     /**
-     * Очистить всё избранное
+     * Проверить, в избранном ли
      */
-    clearFavorites() {
-        this._write(STORAGE_KEYS.FAVORITES, []);
-    }
-
-    // ============ НЕДАВНИЕ ============
-
-    /**
-     * Получить список недавних (макс 15)
-     */
-    getRecent() {
-        return this._read(STORAGE_KEYS.RECENT).slice(0, MAX_RECENT);
+    isFavorite(id) {
+        return this.getFavorites().includes(id);
     }
 
     /**
-     * Добавить в недавние (или обновить позицию)
+     * Добавить в историю расчётов
      */
-    addRecent(item) {
-        let recent = this._read(STORAGE_KEYS.RECENT).filter(r => r.id !== item.id);
-        recent.unshift({
-            ...item,
-            viewedAt: new Date().toISOString()
+    addHistory(calculatorId, result) {
+        const history = this.getHistory();
+        history.unshift({
+            id: calculatorId,
+            result: result,
+            timestamp: Date.now()
         });
-        recent = recent.slice(0, MAX_RECENT);
-        this._write(STORAGE_KEYS.RECENT, recent);
+        
+        if (history.length > this.maxHistory) {
+            history.length = this.maxHistory;
+        }
+        
+        return this.safeSet(this.historyKey, history);
     }
 
     /**
-     * Удалить из недавних
+     * Получить историю
      */
-    removeRecent(id) {
-        const recent = this._read(STORAGE_KEYS.RECENT).filter(r => r.id !== id);
-        this._write(STORAGE_KEYS.RECENT, recent);
+    getHistory() {
+        return this.safeGet(this.historyKey, []);
     }
 
     /**
-     * Очистить всю историю недавних
+     * Очистить историю
      */
-    clearRecent() {
-        this._write(STORAGE_KEYS.RECENT, []);
+    clearHistory() {
+        localStorage.removeItem(this.historyKey);
     }
 
-    // ============ ОБЩЕЕ ============
-
     /**
-     * Очистить все данные приложения
+     * Полная очистка
      */
     clearAll() {
-        Object.values(STORAGE_KEYS).forEach(key => {
-            localStorage.removeItem(key);
-        });
+        localStorage.clear();
+        console.log('✅ Все данные удалены');
     }
 }
 
-// Singleton
-export const storage = new StorageManager();
+export const storage = new Storage();

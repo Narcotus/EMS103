@@ -919,3 +919,130 @@ body {
         font-size: 12px;
     }
 }
+
+:root {
+    /* Material Design 3 — бордовая тема */
+    --md-font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+    
+    /* Основные цвета */
+    --md-primary: #8B1A1A;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #FFDAD6;
+    --md-on-primary-container: #410002;
+    
+    --md-secondary: #775652;
+    --md-on-secondary: #FFFFFF;
+    --md-secondary-container: #FFDAD6;
+    --md-on-secondary-container: #2C1512;
+    
+    --md-tertiary: #6750A4;
+    --md-on-tertiary: #FFFFFF;
+    --md-tertiary-container: #E8DEF8;
+    --md-on-tertiary-container: #1D192B;
+    
+    --md-error: #B3261E;
+    --md-on-error: #FFFFFF;
+    --md-error-container: #F9DEDC;
+    --md-on-error-container: #410E0B;
+    
+    --md-warning: #FF8F00;
+    --md-on-warning: #FFFFFF;
+    --md-warning-container: #FFDDB3;
+    --md-on-warning-container: #2A1800;
+    
+    --md-success: #2E7D32;
+    --md-on-success: #FFFFFF;
+    --md-success-container: #C8E6C9;
+    --md-on-success-container: #1B5E20;
+    
+    /* Поверхности */
+    --md-surface: #FEF7FF;
+    --md-on-surface: #1D1B20;
+    --md-surface-container: #F3EDF7;
+    --md-surface-container-low: #F7F2FA;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-high: #ECE6F0;
+    --md-on-surface-variant: #49454F;
+    
+    /* Границы */
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    
+    /* Тени */
+    --md-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --md-elevation-2: 0 2px 6px rgba(0, 0, 0, 0.15);
+    --md-elevation-4: 0 8px 32px rgba(0, 0, 0, 0.2);
+    
+    /* Формы */
+    --md-shape-xs: 4px;
+    --md-shape-sm: 8px;
+    --md-shape-md: 12px;
+    --md-shape-lg: 16px;
+    --md-shape-xl: 28px;
+    --md-shape-full: 999px;
+
+        /* RGB версии для rgba() и backdrop-filter */
+    --md-surface-rgb: 254, 247, 255;
+}
+
+[data-theme="dark"] {
+    /* ... существующие переменные ... */
+    
+    --md-surface-rgb: 29, 27, 32;
+}
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+    --md-primary: #FFB4AB;
+    --md-on-primary: #690005;
+    --md-primary-container: #93000A;
+    --md-on-primary-container: #FFDAD6;
+    
+    --md-surface: #1D1B20;
+    --md-on-surface: #E6E0E9;
+    --md-surface-container: #211F26;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-high: #2B2930;
+    --md-on-surface-variant: #CAC4D0;
+    
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+}
+
+/* Базовые сбросы */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--md-font-family);
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* Material Symbols настройки */
+.material-symbols-rounded {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    vertical-align: middle;
+}
+
+/* Скрыть нижнюю навигацию на страницах калькуляторов */
+body:has(.calc-page) .bottom-nav,
+body:has(.calc-page) .app-nav,
+body:has(.calc-page) .bottom-navigation,
+body:has(.calc-page) .navigation,
+body:has(.calc-page) .footer-nav {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

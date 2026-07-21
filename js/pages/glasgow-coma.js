@@ -128,7 +128,7 @@ export default class GlasgowComaPage {
         });
 
         this.container.innerHTML = `
-
+            <div class="page-content calc-page gcs-page">
                 ${renderCalcHeader(this.data)}
 
                 <div class="calc-description card card-outlined">
@@ -323,6 +323,15 @@ export default class GlasgowComaPage {
         const panel = document.getElementById('result-panel');
         if (panel) {
             panel.innerHTML = this.renderResult();
+            
+            // Добавляем класс для анимации пульсации
+            const resultContent = panel.querySelector('.result-content');
+            if (resultContent) {
+                resultContent.classList.add('updating');
+                setTimeout(() => resultContent.classList.remove('updating'), 300);
+            }
+            
+            // Привязываем кнопку сброса
             panel.querySelector('.result-reset')?.addEventListener('click', () => {
                 this.resetAll();
             });

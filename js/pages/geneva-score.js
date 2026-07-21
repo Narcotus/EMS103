@@ -64,7 +64,7 @@ export default class GenevaScorePage {
         });
 
         this.container.innerHTML = `
-
+            <div class="page-content calc-page geneva-page">
                 ${renderCalcHeader(this.data)}
 
                 <div class="calc-description card card-outlined">
@@ -74,17 +74,21 @@ export default class GenevaScorePage {
                     </div>
                 </div>
 
-                <div class="calc-items">
+                <div class="geneva-items">
                     ${this.data.items.map(item => `
-                        <label class="calc-item ripple" data-id="${item.id}" data-points="${item.points}" ${item.group ? `data-group="${item.group}"` : ''}>
+                        <div class="calc-item ripple ${item.group ? 'calc-item-radio' : ''}" 
+                             data-id="${item.id}" 
+                             data-points="${item.points}" 
+                             ${item.group ? `data-group="${item.group}"` : ''}>
                             <div class="calc-item-checkbox">
-                                <span class="material-symbols-rounded check-icon">check</span>
+                                <span class="material-symbols-rounded">check</span>
                             </div>
                             <div class="calc-item-content">
                                 <div class="calc-item-title">${item.title}</div>
+                                ${item.group ? `<div class="calc-item-hint">Радио-группа: выберите один вариант</div>` : ''}
                             </div>
                             <div class="calc-item-points">+${item.points}</div>
-                        </label>
+                        </div>
                     `).join('')}
                 </div>
 
@@ -143,36 +147,45 @@ export default class GenevaScorePage {
     }
 
     setupEventListeners() {
+        // Делегирование событий для всех критериев
         document.querySelectorAll('.calc-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.toggleItem(item);
             });
         });
-
-        document.querySelector('.result-reset')?.addEventListener('click', () => {
-            this.resetAll();
-        });
     }
 
     toggleItem(item) {
         const id = item.dataset.id;
         const group = item.dataset.group;
-        
+        const isChecked = item.classList.contains('checked');
+
+        // Логика для радио-групп (ЧСС)
         if (group) {
-            document.querySelectorAll(`.calc-item[data-group="${group}"]`).forEach(other => {
-                if (other !== item && other.classList.contains('checked')) {
+            if (isChecked) {
+                // Снять выбор
+                item.classList.remove('checked');
+                this.checkedItems.delete(id);
+            } else {
+                // Снять выбор с других элементов той же группы
+                document.querySelectorAll(`.calc-item[data-group="${group}"]`).forEach(other => {
                     other.classList.remove('checked');
                     this.checkedItems.delete(other.dataset.id);
-                }
-            });
-        }
-
-        const isChecked = item.classList.toggle('checked');
-        if (isChecked) {
-            this.checkedItems.add(id);
+                });
+                // Выбрать текущий
+                item.classList.add('checked');
+                this.checkedItems.add(id);
+            }
         } else {
-            this.checkedItems.delete(id);
+            // Обычный чекбокс
+            if (isChecked) {
+                item.classList.remove('checked');
+                this.checkedItems.delete(id);
+            } else {
+                item.classList.add('checked');
+                this.checkedItems.add(id);
+            }
         }
 
         this.updateResult();

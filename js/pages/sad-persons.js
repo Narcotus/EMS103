@@ -50,7 +50,7 @@ export default class SadPersonsPage {
                     min: 5, max: 6,
                     label: "Высокий риск",
                     description: "Рекомендовать госпитализацию, если нет уверенности в качественном амбулаторном наблюдении (психиатрическая и социальная служба, родственники).",
-                    color: "pesi-4"
+                    color: "warning-high"
                 },
                 {
                     min: 7, max: 10,
@@ -72,7 +72,7 @@ export default class SadPersonsPage {
         });
 
         this.container.innerHTML = `
-
+            <div class="page-content calc-page sad-persons-page">
                 ${renderCalcHeader(this.data)}
 
                 <div class="calc-description card card-outlined">

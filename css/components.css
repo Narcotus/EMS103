@@ -1828,3 +1828,192 @@ textarea:focus {
     color: var(--md-primary);
     transition: color 0.2s;
 }
+
+/* ============================================
+   МОДАЛЬНОЕ ОКНО ИНФОРМАЦИИ
+   ============================================ */
+
+.info-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 20px;
+}
+
+.info-modal-backdrop.open {
+    opacity: 1;
+}
+
+.info-modal {
+    background: var(--md-surface);
+    border-radius: var(--md-shape-xl);
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--md-elevation-4);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.info-modal-backdrop.open .info-modal {
+    transform: scale(1);
+}
+
+.info-modal-header {
+    padding: 20px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.info-modal-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-modal-icon .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.info-modal-title {
+    font: 600 18px/1.3 var(--md-font-family);
+    margin: 0;
+    flex: 1;
+}
+
+.info-modal-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.info-modal-close:hover {
+    background: rgba(0, 0, 0, 0.2);
+    transform: rotate(90deg);
+}
+
+.info-modal-close .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.info-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.info-modal-body p {
+    font: 400 14px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin: 0 0 12px;
+}
+
+.info-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+.info-modal-note {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-md);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.info-modal-note .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.info-modal-note p {
+    margin: 0;
+    color: inherit;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.info-modal-legal {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-md);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.info-modal-legal .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.info-modal-legal p {
+    margin: 0;
+    color: inherit;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+@media (max-width: 600px) {
+    .info-modal-backdrop {
+        padding: 10px;
+    }
+
+    .info-modal {
+        max-height: 90vh;
+    }
+
+    .info-modal-header {
+        padding: 16px;
+    }
+
+    .info-modal-title {
+        font-size: 16px;
+    }
+
+    .info-modal-body {
+        padding: 16px;
+    }
+
+    .info-modal-body p {
+        font-size: 13px;
+        line-height: 20px;
+    }
+}

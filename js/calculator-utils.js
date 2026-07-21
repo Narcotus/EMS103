@@ -1,9 +1,9 @@
-// ============================================
-// Утилиты для калькуляторов
-// ============================================
+/**
+ * Утилиты для калькуляторов
+ */
 
 /**
- * Рендерит заголовок калькулятора с breadcrumb и info-кнопкой
+ * Рендеринг заголовка калькулятора
  */
 export function renderCalcHeader(data) {
     return `
@@ -13,6 +13,7 @@ export function renderCalcHeader(data) {
                 <span>Калькуляторы</span>
             </a>
         </div>
+
         <div class="calc-header">
             <div class="calc-header-content">
                 <div class="calc-icon-wrapper">
@@ -31,39 +32,52 @@ export function renderCalcHeader(data) {
 }
 
 /**
- * Создаёт и открывает модальное окно со справочной информацией
+ * Привязка обработчика к кнопке информации калькулятора
  */
-export function openReferenceModal(data) {
-    const existing = document.getElementById('reference-modal');
-    if (existing) existing.remove();
+export function bindInfoButton(data) {
+    const infoBtn = document.getElementById('calc-info-btn');
+    if (!infoBtn) {
+        console.warn('Кнопка информации не найдена');
+        return;
+    }
 
+    infoBtn.addEventListener('click', () => {
+        showInfoModal(data);
+    });
+}
+
+/**
+ * Показать модальное окно с информацией
+ */
+function showInfoModal(data) {
+    const reference = data.reference || {};
+    const paragraphs = reference.paragraphs || [];
+    
     const modal = document.createElement('div');
-    modal.id = 'reference-modal';
-    modal.className = 'reference-modal';
+    modal.className = 'info-modal-backdrop';
     modal.innerHTML = `
-        <div class="reference-modal-backdrop"></div>
-        <div class="reference-modal-content">
-            <div class="reference-modal-header">
-                <div class="reference-modal-header-icon">
-                    <span class="material-symbols-rounded">menu_book</span>
+        <div class="info-modal" role="dialog" aria-modal="true">
+            <div class="info-modal-header">
+                <div class="info-modal-icon">
+                    <span class="material-symbols-rounded">${data.icon || 'info'}</span>
                 </div>
-                <h3 class="reference-modal-title">${data.reference?.title || 'О шкале'}</h3>
-                <button class="reference-modal-close" aria-label="Закрыть">
+                <h2 class="info-modal-title">${reference.title || 'Информация'}</h2>
+                <button class="info-modal-close" aria-label="Закрыть">
                     <span class="material-symbols-rounded">close</span>
                 </button>
             </div>
-            <div class="reference-modal-body">
-                ${(data.reference?.paragraphs || []).map(p => `<p>${p}</p>`).join('')}
-                ${data.reference?.importantNote ? `
-                    <div class="calc-important-note">
+            <div class="info-modal-body">
+                ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+                ${reference.importantNote ? `
+                    <div class="info-modal-note">
                         <span class="material-symbols-rounded">warning</span>
-                        <strong>${data.reference.importantNote}</strong>
+                        <p>${reference.importantNote}</p>
                     </div>
                 ` : ''}
-                ${data.reference?.legalReference ? `
-                    <div class="calc-legal-reference">
+                ${reference.legalReference ? `
+                    <div class="info-modal-legal">
                         <span class="material-symbols-rounded">gavel</span>
-                        <em>${data.reference.legalReference}</em>
+                        <p>${reference.legalReference}</p>
                     </div>
                 ` : ''}
             </div>
@@ -71,38 +85,27 @@ export function openReferenceModal(data) {
     `;
 
     document.body.appendChild(modal);
-
+    
+    // Анимация появления
     requestAnimationFrame(() => {
         modal.classList.add('open');
     });
 
-    document.body.style.overflow = 'hidden';
-
-    const close = () => {
+    // Закрытие модалки
+    const closeModal = () => {
         modal.classList.remove('open');
-        document.body.style.overflow = '';
-        setTimeout(() => modal.remove(), 250);
+        setTimeout(() => modal.remove(), 300);
+        document.removeEventListener('keydown', escHandler);
     };
 
-    modal.querySelector('.reference-modal-backdrop')?.addEventListener('click', close);
-    modal.querySelector('.reference-modal-close')?.addEventListener('click', close);
+    modal.querySelector('.info-modal-close')?.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
 
     const escHandler = (e) => {
-        if (e.key === 'Escape') {
-            close();
-            document.removeEventListener('keydown', escHandler);
-        }
+        if (e.key === 'Escape') closeModal();
     };
     document.addEventListener('keydown', escHandler);
-}
-
-/**
- * Подключает обработчик клика на info-кнопку
- * ИСПРАВЛЕНО: ищет правильный ID 'calc-info-btn'
- */
-export function bindInfoButton(data) {
-    const btn = document.getElementById('calc-info-btn');
-    if (btn) {
-        btn.addEventListener('click', () => openReferenceModal(data));
-    }
 }
