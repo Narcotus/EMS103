@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FEF7FF">
+    <meta name="description" content="EMS 103 — справочное приложение для бригад скорой медицинской помощи г. Минска">
+    <title>Главная · EMS 103 · Минск</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/md3-theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Базовые стили калькуляторов (загружаются всегда) -->
+    <link rel="stylesheet" href="css/calculator-base.css">
+    
+    <!-- Ранняя инициализация темы (устраняет мигание) -->
+    <script>
+    (function() {
+        try {
+            // ✅ Унифицированный ключ (совпадает с theme-manager.js и storage.js)
+            const mode = localStorage.getItem('ems_theme') || 'auto-system';
+            let theme = 'light';
+            
+            switch (mode) {
+                case 'light':
+                    theme = 'light';
+                    break;
+                case 'dark':
+                    theme = 'dark';
+                    break;
+                case 'auto-system':
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    break;
+                case 'auto-time': {
+                    const hour = new Date().getHours();
+                    theme = (hour >= 7 && hour < 20) ? 'light' : 'dark';
+                    break;
+                }
+            }
+            
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // ✅ Синхронизация meta theme-color с темой
+            const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+            if (metaThemeColor) {
+                metaThemeColor.content = theme === 'dark' ? '#1D1B20' : '#FEF7FF';
+            }
+        } catch (e) {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+    </script>
+</head>
+<body>
+    <!-- Top App Bar (рендерится через JS) -->
+    <header id="top-bar"></header>
+    
+    <!-- Navigation Drawer (рендерится через JS) -->
+    <nav id="nav-drawer" class="nav-drawer"></nav>
+    
+    <!-- Scrim (затемнение для drawer) -->
+    <div id="scrim" class="scrim"></div>
+    
+    <!-- Main Content (роутинг сюда) -->
+    <main id="app-content" class="app-content"></main>
+    
+    <!-- Bottom Navigation (рендерится через JS) -->
+    <nav id="bottom-nav" class="bottom-nav"></nav>
+    
+    <!-- Snackbar для уведомлений -->
+    <div id="snackbar" class="snackbar"></div>
+    
+    <!-- Noscript fallback -->
+    <noscript>
+        <div style="padding: 40px; text-align: center;">
+            <h2>⚠️ JavaScript отключён</h2>
+            <p>Для работы EMS 103 включите JavaScript в настройках браузера.</p>
+        </div>
+    </noscript>
+    
+    <!-- Main application -->
+    <script type="module" src="js/app.js"></script>
+    
+    <!-- Service Worker registration (отключено — вызывает проблемы с quota) -->
+    <!-- Если SW исправлен и работает корректно, раскомментируйте:
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('✅ SW registered'))
+                .catch(err => console.log('❌ SW failed:', err));
+        });
+    }
+    </script>
+    -->
+</body>
+</html>

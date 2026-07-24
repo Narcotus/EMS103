@@ -1,0 +1,18 @@
+{
+  "name": "ems103",
+  "version": "1.0.0",
+  "description": "1. Скачайте всю папку `ems-103`\r 2. Откройте `index.html` в Chrome/Edge\r    ⚠️ Для работы модулей нужен локальный сервер:\r    - Установите VS Code + расширение \"Live Server\"\r    - ИЛИ запустите `python -m http.server 8000` в папке проекта\r    - Откройте `http://localhost:8000`",
+  "main": "sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@capacitor/android": "^8.4.2",
+    "@capacitor/cli": "^8.4.2",
+    "@capacitor/core": "^8.4.2"
+  }
+}

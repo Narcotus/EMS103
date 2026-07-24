@@ -1,0 +1,170 @@
+/* ============================================
+   SAD PERSONS — ШКАЛА ОЦЕНКИ РИСКА СУИЦИДА
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.sad-persons-page {
+    padding-bottom: 240px !important;
+}
+
+/* Контейнер критериев */
+.sad-persons-page .calc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   ПРЕДУПРЕЖДЕНИЕ О ПЛАНЕ СУИЦИДА
+   ============================================ */
+
+.sad-persons-plan-warning {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--md-error-container) !important;
+    color: var(--md-on-error-container) !important;
+    border-radius: var(--md-shape-md);
+    border-left: 4px solid var(--md-error);
+    font: 600 13px/18px var(--md-font-family);
+}
+
+.sad-persons-plan-warning .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+    color: var(--md-error);
+}
+
+/* Общее предупреждение в result-info */
+.result-info .result-warning {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: 8px;
+    font: 600 13px/18px var(--md-font-family);
+    border-left: 4px solid currentColor;
+    animation: warningPulse 2s ease-in-out infinite;
+}
+
+@keyframes warningPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+/* ============================================
+   ЦВЕТА РЕЗУЛЬТАТОВ SAD PERSONS
+   ============================================ */
+
+/* Низкий риск (0-2) — зелёный */
+.sad-persons-page .result-content.result-success {
+    background: #2E7D32 !important;
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-success .result-score-value,
+.sad-persons-page .result-content.result-success .result-score-label,
+.sad-persons-page .result-content.result-success .result-label,
+.sad-persons-page .result-content.result-success .result-description {
+    color: #FFFFFF !important;
+}
+
+/* Средний риск (3-4) — жёлтый */
+.sad-persons-page .result-content.result-warning {
+    background: #FBC02D !important;
+    color: #1D1B20 !important;
+}
+
+.sad-persons-page .result-content.result-warning .result-score-value,
+.sad-persons-page .result-content.result-warning .result-score-label,
+.sad-persons-page .result-content.result-warning .result-label,
+.sad-persons-page .result-content.result-warning .result-description {
+    color: #1D1B20 !important;
+}
+
+.sad-persons-page .result-content.result-warning .result-divider {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Высокий риск (5-6) — оранжевый */
+.sad-persons-page .result-content.result-warning-high {
+    background: #F57C00 !important;
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-warning-high .result-score-value,
+.sad-persons-page .result-content.result-warning-high .result-score-label,
+.sad-persons-page .result-content.result-warning-high .result-label,
+.sad-persons-page .result-content.result-warning-high .result-description {
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-warning-high .result-divider {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Очень высокий риск (7-10) — красный */
+.sad-persons-page .result-content.result-error {
+    background: #C62828 !important;
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-error .result-score-value,
+.sad-persons-page .result-content.result-error .result-score-label,
+.sad-persons-page .result-content.result-error .result-label,
+.sad-persons-page .result-content.result-error .result-description {
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-error .result-divider {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Кнопка сброса на всех цветных фонах */
+.sad-persons-page .result-content.result-success .result-reset,
+.sad-persons-page .result-content.result-warning-high .result-reset,
+.sad-persons-page .result-content.result-error .result-reset {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+.sad-persons-page .result-content.result-warning .result-reset {
+    background: rgba(0, 0, 0, 0.15) !important;
+    color: #1D1B20 !important;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .sad-persons-page {
+        padding-bottom: 280px !important;
+    }
+    
+    .sad-persons-page .calc-items {
+        gap: 8px;
+    }
+    
+    .sad-persons-plan-warning {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .sad-persons-plan-warning .material-symbols-rounded {
+        font-size: 18px;
+    }
+    
+    .result-info .result-warning {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .sad-persons-page {
+        padding-bottom: 320px !important;
+    }
+}

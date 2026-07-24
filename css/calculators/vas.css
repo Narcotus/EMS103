@@ -1,0 +1,258 @@
+/* ============================================
+   ВАШ — ВИЗУАЛЬНО-АНАЛОГОВАЯ ШКАЛА БОЛИ
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.vas-page {
+    padding-bottom: 240px !important;
+}
+
+/* ============================================
+   КАРТОЧКА СЛАЙДЕРА
+   ============================================ */
+
+.vas-slider-card {
+    padding: 20px !important;
+    margin-bottom: 16px;
+}
+
+.vas-current-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.vas-face {
+    font-size: 64px;
+    line-height: 1;
+    transition: transform 0.3s;
+}
+
+.vas-score {
+    font: 700 48px/1 var(--md-font-family);
+    color: var(--md-primary);
+    letter-spacing: -1px;
+}
+
+.vas-label {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   СЛАЙДЕР
+   ============================================ */
+
+.vas-slider-wrapper {
+    position: relative;
+    margin: 20px 0 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.vas-slider {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+    margin: 0;
+}
+
+.vas-slider-track {
+    position: relative;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(to right, 
+        var(--md-success) 0%, 
+        var(--md-success) 30%, 
+        var(--md-warning) 40%, 
+        var(--md-warning) 60%, 
+        var(--md-error) 70%, 
+        var(--md-error) 100%
+    );
+    border-radius: var(--md-shape-full);
+    overflow: hidden;
+}
+
+.vas-slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: transparent;
+    transition: width 0.2s;
+}
+
+.vas-slider-track::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(var(--vas-percent, 0) * 1%);
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background: var(--md-surface-container-lowest);
+    border: 3px solid var(--md-primary);
+    border-radius: 50%;
+    box-shadow: var(--md-elevation-2);
+    transition: left 0.2s;
+}
+
+/* ============================================
+   МЕТКИ ШКАЛЫ
+   ============================================ */
+
+.vas-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-align: center;
+}
+
+.vas-scale-labels small {
+    font: 400 10px/1 var(--md-font-family);
+    opacity: 0.7;
+    display: block;
+    margin-top: 2px;
+}
+
+/* ============================================
+   БЫСТРЫЕ КНОПКИ
+   ============================================ */
+
+.vas-quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 4px;
+    margin-top: 20px;
+}
+
+.vas-quick-btn {
+    padding: 10px 0;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-sm);
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.vas-quick-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.vas-quick-btn.active {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+    transform: scale(1.05);
+    box-shadow: var(--md-elevation-2);
+}
+
+/* Цвета кнопок по зонам */
+.vas-quick-btn[data-value="0"] { color: var(--md-success); }
+.vas-quick-btn[data-value="1"],
+.vas-quick-btn[data-value="2"],
+.vas-quick-btn[data-value="3"] { color: color-mix(in srgb, var(--md-success) 70%, var(--md-warning)); }
+.vas-quick-btn[data-value="4"],
+.vas-quick-btn[data-value="5"],
+.vas-quick-btn[data-value="6"] { color: var(--md-warning); }
+.vas-quick-btn[data-value="7"],
+.vas-quick-btn[data-value="8"],
+.vas-quick-btn[data-value="9"],
+.vas-quick-btn[data-value="10"] { color: var(--md-error); }
+
+.vas-quick-btn.active {
+    color: var(--md-on-primary) !important;
+}
+
+/* ============================================
+   ТЕРАПИЯ В РЕЗУЛЬТАТЕ
+   ============================================ */
+
+.result-therapy {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+    border-left: 3px solid currentColor;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .vas-page {
+        padding-bottom: 280px !important;
+    }
+    
+    .vas-slider-card {
+        padding: 16px !important;
+    }
+    
+    .vas-face {
+        font-size: 48px;
+    }
+    
+    .vas-score {
+        font-size: 40px;
+    }
+    
+    .vas-label {
+        font-size: 12px;
+    }
+    
+    .vas-quick-buttons {
+        gap: 3px;
+    }
+    
+    .vas-quick-btn {
+        padding: 8px 0;
+        font-size: 12px;
+    }
+    
+    .vas-scale-labels {
+        font-size: 10px;
+    }
+    
+    .result-therapy {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .vas-page {
+        padding-bottom: 320px !important;
+    }
+    
+    .vas-quick-buttons {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    
+    .vas-quick-btn {
+        padding: 10px 0;
+        font-size: 13px;
+    }
+    
+    .vas-face {
+        font-size: 40px;
+    }
+    
+    .vas-score {
+        font-size: 36px;
+    }
+}

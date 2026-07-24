@@ -1,0 +1,101 @@
+/* ============================================
+   PESI SCORE — ОЦЕНКА ТЯЖЕСТИ ТЭЛА
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.pesi-score-page {
+    padding-bottom: 240px !important;
+}
+
+/* Поле ввода возраста */
+.calc-item-input {
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.calc-item-input .calc-item-checkbox {
+    pointer-events: none;
+}
+
+.calc-age-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: auto;
+}
+
+.calc-age-input {
+    width: 70px;
+    padding: 8px 10px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 600 18px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.calc-age-input::-webkit-outer-spin-button,
+.calc-age-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-age-input:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.calc-age-input::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+.calc-age-unit {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+/* Летальность в результате */
+.result-mortality {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+    display: inline-block;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .pesi-score-page {
+        padding-bottom: 280px !important;
+    }
+    
+    .calc-age-input {
+        width: 60px;
+        padding: 6px 8px;
+        font-size: 16px;
+    }
+    
+    .calc-age-unit {
+        font-size: 12px;
+    }
+    
+    .result-mortality {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .pesi-score-page {
+        padding-bottom: 320px !important;
+    }
+}

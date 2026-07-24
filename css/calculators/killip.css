@@ -1,0 +1,420 @@
+/* ============================================
+   KILLIP — КЛАССИФИКАЦИЯ ТЯЖЕСТИ ОИМ
+   ============================================ */
+
+/* ✅ УВЕЛИЧЕН padding-bottom чтобы не перекрывался контент */
+.killip-page {
+    padding-bottom: 380px !important;
+}
+
+/* ============================================
+   КАРТОЧКИ КЛАССОВ
+   ============================================ */
+
+.killip-classes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.killip-class {
+    padding: 16px !important;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.killip-class:hover {
+    background: var(--md-surface-container);
+    transform: translateY(-2px);
+    box-shadow: var(--md-elevation-2);
+}
+
+.killip-class.selected {
+    border-color: var(--md-primary) !important;
+    background: var(--md-primary-container);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--md-primary) 20%, transparent);
+}
+
+.killip-class-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.killip-class-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 24px/1 var(--md-font-family);
+    flex-shrink: 0;
+}
+
+.killip-class-title {
+    font: 600 16px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    flex: 1;
+}
+
+.killip-class.selected .killip-class-title {
+    color: var(--md-on-primary-container);
+}
+
+.killip-class-description {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-bottom: 16px;
+}
+
+.killip-class.selected .killip-class-description {
+    color: var(--md-on-primary-container);
+    opacity: 0.9;
+}
+
+/* Секции (признаки, тактика) */
+.killip-section {
+    margin-bottom: 16px;
+}
+
+.killip-section:last-child {
+    margin-bottom: 0;
+}
+
+.killip-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.killip-section-title .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.killip-class.selected .killip-section-title {
+    color: var(--md-on-primary-container);
+}
+
+.killip-class.selected .killip-section-title .material-symbols-rounded {
+    color: var(--md-on-primary-container);
+}
+
+.killip-list {
+    margin: 0;
+    padding-left: 20px;
+    font: 400 13px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.killip-list li {
+    margin-bottom: 4px;
+}
+
+.killip-list li:last-child {
+    margin-bottom: 0;
+}
+
+.killip-class.selected .killip-list {
+    color: var(--md-on-primary-container);
+    opacity: 0.9;
+}
+
+/* Летальность */
+.killip-mortality {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+.killip-class.selected .killip-mortality {
+    border-top-color: color-mix(in srgb, var(--md-on-primary-container) 20%, transparent);
+}
+
+.killip-mortality-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.killip-mortality-label {
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.killip-class.selected .killip-mortality-label {
+    color: var(--md-on-primary-container);
+    opacity: 0.8;
+}
+
+.killip-mortality-value {
+    font: 700 20px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.killip-class.selected .killip-mortality-value {
+    color: var(--md-on-primary-container);
+}
+
+/* ============================================
+   ✅ КОМПАКТНАЯ ПЛАШКА РЕЗУЛЬТАТА KILLIP
+   ============================================ */
+
+.killip-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 14px !important;
+    gap: 10px !important;
+}
+
+.killip-result .result-score {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+    min-width: auto;
+    padding-right: 36px; /* место для кнопки сброса */
+}
+
+.killip-result .result-score-value {
+    font-size: 36px !important;
+    letter-spacing: -1px;
+}
+
+.killip-result .result-score-label {
+    font-size: 12px !important;
+}
+
+.killip-result .result-divider {
+    width: 100% !important;
+    height: 1px !important;
+    margin: 2px 0 !important;
+    background: color-mix(in srgb, currentColor 25%, transparent) !important;
+}
+
+.killip-result .result-info {
+    gap: 6px !important;
+}
+
+.killip-result .result-label {
+    font-size: 14px !important;
+    line-height: 18px !important;
+}
+
+.killip-result .result-description {
+    font-size: 12px !important;
+    line-height: 16px !important;
+    opacity: 0.9;
+}
+
+/* Компактный блок летальности */
+.killip-result-mortality {
+    margin-top: 4px;
+    padding: 8px 10px;
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    border-radius: var(--md-shape-sm);
+    font: 400 12px/16px var(--md-font-family);
+}
+
+.killip-result-mortality-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.killip-mortality-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.killip-result-mortality strong {
+    font-weight: 700;
+}
+
+/* Компактный блок тактики */
+.killip-result-management {
+    margin-top: 2px;
+    padding: 8px 10px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: var(--md-shape-md);
+    border-left: 3px solid currentColor;
+}
+
+.killip-management-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 600 11px/1 var(--md-font-family);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.killip-management-title .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.killip-management-list {
+    margin: 0;
+    padding-left: 16px;
+    font: 400 11px/15px var(--md-font-family);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.killip-management-list li {
+    opacity: 0.95;
+}
+
+.killip-management-list li::marker {
+    color: currentColor;
+    opacity: 0.7;
+}
+
+/* Кнопка сброса */
+.killip-result .result-reset {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    background: color-mix(in srgb, currentColor 20%, transparent);
+    border-radius: 50%;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.killip-result .result-reset:hover {
+    background: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.killip-result .result-reset .material-symbols-rounded {
+    font-size: 16px;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .killip-page {
+        padding-bottom: 440px !important;
+    }
+    
+    .killip-class {
+        padding: 14px !important;
+    }
+    
+    .killip-class-badge {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+    
+    .killip-class-title {
+        font-size: 15px;
+    }
+    
+    .killip-class-description {
+        font-size: 13px;
+    }
+    
+    .killip-list {
+        font-size: 12px;
+    }
+    
+    .killip-mortality-value {
+        font-size: 18px;
+    }
+    
+    /* Плашка результата на мобильном */
+    .killip-result {
+        padding: 12px !important;
+    }
+
+    .killip-result .result-score-value {
+        font-size: 32px !important;
+    }
+    
+    .killip-result .result-label {
+        font-size: 13px !important;
+    }
+    
+    .killip-result .result-description {
+        font-size: 11px !important;
+    }
+
+    .killip-result-mortality {
+        font-size: 11px;
+        padding: 6px 8px;
+    }
+
+    .killip-management-title {
+        font-size: 11px;
+    }
+
+    .killip-management-list {
+        font-size: 10px;
+        line-height: 14px;
+        padding-left: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .killip-page {
+        padding-bottom: 480px !important;
+    }
+    
+    .killip-class-badge {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .killip-class-title {
+        font-size: 14px;
+    }
+    
+    .killip-mortality {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .killip-result .result-score-value {
+        font-size: 28px !important;
+    }
+    
+    .killip-result .result-score {
+        padding-right: 32px;
+    }
+
+    .killip-management-list {
+        padding-left: 14px;
+    }
+    
+    .killip-result-management {
+        padding: 6px 8px;
+    }
+    
+    .killip-result-mortality {
+        padding: 5px 7px;
+    }
+}

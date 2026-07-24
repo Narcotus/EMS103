@@ -1,0 +1,396 @@
+/* ============================================
+   DRUG CONVERTER — ПЕРЕВОД мг ↔ мл ↔ %
+   Конвертер концентраций и расчёт объёмов
+   ============================================ */
+
+.drug-converter-page {
+    padding-bottom: 220px !important;
+}
+
+/* ============================================
+   ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ
+   ============================================ */
+
+.drug-mode-switcher {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.drug-mode-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 8px;
+    background: var(--md-surface-container-low);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: inherit;
+    color: inherit;
+}
+
+.drug-mode-btn:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+}
+
+.drug-mode-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.drug-mode-btn .material-symbols-rounded {
+    font-size: 26px;
+    color: var(--md-on-surface-variant);
+}
+
+.drug-mode-btn.active .material-symbols-rounded {
+    color: var(--md-primary);
+}
+
+.drug-mode-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.drug-mode-label {
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.drug-mode-btn.active .drug-mode-label {
+    color: var(--md-on-primary-container);
+}
+
+.drug-mode-subtitle {
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+/* ============================================
+   КАРТОЧКИ ВВОДА
+   ============================================ */
+
+.drug-input-card {
+    padding: 16px 18px;
+    margin-bottom: 12px;
+}
+
+.drug-input-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.drug-input-title .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.drug-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.drug-field {
+    flex: 1;
+    min-width: 80px;
+    padding: 12px 14px;
+    background: var(--md-surface-container-lowest);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    font: 600 20px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    text-align: center;
+    outline: none;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+    font-family: inherit;
+}
+
+.drug-field::-webkit-outer-spin-button,
+.drug-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.drug-field:focus {
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.drug-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.drug-unit {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    padding: 6px 10px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-sm);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.drug-separator {
+    font: 600 18px/1 var(--md-font-family);
+    color: var(--md-primary);
+    padding: 0 4px;
+}
+
+.drug-hint {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--md-surface-container);
+    border-left: 3px solid var(--md-primary);
+    border-radius: var(--md-shape-sm);
+    font: 400 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+/* ============================================
+   РЕЗУЛЬТАТ
+   ============================================ */
+
+.drug-result {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px 14px !important;
+    gap: 12px !important;
+    min-height: 0 !important;
+}
+
+.drug-result .result-score {
+    padding: 0 !important;
+    gap: 2px !important;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.drug-result .result-score-value {
+    font: 700 32px/1 var(--md-font-family) !important;
+    letter-spacing: -0.5px;
+}
+
+.drug-result .result-score-label {
+    font: 500 10px/1 var(--md-font-family) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+}
+
+.drug-result .result-divider {
+    width: 1px !important;
+    height: 40px !important;
+    align-self: stretch;
+    background: color-mix(in srgb, currentColor 25%, transparent);
+    flex-shrink: 0;
+}
+
+.drug-result .result-info {
+    padding: 0 !important;
+    gap: 2px !important;
+    flex: 1;
+    min-width: 0;
+}
+
+.drug-result .result-label {
+    font: 600 13px/1 var(--md-font-family) !important;
+    margin-bottom: 4px;
+}
+
+.drug-result .result-description {
+    font: 400 11px/14px var(--md-font-family) !important;
+    opacity: 0.9;
+}
+
+.drug-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+    font: 400 11px/1 var(--md-font-family);
+}
+
+.drug-detail-row span {
+    opacity: 0.85;
+}
+
+.drug-detail-row strong {
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.drug-result .result-reset {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 28px;
+    height: 28px;
+    background: color-mix(in srgb, currentColor 20%, transparent);
+    border-radius: 50%;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.drug-result .result-reset:hover {
+    background: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.drug-result .result-reset .material-symbols-rounded {
+    font-size: 16px;
+}
+
+/* ============================================
+   ПРЕДУПРЕЖДЕНИЯ
+   ============================================ */
+
+.drug-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 0 16px 100px;
+}
+
+.drug-warning-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border-radius: var(--md-shape-md);
+    font: 500 13px/18px var(--md-font-family);
+}
+
+.drug-warning-item .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.drug-warning-warn {
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-left: 4px solid var(--md-warning);
+}
+
+.drug-warning-error {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-left: 4px solid var(--md-error);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .drug-mode-switcher {
+        gap: 6px;
+    }
+    .drug-mode-btn {
+        padding: 12px 6px;
+        gap: 4px;
+    }
+    .drug-mode-btn .material-symbols-rounded {
+        font-size: 22px;
+    }
+    .drug-mode-label {
+        font-size: 11px;
+    }
+    .drug-mode-subtitle {
+        font-size: 10px;
+    }
+    .drug-input-card {
+        padding: 14px;
+    }
+    .drug-field {
+        padding: 10px 12px;
+        font-size: 18px;
+        min-width: 60px;
+    }
+    .drug-input-row {
+        gap: 6px;
+    }
+    .drug-result {
+        padding: 8px 12px !important;
+        gap: 10px !important;
+    }
+    .drug-result .result-score-value {
+        font-size: 28px !important;
+    }
+    .drug-result .result-divider {
+        height: 36px !important;
+    }
+    .drug-result .result-label {
+        font-size: 12px !important;
+    }
+    .drug-detail-row {
+        font-size: 10px;
+    }
+    .drug-warnings {
+        padding: 0 12px 100px;
+    }
+    .drug-warning-item {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .drug-mode-switcher {
+        grid-template-columns: 1fr;
+    }
+    .drug-mode-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 12px 14px;
+    }
+    .drug-mode-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+    .drug-input-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .drug-separator {
+        text-align: center;
+    }
+    .drug-result {
+        flex-direction: column !important;
+        text-align: center;
+        padding: 10px !important;
+    }
+    .drug-result .result-divider {
+        width: 80% !important;
+        height: 1px !important;
+    }
+    .drug-result .result-score-value {
+        font-size: 24px !important;
+    }
+}

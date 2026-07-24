@@ -1,0 +1,446 @@
+/* ============================================
+   ALGOVER — ИНДЕКС АЛЬГОВЕРА
+   Калькулятор оценки шокового индекса
+   ============================================ */
+
+.algover-page {
+    padding-bottom: 200px !important;
+}
+
+/* ============================================
+   ПОЛЯ ВВОДА
+   ============================================ */
+
+.algover-inputs {
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.algover-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.algover-input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.algover-input-label .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.algover-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--md-surface-container-lowest);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    padding: 4px 16px 4px 4px;
+    transition: all 0.2s;
+}
+
+.algover-input-row:focus-within {
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.algover-field {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 12px 14px;
+    font: 600 24px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.algover-field::-webkit-outer-spin-button,
+.algover-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.algover-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.algover-unit {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    padding: 6px 12px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-sm);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.algover-formula-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-md);
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    border-left: 4px solid var(--md-primary);
+}
+
+.algover-formula-hint .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   ВИЗУАЛЬНАЯ ШКАЛА
+   ============================================ */
+
+.algover-scale-card {
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.algover-scale-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.algover-scale-title .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.algover-scale {
+    position: relative;
+    display: flex;
+    height: 80px;
+    border-radius: var(--md-shape-md);
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.algover-scale-segment {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    transition: filter 0.2s;
+}
+
+.algover-scale-segment:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.seg-normal { 
+    background: linear-gradient(180deg, var(--calc-gcs-excellent) 0%, color-mix(in srgb, var(--calc-gcs-excellent) 80%, black) 100%); 
+    color: #FFFFFF; 
+}
+
+.seg-sub { 
+    background: linear-gradient(180deg, var(--calc-gcs-moderate) 0%, color-mix(in srgb, var(--calc-gcs-moderate) 80%, black) 100%); 
+    color: #FFFFFF; 
+}
+
+.seg-mod { 
+    background: linear-gradient(180deg, var(--calc-gcs-warning) 0%, var(--calc-gcs-danger) 100%); 
+    color: #FFFFFF; 
+}
+
+.seg-sev { 
+    background: linear-gradient(180deg, var(--calc-gcs-critical) 0%, color-mix(in srgb, var(--calc-gcs-critical) 80%, black) 100%); 
+    color: #FFFFFF; 
+}
+
+.seg-crit { 
+    background: linear-gradient(180deg, var(--calc-gcs-severe) 0%, var(--calc-gcs-terminal) 100%); 
+    color: #FFFFFF; 
+}
+
+.seg-label {
+    font: 600 11px/1 var(--md-font-family);
+    opacity: 0.85;
+    letter-spacing: 0.3px;
+}
+
+.seg-title {
+    font: 500 12px/1 var(--md-font-family);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Маркер текущего значения */
+.algover-scale-marker {
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    width: 4px;
+    background: var(--md-on-surface);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    box-shadow: 0 0 0 2px var(--md-surface), 0 2px 8px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.algover-scale-marker::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid var(--md-on-surface);
+}
+
+.algover-scale-marker::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid var(--md-on-surface);
+}
+
+/* ============================================
+   РЕЗУЛЬТАТ
+   ============================================ */
+
+.algover-result {
+    padding: 16px !important;
+    gap: 12px !important;
+}
+
+.algover-main-value {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.algover-big-number {
+    font: 700 42px/1 var(--md-font-family);
+    letter-spacing: -1px;
+}
+
+.algover-big-label {
+    font: 500 14px/1 var(--md-font-family);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+.algover-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.algover-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font: 400 13px/18px var(--md-font-family);
+    padding: 4px 0;
+}
+
+.algover-detail-label {
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+.algover-detail-value {
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Кнопка сброса */
+.algover-result .result-reset {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    background: color-mix(in srgb, currentColor 20%, transparent);
+    border-radius: 50%;
+}
+
+.algover-result .result-reset:hover {
+    background: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.algover-result .result-reset .material-symbols-rounded {
+    font-size: 20px;
+}
+
+/* ============================================
+   ПРЕДУПРЕЖДЕНИЕ И ТЕРАПИЯ
+   ============================================ */
+
+.algover-warning {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: var(--md-shape-sm);
+    font: 600 12px/16px var(--md-font-family);
+    border-left: 3px solid currentColor;
+}
+
+.algover-warning .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.algover-result .result-action {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+    border-left: 3px solid currentColor;
+}
+
+.algover-result .result-action .material-symbols-rounded {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .algover-page {
+        padding-bottom: 240px !important;
+    }
+    
+    .algover-inputs {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .algover-field {
+        font-size: 20px;
+        padding: 10px 12px;
+    }
+    
+    .algover-scale-card {
+        padding: 16px;
+    }
+    
+    .algover-scale {
+        height: 70px;
+    }
+    
+    .seg-label {
+        font-size: 10px;
+    }
+    
+    .seg-title {
+        font-size: 11px;
+    }
+    
+    .algover-result {
+        padding: 14px !important;
+    }
+    
+    .algover-big-number {
+        font-size: 36px;
+    }
+    
+    .algover-big-label {
+        font-size: 12px;
+    }
+    
+    .algover-detail-row {
+        font-size: 12px;
+    }
+    
+    .algover-warning {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .algover-warning .material-symbols-rounded {
+        font-size: 18px;
+    }
+    
+    .algover-result .result-action {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .algover-result .result-action .material-symbols-rounded {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .algover-scale {
+        height: 60px;
+    }
+    
+    .seg-label {
+        font-size: 9px;
+    }
+    
+    .seg-title {
+        font-size: 10px;
+    }
+    
+    .algover-big-number {
+        font-size: 32px;
+    }
+    
+    .algover-input-row {
+        padding: 2px 12px 2px 2px;
+    }
+}

@@ -1,0 +1,402 @@
+/* ============================================
+   ODN SCALE — ОЦЕНКА ТЯЖЕСТИ ОДН
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.odn-page {
+    padding-bottom: 280px !important;
+}
+
+.odn-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.odn-group {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-lg);
+    overflow: hidden;
+}
+
+.odn-group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.odn-group-header .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+.odn-group-title {
+    flex: 1;
+    font: 600 15px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.odn-group-value {
+    font: 700 18px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    padding: 4px 14px;
+    background: var(--md-surface-container-low);
+    border-radius: 999px;
+    min-width: 40px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.odn-group-value.has-value {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    font-weight: 700;
+}
+
+.odn-group-items {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ============================================
+   РАДИО-ГРУППЫ (клинические признаки)
+   ============================================ */
+
+.odn-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.odn-radio-label {
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.odn-radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.odn-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--md-surface);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.odn-radio-item:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+}
+
+.odn-radio-item.selected {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+}
+
+.odn-radio-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--md-outline);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.odn-radio-item.selected .odn-radio-circle {
+    border-color: var(--md-primary);
+}
+
+.odn-radio-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--md-primary);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.2s;
+}
+
+.odn-radio-item.selected .odn-radio-dot {
+    transform: scale(1);
+}
+
+.odn-radio-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.odn-radio-title {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.odn-radio-item.selected .odn-radio-title {
+    color: var(--md-on-primary-container);
+    font-weight: 500;
+}
+
+.odn-radio-points {
+    font: 700 16px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    padding: 6px 12px;
+    background: var(--md-surface-container);
+    border-radius: 999px;
+    min-width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.odn-radio-item.selected .odn-radio-points {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+/* ============================================
+   ЧИСЛОВЫЕ ПОЛЯ (витальные показатели, газы крови)
+   ============================================ */
+
+.odn-number-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.odn-number-label {
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.odn-number-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Поле ввода с отступом справа для единицы */
+.odn-number-field {
+    width: 100%;
+    padding: 12px 14px;
+    padding-right: 90px; /* Место для единицы (с запасом для "мм рт. ст.") */
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 18px/1 var(--md-font-family);
+    text-align: left;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+}
+
+.odn-number-field::-webkit-outer-spin-button,
+.odn-number-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.odn-number-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.odn-number-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+/* Единица измерения — абсолютное позиционирование */
+.odn-number-unit-inside {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* Размер идентичен введённым данным */
+    font-family: var(--md-font-family);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+    
+    color: var(--md-on-surface-variant);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+    transition: all 0.2s;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+/* При фокусе единица подсвечивается */
+.odn-number-field:focus ~ .odn-number-unit-inside {
+    color: var(--md-primary);
+    opacity: 1;
+}
+
+/* Подсказка под полем */
+.odn-number-hint {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    font-style: italic;
+}
+
+/* ============================================
+   ИНДЕКС HOROWITZ В РЕЗУЛЬТАТЕ
+   ============================================ */
+
+.odn-horowitz-compact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    border-radius: var(--md-shape-md);
+    margin-top: 8px;
+}
+
+.horowitz-value {
+    font: 700 28px/1 var(--md-font-family);
+    flex-shrink: 0;
+}
+
+.horowitz-label {
+    font: 500 13px/1 var(--md-font-family);
+    opacity: 0.85;
+}
+
+.horowitz-status {
+    flex: 1;
+    font: 500 13px/16px var(--md-font-family);
+    text-align: right;
+    font-weight: 600;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ (с синхронизацией размеров)
+   ============================================ */
+
+@media (max-width: 600px) {
+    .odn-page {
+        padding-bottom: 320px !important;
+    }
+    
+    .odn-group-header {
+        padding: 12px 14px;
+    }
+    
+    .odn-group-title {
+        font-size: 14px;
+    }
+    
+    .odn-group-value {
+        font-size: 16px;
+        padding: 3px 12px;
+    }
+    
+    .odn-group-items {
+        padding: 10px;
+    }
+    
+    .odn-radio-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .odn-radio-circle {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .odn-radio-dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .odn-radio-title {
+        font-size: 13px;
+    }
+    
+    .odn-radio-points {
+        font-size: 14px;
+        padding: 5px 10px;
+        min-width: 32px;
+    }
+    
+    /* Синхронизация: поле и единица одного размера */
+    .odn-number-field {
+        padding: 10px 12px;
+        padding-right: 80px;
+        font-size: 16px;
+    }
+    
+    .odn-number-unit-inside {
+        font-size: 16px;
+        right: 12px;
+    }
+    
+    .horowitz-value {
+        font-size: 24px;
+    }
+    
+    .horowitz-label {
+        font-size: 12px;
+    }
+    
+    .horowitz-status {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .odn-page {
+        padding-bottom: 360px !important;
+    }
+    
+    .odn-radio-label {
+        font-size: 13px;
+    }
+    
+    .odn-number-label {
+        font-size: 13px;
+    }
+    
+    /* Ещё меньше для длинных единиц типа "мм рт. ст." */
+    .odn-number-field {
+        font-size: 15px;
+        padding-right: 75px;
+    }
+    
+    .odn-number-unit-inside {
+        font-size: 13px;
+        right: 10px;
+    }
+    
+    .odn-horowitz-compact {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .horowitz-status {
+        text-align: left;
+    }
+}

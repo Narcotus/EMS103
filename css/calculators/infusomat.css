@@ -1,0 +1,591 @@
+/* ============================================
+   INFUSOMAT — РАСЧЁТ СКОРОСТИ
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.infusomat-page {
+    padding-bottom: 380px !important;
+}
+
+.infusomat-section {
+    margin-bottom: 16px;
+    padding: 16px !important;
+}
+
+.infusomat-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 15px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+}
+
+.infusomat-section-title .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+/* ============================================
+   ВЫБОР ПРЕПАРАТА — КНОПКИ
+   ============================================ */
+
+.infusomat-drug-category {
+    margin-bottom: 16px;
+}
+
+.infusomat-drug-category:last-child {
+    margin-bottom: 0;
+}
+
+.infusomat-category-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.infusomat-category-title .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.infusomat-drugs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.infusomat-drug-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+}
+
+.infusomat-drug-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+    transform: translateY(-1px);
+}
+
+.infusomat-drug-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.infusomat-drug-icon {
+    font-size: 24px;
+    color: var(--md-primary);
+    flex-shrink: 0;
+}
+
+.infusomat-drug-btn.active .infusomat-drug-icon {
+    color: var(--md-on-primary-container);
+}
+
+.infusomat-drug-name {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.infusomat-drug-btn.active .infusomat-drug-name {
+    color: var(--md-on-primary-container);
+    font-weight: 600;
+}
+
+/* Информация о препарате */
+.infusomat-drug-info {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-md);
+}
+
+.drug-info-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.drug-info-header .material-symbols-rounded {
+    font-size: 28px;
+    color: var(--md-primary);
+}
+
+.drug-info-name {
+    font: 600 16px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.drug-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.drug-info-row {
+    display: flex;
+    justify-content: space-between;
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.drug-info-label {
+    color: var(--md-on-surface-variant);
+}
+
+.drug-info-value {
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.drug-info-warning {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--md-warning-container);
+    color: var(--md-on-warning-container);
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+}
+
+.drug-info-warning .material-symbols-rounded {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   БЫСТРЫЙ ВЫБОР ДОЗЫ (ПРЕСЕТЫ)
+   ============================================ */
+
+.infusomat-dose-presets {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--md-outline-variant);
+}
+
+.presets-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 500 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-bottom: 10px;
+}
+
+.presets-label .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--md-warning);
+}
+
+.presets-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.preset-btn {
+    padding: 8px 14px;
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-full);
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+
+.preset-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.preset-btn.active {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   ПОЛЯ ВВОДА
+   ============================================ */
+
+.infusomat-dose-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.dose-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dose-input-label {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.infusomat-field {
+    padding: 12px 14px;
+    border: 2px solid var(--md-outline);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-lowest);
+    color: var(--md-on-surface);
+    font: 500 18px/1 var(--md-font-family);
+    text-align: center;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+    font-family: inherit;
+}
+
+.infusomat-field::-webkit-outer-spin-button,
+.infusomat-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.infusomat-field:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-primary) 15%, transparent);
+}
+
+.infusomat-field::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+}
+
+/* ============================================
+   ФОРМЫ ВЫПУСКА И РАЗВЕДЕНИЕ
+   ============================================ */
+
+.infusomat-forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.infusomat-form-btn {
+    padding: 12px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: inherit;
+    color: inherit;
+}
+
+.infusomat-form-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.infusomat-form-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+}
+
+.form-btn-label {
+    font: 500 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.infusomat-form-btn.active .form-btn-label {
+    color: var(--md-on-primary-container);
+    font-weight: 600;
+}
+
+.form-btn-details {
+    font: 400 12px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.infusomat-form-btn.active .form-btn-details {
+    color: var(--md-on-primary-container);
+    opacity: 0.85;
+}
+
+.infusomat-dilution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.infusomat-dilution-btn {
+    padding: 10px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: inherit;
+    color: inherit;
+}
+
+.infusomat-dilution-btn:hover {
+    background: var(--md-surface-container-high);
+}
+
+.infusomat-dilution-btn.active {
+    background: var(--md-secondary-container);
+    border-color: var(--md-secondary);
+}
+
+.dilution-btn-label {
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 2px;
+}
+
+.infusomat-dilution-btn.active .dilution-btn-label {
+    color: var(--md-on-secondary-container);
+}
+
+.dilution-btn-total {
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.infusomat-dilution-btn.active .dilution-btn-total {
+    color: var(--md-on-secondary-container);
+    opacity: 0.85;
+}
+
+/* ============================================
+   ✅ КОМПАКТНАЯ ПЛАШКА РЕЗУЛЬТАТА INFUSOMAT
+   ============================================ */
+
+.infusomat-page {
+    padding-bottom: 420px !important;
+}
+
+.infusomat-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 14px !important;
+    gap: 10px !important;
+}
+
+/* Главная скорость — компактная */
+.infusomat-result-main {
+    text-align: center;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+.infusomat-result-speed {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+}
+
+.speed-value {
+    font: 700 42px/1 var(--md-font-family);
+    letter-spacing: -1px;
+}
+
+.speed-unit {
+    font: 500 15px/1 var(--md-font-family);
+    opacity: 0.8;
+}
+
+.infusomat-result-alt {
+    font: 500 13px/1 var(--md-font-family);
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+/* Детали — двухколоночная компактная сетка */
+.infusomat-result-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px 12px;
+    padding: 10px;
+    background: color-mix(in srgb, currentColor 6%, transparent);
+    border-radius: var(--md-shape-md);
+}
+
+.result-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: 400 12px/16px var(--md-font-family);
+    gap: 6px;
+    padding: 2px 0;
+}
+
+.result-detail-label {
+    opacity: 0.75;
+    flex-shrink: 0;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.result-detail-value {
+    font-weight: 600;
+    text-align: right;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Выделенные строки (суточная доза, хватит на) — на всю ширину */
+.result-detail-highlight {
+    grid-column: 1 / -1;
+    padding: 4px 8px;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    border-radius: var(--md-shape-xs);
+    margin-top: 2px;
+}
+
+.result-detail-highlight .result-detail-label {
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.result-detail-highlight .result-detail-value {
+    font-size: 13px;
+}
+
+/* Предупреждения — компактные */
+.drug-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.drug-warning-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 8px 10px;
+    border-radius: var(--md-shape-sm);
+    font: 500 12px/16px var(--md-font-family);
+}
+
+.drug-warning-item .material-symbols-rounded {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.drug-warning-warn {
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-left: 3px solid var(--md-warning);
+}
+
+.drug-warning-error {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-left: 3px solid var(--md-error);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ ПЛАШКИ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .infusomat-page {
+        padding-bottom: 500px !important;
+    }
+    
+    .infusomat-result {
+        padding: 12px !important;
+        gap: 8px !important;
+    }
+    
+    .speed-value {
+        font-size: 36px;
+    }
+    
+    .speed-unit {
+        font-size: 14px;
+    }
+    
+    .infusomat-result-alt {
+        font-size: 12px;
+    }
+    
+    /* На мобильном — одна колонка для читаемости */
+    .infusomat-result-details {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 8px;
+    }
+    
+    .result-detail-row {
+        font-size: 11px;
+        padding: 3px 0;
+    }
+    
+    .result-detail-label {
+        font-size: 10px;
+    }
+    
+    .result-detail-value {
+        font-size: 11px;
+    }
+    
+    .result-detail-highlight .result-detail-value {
+        font-size: 12px;
+    }
+    
+    .drug-warning-item {
+        padding: 6px 8px;
+        font-size: 11px;
+        line-height: 15px;
+    }
+    
+    .drug-warning-item .material-symbols-rounded {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .infusomat-page {
+        padding-bottom: 560px !important;
+    }
+    
+    .speed-value {
+        font-size: 32px;
+    }
+    
+    .infusomat-result-main {
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+    }
+}

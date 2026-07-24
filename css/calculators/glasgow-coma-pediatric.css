@@ -1,0 +1,24 @@
+/* ============================================
+   GLASGOW COMA PEDIATRIC — ДЕТСКАЯ ШКАЛА КОМЫ
+   Адаптированная оценка уровня сознания (дети < 4 лет)
+   ============================================ */
+
+.glasgow-coma-pediatric-page {
+    padding-bottom: 200px !important;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .glasgow-coma-pediatric-page {
+        padding-bottom: 240px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .glasgow-coma-pediatric-page {
+        padding-bottom: 260px !important;
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Женевская шкала",
+  "icon": "airline_stops",
+  "reference": {
+    "title": "О шкале",
+    "paragraphs": ["..."],
+    "formulas": [
+      { "name": "Балльная оценка", "formula": "Σ баллов", "example": "..." }
+    ],
+    "quickRules": [
+      { "icon": "🚨", "rule": "≥ 7 баллов → КТ-ангиография" }
+    ],
+    "examples": [
+      { "scenario": "...", "calculation": "..." }
+    ]
+  },
+  "resultRanges": [
+    {
+      "min": 0, "max": 3,
+      "label": "Низкая вероятность",
+      "description": "...",
+      "action": "D-димер → при отрицательном исключить ТЭЛА",
+      "color": "gcs-15"
+    }
+  ]
+}

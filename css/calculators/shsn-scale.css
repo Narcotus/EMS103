@@ -1,0 +1,40 @@
+/* ============================================
+   ШСХН — ШКАЛА ОЦЕНКИ ХРОНИЧЕСКОЙ СН
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.shsn-scale-page {
+    padding-bottom: 240px !important;
+}
+
+/* Группы параметров используют общие стили .gcs-group из calculator-base.css */
+.shsn-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .shsn-scale-page {
+        padding-bottom: 280px !important;
+    }
+    
+    .shsn-groups {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .shsn-scale-page {
+        padding-bottom: 320px !important;
+    }
+    
+    .shsn-groups {
+        gap: 8px;
+    }
+}

@@ -1,0 +1,24 @@
+/* ============================================
+   GENEVA SCORE — ЖЕНЕВСКАЯ ШКАЛА ТЭЛА
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.geneva-page {
+    padding-bottom: 200px !important;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .geneva-page {
+        padding-bottom: 240px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .geneva-page {
+        padding-bottom: 260px !important;
+    }
+}

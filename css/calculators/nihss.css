@@ -1,0 +1,94 @@
+/* ============================================
+   NIHSS — ШКАЛА ИНСУЛЬТА
+   Специфичные стили (общие в calculator-base.css)
+   ============================================ */
+
+.nihss-page {
+    padding-bottom: 240px !important;
+}
+
+/* Практические заметки внутри группы */
+.nihss-group-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px;
+    margin: 8px 12px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-sm);
+    font: 400 12px/16px var(--md-font-family);
+    border-left: 3px solid var(--md-tertiary);
+}
+
+.nihss-group-note .material-symbols-rounded {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--md-tertiary);
+}
+
+/* Подзаголовки для dual-параметров (Левая/Правая рука/нога) */
+.nihss-subgroup-label {
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 14px 4px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nihss-subgroup-label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--md-primary);
+    flex-shrink: 0;
+}
+
+/* Разделитель между подгруппами */
+.nihss-subgroup-label:not(:first-child) {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--md-outline-variant);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .nihss-page {
+        padding-bottom: 280px !important;
+    }
+    
+    .nihss-group-note {
+        font-size: 11px;
+        padding: 8px 12px;
+        margin: 6px 10px;
+    }
+
+    .nihss-group-note .material-symbols-rounded {
+        font-size: 16px;
+    }
+
+    .nihss-subgroup-label {
+        font-size: 12px;
+        padding: 6px 12px 4px;
+    }
+}
+
+@media (max-width: 400px) {
+    .nihss-page {
+        padding-bottom: 320px !important;
+    }
+    
+    .nihss-group-note {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+}

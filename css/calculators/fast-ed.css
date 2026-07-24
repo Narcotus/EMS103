@@ -1,0 +1,116 @@
+/* ============================================
+   FAST-ED — ШКАЛА ТРИАЖА ИНСУЛЬТА
+   Догоспитальное выявление LVO для тромбэктомии
+   ============================================ */
+
+.fast-ed-page {
+    padding-bottom: 220px !important;
+}
+
+@media (max-width: 600px) {
+    .fast-ed-page {
+        padding-bottom: 260px !important;
+    }
+}
+
+/* ============================================
+   БЛОК ТРИАЖА (куда везти пациента)
+   ============================================ */
+
+.fast-ed-triage {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: var(--md-shape-md);
+    font: 500 14px/18px var(--md-font-family);
+    border-left: 4px solid currentColor;
+}
+
+.fast-ed-triage .material-symbols-rounded {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.fast-ed-triage strong {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: currentColor;
+}
+
+/* ============================================
+   БЛОК ДЕЙСТВИЯ В РЕЗУЛЬТАТЕ (общий)
+   ============================================ */
+
+.result-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: var(--md-shape-md);
+    font: 600 13px/18px var(--md-font-family);
+    border-left: 4px solid currentColor;
+}
+
+.result-action .material-symbols-rounded {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.result-action::before {
+    content: '→';
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+    color: currentColor;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .fast-ed-triage {
+        padding: 10px 12px;
+        font-size: 13px;
+        gap: 8px;
+    }
+    
+    .fast-ed-triage .material-symbols-rounded {
+        font-size: 22px;
+    }
+    
+    .result-action {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+    
+    .result-action::before {
+        font-size: 16px;
+    }
+    
+    .result-action .material-symbols-rounded {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+    .fast-ed-triage {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    .fast-ed-triage .material-symbols-rounded {
+        font-size: 20px;
+    }
+    
+    .result-action {
+        padding: 8px 10px;
+        font-size: 11px;
+        gap: 8px;
+    }
+}

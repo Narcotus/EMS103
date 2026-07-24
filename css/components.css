@@ -1,0 +1,2300 @@
+/* ============================================
+   EMS 103 - Компоненты UI (Material Design 3)
+   Полная версия v2.0
+   ============================================ */
+
+/* ============================================
+   1. RIPPLE EFFECT (эффект волны при клике)
+   ============================================ */
+.ripple {
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.ripple:hover::after { opacity: 0.08; }
+.ripple:active::after { opacity: 0.12; }
+
+/* ============================================
+   2. ICON BUTTON
+   ============================================ */
+.icon-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.icon-button:hover {
+    background: rgba(25, 28, 32, 0.08);
+}
+
+[data-theme="dark"] .icon-button:hover {
+    background: rgba(240, 223, 221, 0.08);
+}
+
+/* ============================================
+   3. FAB (Floating Action Button)
+   ============================================ */
+.fab {
+    position: fixed;
+    bottom: calc(var(--bottom-nav-height) + 16px);
+    right: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--md-shape-lg);
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border: none;
+    box-shadow: var(--md-elevation-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 50;
+    transition: box-shadow 0.2s;
+}
+
+.fab:hover {
+    box-shadow: var(--md-elevation-4);
+}
+
+/* ============================================
+   4. CARDS (карточки)
+   ============================================ */
+.card {
+    background: var(--md-surface-container-low);
+    border-radius: var(--md-shape-md);
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    background: var(--md-surface-container);
+    box-shadow: var(--md-elevation-1);
+}
+
+.card-outlined {
+    background: var(--md-surface-container-lowest);
+    border: 1px solid var(--md-outline-variant);
+    box-shadow: none;
+}
+
+.card-outlined:hover {
+    background: var(--md-surface-container-low);
+    border-color: var(--md-outline);
+    box-shadow: var(--md-elevation-1);
+}
+
+.card-elevated {
+    background: var(--md-surface-container-low);
+    box-shadow: var(--md-elevation-1);
+    border: 1px solid rgba(196, 174, 171, 0.3);
+}
+
+.card-elevated:hover {
+    box-shadow: var(--md-elevation-2);
+}
+
+.card-filled {
+    background: var(--md-surface-container-highest);
+    border: none;
+}
+
+.card-title {
+    font: 500 16px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.card-subtitle {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin-bottom: 8px;
+}
+
+.card-body {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.card-body p {
+    margin: 4px 0;
+}
+
+/* ============================================
+   5. LIST ITEMS (элементы списка)
+   ============================================ */
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 16px;
+    cursor: pointer;
+    border-radius: var(--md-shape-sm);
+    transition: background-color 0.15s;
+}
+
+.list-item:hover {
+    background: var(--md-surface-container);
+}
+
+.list-item .icon {
+    font-size: 24px;
+    color: var(--md-on-surface-variant);
+}
+
+.list-item .content {
+    flex: 1;
+    min-width: 0;
+}
+
+.list-item .headline {
+    font: 400 16px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 2px;
+}
+
+.list-item .supporting {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+/* ============================================
+   6. MD BUTTONS (кнопки Material Design)
+   ============================================ */
+.md-button {
+    height: 40px;
+    padding: 0 24px;
+    border-radius: var(--md-shape-full);
+    border: none;
+    font: 500 14px/20px var(--md-font-family);
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.md-button-filled {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.md-button-filled:hover {
+    box-shadow: var(--md-elevation-1);
+}
+
+.md-button-tonal {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+}
+
+.md-button-outlined {
+    background: transparent;
+    color: var(--md-primary);
+    border: 1px solid var(--md-outline);
+}
+
+.md-button-text {
+    background: transparent;
+    color: var(--md-primary);
+}
+
+.md-button-text:hover {
+    background: rgba(139, 26, 26, 0.08);
+}
+
+[data-theme="dark"] .md-button-text:hover {
+    background: rgba(255, 180, 171, 0.08);
+}
+
+/* ============================================
+   7. CHIPS (чипы)
+   ============================================ */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 16px;
+    border-radius: var(--md-shape-sm);
+    border: 1px solid var(--md-outline);
+    background: transparent;
+    font: 500 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    background: var(--md-surface-container);
+}
+
+.chip-selected {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border-color: transparent;
+}
+
+.chip .material-symbols-rounded {
+    font-size: 18px;
+}
+
+/* ============================================
+   8. DIVIDER (разделитель)
+   ============================================ */
+.divider {
+    height: 1px;
+    background: var(--md-outline-variant);
+    margin: 8px 0;
+    border: none;
+}
+
+/* ============================================
+   9. BADGE (значок)
+   ============================================ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: var(--md-shape-full);
+    background: var(--md-error);
+    color: var(--md-on-error);
+    font: 500 11px/16px var(--md-font-family);
+}
+
+/* ============================================
+   10. SECTION / PAGE HEADERS
+   ============================================ */
+.section-header {
+    padding: 24px 16px 12px;
+    font: 600 14px/20px var(--md-font-family);
+    letter-spacing: 0.1px;
+    color: var(--md-primary);
+    text-transform: uppercase;
+}
+
+.page-header {
+    padding: 24px 0 16px;
+}
+
+.page-header h1 {
+    font: 400 28px/36px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin: 0 0 4px;
+}
+
+.page-header p {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 0;
+}
+
+/* ============================================
+   11. LOADING / EMPTY STATE
+   ============================================ */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    gap: 16px;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--md-primary-container);
+    border-top-color: var(--md-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--md-on-surface-variant);
+}
+
+.empty-state .icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    display: block;
+}
+
+.empty-state .title {
+    font: 500 16px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font: 400 14px/20px var(--md-font-family);
+}
+
+/* ============================================
+   12. SNACKBAR (всплывающее уведомление)
+   ✅ Inverse-цвета для читаемости в обеих темах
+   ============================================ */
+
+.snackbar {
+    position: fixed;
+    bottom: calc(180px + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    
+    /* ✅ MD3 inverse — автоматически инвертируется */
+    background: var(--md-inverse-surface);
+    color: var(--md-inverse-on-surface);
+    
+    min-width: 280px;
+    max-width: 500px;
+    padding: 14px 20px;
+    border-radius: var(--md-shape-md);
+    box-shadow: var(--md-elevation-4);
+    
+    font: 500 14px/20px var(--md-font-family);
+    text-align: center;
+    letter-spacing: 0.25px;
+    
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    
+    transition: 
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.snackbar.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Иконка в snackbar */
+.snackbar .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-inverse-on-surface);
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/* ============================================
+   FALLBACK для inverse-переменных
+   (если они не определены в md3-theme.css)
+   ============================================ */
+
+@supports not (background: var(--md-inverse-surface)) {
+    .snackbar {
+        background: #323232;
+        color: #FFFFFF;
+    }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .snackbar {
+        bottom: calc(200px + env(safe-area-inset-bottom, 0px));
+        min-width: 240px;
+        max-width: calc(100% - 32px);
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 400px) {
+    .snackbar {
+        bottom: calc(220px + env(safe-area-inset-bottom, 0px));
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+}
+
+/* ============================================
+   13. HOME TILES GRID (прямоугольные)
+   ============================================ */
+
+/* По умолчанию — 1 КОЛОНКА (для телефонов) */
+.home-tiles-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    row-gap: 8px !important;
+    column-gap: 8px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+}
+
+/* Прямоугольная плитка */
+.home-tile {
+    background: var(--md-primary-container) !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 14px 16px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    transition: box-shadow 0.2s, transform 0.15s;
+    min-height: 72px !important;
+    position: relative !important;
+    border-radius: var(--md-shape-lg) !important;
+    margin: 0 !important;
+}
+
+.home-tile:hover {
+    box-shadow: var(--md-elevation-2);
+    transform: translateY(-1px);
+}
+
+.home-tile:active {
+    transform: scale(0.98);
+}
+
+/* Иконка слева */
+.home-tile-icon {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    background: var(--md-primary) !important;
+    color: var(--md-on-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    box-shadow: var(--md-elevation-1) !important;
+}
+
+.home-tile-icon .material-symbols-rounded {
+    font-size: 24px !important;
+}
+
+/* Контент посередине */
+.home-tile-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+}
+
+.home-tile-title {
+    font: 500 14px/18px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-tile-subtitle {
+    font: 400 12px/16px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Стрелка справа */
+.home-tile-arrow {
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.5;
+    font-size: 22px !important;
+    flex-shrink: 0 !important;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.home-tile:hover .home-tile-arrow {
+    opacity: 0.8;
+    transform: translateX(2px);
+}
+
+/* ============================================
+   ПЛАНШЕТЫ И DESKTOP (≥ 700px) — 2 КОЛОНКИ
+   ============================================ */
+@media (min-width: 700px) {
+    .home-tiles-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+}
+
+/* Крупные планшеты и desktop (≥ 1000px) — чуть больше */
+@media (min-width: 1000px) {
+    .home-tiles-grid {
+        gap: 12px !important;
+    }
+    .home-tile {
+        padding: 16px 18px !important;
+        min-height: 80px !important;
+    }
+    .home-tile-icon {
+        width: 48px !important;
+        height: 48px !important;
+    }
+    .home-tile-icon .material-symbols-rounded {
+        font-size: 26px !important;
+    }
+    .home-tile-title {
+        font-size: 15px !important;
+    }
+    .home-tile-subtitle {
+        font-size: 13px !important;
+    }
+}
+
+/* Большие десктопы (≥ 1400px) */
+@media (min-width: 1400px) {
+    .home-tile {
+        padding: 18px 20px !important;
+        min-height: 88px !important;
+    }
+    .home-tile-icon {
+        width: 52px !important;
+        height: 52px !important;
+        border-radius: 14px !important;
+    }
+    .home-tile-icon .material-symbols-rounded {
+        font-size: 28px !important;
+    }
+    .home-tile-title {
+        font-size: 16px !important;
+    }
+}
+
+/* ============================================
+   14. SEARCH MODAL (модальное окно поиска)
+   ============================================ */
+.search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.search-modal.open {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.search-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.search-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 720px;
+    max-height: 85vh;
+    margin: 8vh auto 0;
+    background: var(--md-surface-container-lowest);
+    border-radius: var(--md-shape-xl);
+    box-shadow: var(--md-elevation-4);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-20px);
+    transition: transform 0.2s;
+    overflow: hidden;
+}
+
+.search-modal.open .search-modal-content {
+    transform: translateY(0);
+}
+
+.search-modal-header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 8px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.search-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-full);
+    height: 56px;
+}
+
+.search-input-wrapper .material-symbols-rounded {
+    color: var(--md-on-surface-variant);
+    font-size: 24px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface);
+    font: 400 18px/24px var(--md-font-family);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--md-on-surface-variant);
+}
+
+.search-clear,
+.search-close {
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.15s;
+}
+
+.search-clear:hover,
+.search-close:hover {
+    background: var(--md-surface-container-high);
+}
+
+.search-clear { display: none; }
+
+.search-close kbd {
+    font: 500 12px/1 var(--md-font-family);
+    padding: 4px 8px;
+    background: var(--md-surface-container-high);
+    border-radius: 6px;
+    color: var(--md-on-surface-variant);
+}
+
+.search-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.search-initial-state {
+    padding: 24px 16px;
+}
+
+.search-hint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--md-surface-container);
+    border-radius: var(--md-shape-md);
+    color: var(--md-on-surface-variant);
+    font: 400 14px/20px var(--md-font-family);
+    margin-bottom: 24px;
+}
+
+.search-hint .material-symbols-rounded {
+    color: var(--md-primary);
+}
+
+.search-hint strong {
+    color: var(--md-on-surface);
+}
+
+.search-shortcuts {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font: 400 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.shortcut-item kbd {
+    font: 500 12px/1 var(--md-font-family);
+    padding: 3px 8px;
+    background: var(--md-surface-container-high);
+    border-radius: 4px;
+    color: var(--md-on-surface);
+}
+
+/* История поиска */
+.search-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.search-history-clear {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    font: 500 12px/1 var(--md-font-family);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.search-history-clear:hover {
+    background: var(--md-surface-container);
+}
+
+.search-history-clear .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.search-history-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface);
+    font: 400 14px/20px var(--md-font-family);
+    cursor: pointer;
+    border-radius: var(--md-shape-sm);
+    text-align: left;
+    transition: background-color 0.15s;
+}
+
+.search-history-item:hover {
+    background: var(--md-surface-container);
+}
+
+.search-history-item .material-symbols-rounded {
+    color: var(--md-on-surface-variant);
+    font-size: 20px;
+}
+
+/* Результаты поиска */
+.search-group {
+    margin-bottom: 8px;
+}
+
+.search-group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    font: 500 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.search-group-header .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--md-primary);
+}
+
+.search-group-count {
+    margin-left: auto;
+    background: var(--md-surface-container-high);
+    padding: 2px 8px;
+    border-radius: var(--md-shape-full);
+    font-size: 11px;
+}
+
+.search-result-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--md-shape-sm);
+    text-align: left;
+    transition: background-color 0.15s;
+}
+
+.search-result-item:hover,
+.search-result-item.selected {
+    background: var(--md-surface-container);
+}
+
+.search-result-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--md-shape-sm);
+    background: var(--md-surface-container-high);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--md-primary);
+}
+
+.search-result-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-title {
+    font: 500 15px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 2px;
+}
+
+.search-result-title mark {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.search-result-subtitle {
+    font: 400 13px/18px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-subtitle mark {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.search-result-badge {
+    padding: 3px 8px;
+    background: var(--md-error);
+    color: var(--md-on-error);
+    font: 500 11px/1 var(--md-font-family);
+    border-radius: var(--md-shape-full);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.search-result-arrow {
+    color: var(--md-on-surface-variant);
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.search-result-item:hover .search-result-arrow,
+.search-result-item.selected .search-result-arrow {
+    opacity: 1;
+}
+
+.search-empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--md-on-surface-variant);
+}
+
+.search-empty .material-symbols-rounded {
+    font-size: 64px;
+    opacity: 0.4;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.search-empty p {
+    font: 500 16px/24px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+}
+
+.search-empty small {
+    font: 400 14px/20px var(--md-font-family);
+}
+
+/* Адаптивность модального окна */
+@media (max-width: 600px) {
+    .search-modal-content {
+        width: 100%;
+        max-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+    .search-shortcuts {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+/* ============================================
+   15. INPUTS (поля ввода)
+   ============================================ */
+input[type="text"],
+input[type="search"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--md-shape-sm);
+    border: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface);
+    font: 400 16px/24px var(--md-font-family);
+    transition: all 0.2s;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    background: var(--md-surface-container-lowest);
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.12);
+}
+
+[data-theme="dark"] input[type="text"]:focus,
+[data-theme="dark"] input[type="search"]:focus,
+[data-theme="dark"] input[type="number"]:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.15);
+}
+
+/* ============================================
+   16. UTILITIES (вспомогательные)
+   ============================================ */
+.text-primary { color: var(--md-primary); }
+.text-secondary { color: var(--md-on-surface-variant); }
+.text-error { color: var(--md-error); }
+.text-success { color: var(--md-success); }
+
+.bg-primary { background: var(--md-primary); color: var(--md-on-primary); }
+.bg-primary-container { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.bg-surface { background: var(--md-surface); }
+.bg-container { background: var(--md-surface-container); }
+
+.rounded-sm { border-radius: var(--md-shape-sm); }
+.rounded-md { border-radius: var(--md-shape-md); }
+.rounded-lg { border-radius: var(--md-shape-lg); }
+.rounded-full { border-radius: var(--md-shape-full); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+
+/* ============================================
+   17. ПРИНУДИТЕЛЬНОЕ ВОССТАНОВЛЕНИЕ
+   (защита от слётов оформления)
+   ============================================ */
+[data-theme="light"] .card,
+:root .card {
+    background: var(--md-surface-container-low);
+    border-radius: var(--md-shape-md);
+}
+
+[data-theme="light"] .card-outlined,
+:root .card-outlined {
+    background: var(--md-surface-container-lowest);
+    border: 1px solid var(--md-outline-variant);
+}
+
+[data-theme="light"] .card-elevated,
+:root .card-elevated {
+    box-shadow: var(--md-elevation-1);
+    border: 1px solid rgba(196, 174, 171, 0.3);
+}
+
+[data-theme="light"] .list-item:hover,
+:root .list-item:hover {
+    background: var(--md-surface-container);
+}
+/* ============================================
+   CALCULATORS LIST - промежуток 8px между карточками
+   ============================================ */
+.calculators-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calculators-list .card {
+    margin-bottom: 0;
+}
+
+.calculators-list .calc-item {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calculators-list .calc-item:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-primary);
+    box-shadow: var(--md-elevation-1);
+}
+
+/* ============================================
+   FILTER WRAPPER - сворачиваемый фильтр
+   ============================================ */
+.filter-wrapper {
+    margin-bottom: 12px;
+}
+
+.category-filter {
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.category-filter::-webkit-scrollbar {
+    display: none;
+}
+
+/* Свёрнутое состояние — одна строка с горизонтальным скроллом */
+.category-filter.collapsed {
+    flex-wrap: nowrap;
+    max-height: 40px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.category-filter.collapsed .chip {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Развёрнутое состояние — все чипы с переносом */
+.category-filter.expanded {
+    flex-wrap: wrap;
+    max-height: 500px;
+    overflow-x: visible;
+    padding-bottom: 8px;
+}
+
+/* Кнопка "Развернуть/Свернуть" */
+.filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    margin-top: 4px;
+    background: transparent;
+    border: none;
+    border-radius: var(--md-shape-full);
+    color: var(--md-primary);
+    font: 500 13px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.filter-toggle:hover {
+    background: var(--md-surface-container);
+}
+
+.filter-toggle .material-symbols-rounded {
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.filter-toggle:active .material-symbols-rounded {
+    transform: scale(0.9);
+}
+
+/* Sort controls */
+.sort-controls .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .category-filter {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    
+    .sort-controls {
+        flex-wrap: wrap;
+    }
+}
+
+/* На очень маленьких экранах сортировка в 2 строки */
+@media (max-width: 400px) {
+    .sort-controls {
+        gap: 6px;
+    }
+    
+    .sort-controls .chip {
+        padding: 0 10px;
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   МУЛЬТИКАТЕГОРИИ - бейджи и активные фильтры
+   ============================================ */
+
+.category-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.category-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--md-shape-xs);
+    background: var(--md-surface-container);
+    color: var(--md-on-surface-variant);
+    font: 500 11px/16px var(--md-font-family);
+    letter-spacing: 0.3px;
+    border: 1px solid var(--md-outline-variant);
+    white-space: nowrap;
+}
+
+.category-badge.critical {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.results-count {
+    padding: 4px 0 8px;
+    font: 400 13px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+}
+
+.active-filters {
+    color: var(--md-primary);
+    font-weight: 500;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+/* Мульти-выбор чипов (несколько активных сразу) */
+.filter-chip.chip-selected {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    border-color: var(--md-primary);
+}
+
+[data-theme="dark"] .filter-chip.chip-selected {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+/* ============================================
+   КОМПАКТНЫЕ ПЛИТКИ (Избранное / Недавнее)
+   ============================================ */
+.home-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin: 0 0 8px 0;
+}
+
+.home-compact-tile {
+    background: var(--md-primary-container) !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 8px 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-height: 40px !important;
+    border-radius: var(--md-shape-md) !important;
+    margin: 0 !important;
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.home-compact-tile:hover {
+    box-shadow: var(--md-elevation-2);
+    transform: translateY(-1px);
+}
+
+.home-compact-tile.recent {
+    background: var(--md-secondary-container) !important;
+}
+.home-compact-tile.recent .home-compact-icon {
+    background: var(--md-secondary) !important;
+    color: var(--md-on-secondary) !important;
+}
+.home-compact-tile.recent .home-compact-title,
+.home-compact-tile.recent .home-compact-subtitle,
+.home-compact-tile.recent .home-compact-arrow {
+    color: var(--md-on-secondary-container) !important;
+}
+
+.home-compact-icon {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    background: var(--md-primary) !important;
+    color: var(--md-on-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+.home-compact-icon .material-symbols-rounded { font-size: 16px !important; }
+
+.home-compact-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.home-compact-title {
+    font: 500 12px/16px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.home-compact-subtitle {
+    font: 400 10px/14px var(--md-font-family) !important;
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.8;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.home-compact-arrow {
+    color: var(--md-on-primary-container) !important;
+    opacity: 0.4; font-size: 18px !important; flex-shrink: 0 !important;
+}
+
+/* ============ АДАПТИВНОСТЬ ============ */
+
+/* ТЕЛЕФОН: 1 колонка */
+@media (max-width: 699px) {
+    .home-compact-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ПЛАНШЕТ И DESKTOP: 2 колонки + крупнее */
+@media (min-width: 700px) {
+    .home-compact-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .home-compact-tile {
+        padding: 10px 14px !important;
+        min-height: 44px !important;
+    }
+    .home-compact-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    .home-compact-icon .material-symbols-rounded { font-size: 18px !important; }
+    .home-compact-title { font-size: 13px !important; }
+}
+
+/* ============================================
+   ПОИСК + КНОПКА ФИЛЬТРА
+   ============================================ */
+
+.search-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.search-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 20px;
+    color: var(--md-on-surface-variant);
+    pointer-events: none;
+}
+
+.search-wrapper input[type="search"] {
+    width: 100%;
+    padding: 12px 12px 12px 42px;
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface);
+    font: 400 15px/1 var(--md-font-family);
+    transition: all 0.2s;
+}
+
+.search-wrapper input[type="search"]:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    background: var(--md-surface-container-lowest);
+    box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.1);
+}
+
+[data-theme="dark"] .search-wrapper input[type="search"]:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.15);
+}
+
+.search-wrapper input[type="search"]::placeholder {
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
+}
+
+/* Скрываем стандартную кнопку очистки в search */
+.search-wrapper input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* Кнопка фильтра */
+.filter-toggle-btn {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.filter-toggle-btn:hover {
+    background: var(--md-surface-container);
+    color: var(--md-primary);
+    border-color: var(--md-outline);
+}
+
+.filter-toggle-btn.has-active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary-container);
+}
+
+.filter-toggle-btn .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.filter-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    background: var(--md-error);
+    color: var(--md-on-error);
+    border-radius: 10px;
+    font: 700 11px/20px var(--md-font-family);
+    text-align: center;
+    border: 2px solid var(--md-surface);
+}
+
+/* ============================================
+   КОМПАКТНЫЕ КАРТОЧКИ КАЛЬКУЛЯТОРОВ
+   ============================================ */
+
+.calculators-list-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calc-compact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.calc-compact-card:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-outline);
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-1);
+}
+
+.calc-compact-card:active {
+    transform: scale(0.99);
+}
+
+.calc-compact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.calc-compact-icon .material-symbols-rounded {
+    font-size: 22px;
+}
+
+.calc-compact-title {
+    flex: 1;
+    min-width: 0;
+    font: 500 15px/20px var(--md-font-family);
+    color: var(--md-on-surface);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.calc-compact-arrow {
+    color: var(--md-on-surface-variant);
+    opacity: 0.5;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   BOTTOM SHEET ФИЛЬТРОВ
+   ============================================ */
+
+.filter-sheet-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.filter-sheet-wrapper.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.filter-sheet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.filter-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 85vh;
+    background: var(--md-surface-container-lowest);
+    border-radius: 24px 24px 0 0;
+    box-shadow: var(--md-elevation-4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-sheet-wrapper.open .filter-sheet {
+    transform: translateY(0);
+}
+
+.filter-sheet-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.filter-sheet-handle {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: var(--md-outline);
+    border-radius: 2px;
+}
+
+.filter-sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 17px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    flex: 1;
+    margin-top: 12px;
+}
+
+.filter-sheet-title .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-primary);
+}
+
+.filter-sheet-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+    margin-top: 12px;
+}
+
+.filter-sheet-close:hover {
+    background: var(--md-surface-container);
+}
+
+.filter-sheet-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-section-title {
+    font: 600 14px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filter-mode-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: 400 11px/1 var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.filter-mode-hint .material-symbols-rounded {
+    font-size: 14px;
+}
+
+/* Кнопка сортировки */
+.sort-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--md-surface-container);
+    border: 2px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-md);
+    color: var(--md-on-surface);
+    font: 500 15px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.sort-toggle-btn:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.sort-toggle-btn.active {
+    background: var(--md-primary-container);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary-container);
+}
+
+.sort-toggle-btn .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-primary);
+}
+
+.sort-toggle-btn.active .material-symbols-rounded {
+    color: var(--md-on-primary-container);
+}
+
+.sort-label {
+    font-weight: 500;
+}
+
+.sort-hint {
+    margin-left: auto;
+    font: 400 12px/1 var(--md-font-family);
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+/* Чипы категорий */
+.filter-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--md-surface-container);
+    border: 1.5px solid var(--md-outline-variant);
+    border-radius: var(--md-shape-full);
+    color: var(--md-on-surface);
+    font: 500 13px/1 var(--md-font-family);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-chip:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+}
+
+.filter-chip.selected {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.filter-chip .check-icon {
+    font-size: 16px;
+    display: none;
+}
+
+.filter-chip.selected .check-icon {
+    display: inline-block;
+}
+
+/* Футер bottom sheet */
+.filter-sheet-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-low);
+    flex-shrink: 0;
+}
+
+.filter-sheet-footer .md-button {
+    flex: 1;
+}
+
+/* На desktop — центрированная модалка */
+@media (min-width: 700px) {
+    .filter-sheet-wrapper {
+        align-items: center;
+        padding: 16px;
+    }
+    
+    .filter-sheet {
+        border-radius: 24px;
+        max-height: 80vh;
+        transform: scale(0.9) translateY(20px);
+    }
+    
+    .filter-sheet-wrapper.open .filter-sheet {
+        transform: scale(1) translateY(0);
+    }
+    
+    .filter-sheet-handle {
+        display: none;
+    }
+    
+    .filter-sheet-title {
+        margin-top: 0;
+    }
+    
+    .filter-sheet-close {
+        margin-top: 0;
+    }
+}
+
+/* На маленьких мобильных */
+@media (max-width: 400px) {
+    .calc-compact-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .calc-compact-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .calc-compact-title {
+        font-size: 14px;
+    }
+    
+    .filter-chip {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   КНОПКА СБРОСА ФИЛЬТРОВ (справа от фильтра)
+   ============================================ */
+
+.filter-reset-btn {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--md-error);
+    border-radius: var(--md-shape-md);
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    animation: resetBtnAppear 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes resetBtnAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+}
+
+.filter-reset-btn:hover {
+    background: var(--md-error);
+    color: var(--md-on-error);
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-2);
+}
+
+.filter-reset-btn:active {
+    transform: scale(0.95);
+}
+
+.filter-reset-btn .material-symbols-rounded {
+    font-size: 22px;
+}
+
+/* Подзаголовок со счётчиком */
+.calc-subtitle-info {
+    font: 400 14px/20px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    margin: 4px 0 0;
+}
+
+.calc-subtitle-info #filtered-count {
+    font-weight: 600;
+    color: var(--md-primary);
+    transition: color 0.2s;
+}
+
+/* ============================================
+   МОДАЛЬНОЕ ОКНО ИНФОРМАЦИИ (ℹ)
+   Адаптивные цвета для light/dark темы
+   ============================================ */
+
+.info-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+}
+
+.info-modal-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.info-modal {
+    background: var(--md-surface-container);
+    color: var(--md-on-surface);
+    border-radius: var(--md-shape-lg);
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--md-elevation-3);
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-modal-backdrop.open .info-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Шапка модалки */
+.info-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    flex-shrink: 0;
+}
+
+.info-modal-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-modal-icon .material-symbols-rounded {
+    font-size: 28px;
+}
+
+.info-modal-title {
+    flex: 1;
+    margin: 0;
+    font: 600 20px/26px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.info-modal-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.info-modal-close:hover {
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+}
+
+/* Тело модалки */
+.info-modal-body {
+    padding: 16px 24px 24px;
+    overflow-y: auto;
+    flex: 1;
+    color: var(--md-on-surface);
+}
+
+.info-modal-body p {
+    margin: 0 0 12px;
+    font: 400 14px/22px var(--md-font-family);
+    color: var(--md-on-surface);
+}
+
+.info-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   ВАЖНОЕ ЗАМЕЧАНИЕ (importantNote)
+   ✅ АДАПТИВНО для light/dark
+   ============================================ */
+
+.info-modal-note {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+    border-radius: var(--md-shape-md);
+    border-left: 4px solid var(--md-error);
+}
+
+.info-modal-note .material-symbols-rounded {
+    font-size: 22px;
+    color: var(--md-error);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.info-modal-note p {
+    margin: 0;
+    font: 500 13px/20px var(--md-font-family);
+    color: var(--md-on-error-container);
+}
+
+/* ============================================
+   СЕКЦИИ (Формулы / Правила / Примеры)
+   ============================================ */
+
+.calc-reference-section {
+    margin: 20px 0;
+}
+
+.calc-reference-section:first-child {
+    margin-top: 8px;
+}
+
+.calc-reference-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 12px/1 var(--md-font-family);
+    color: var(--md-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.calc-reference-title .material-symbols-rounded {
+    font-size: 18px;
+}
+
+/* Формулы */
+.calc-formulas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.calc-formula-card {
+    padding: 12px 14px;
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    border-radius: var(--md-shape-md);
+    border-left: 3px solid var(--md-primary);
+}
+
+.calc-formula-name {
+    font: 600 13px/1 var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 6px;
+}
+
+.calc-formula-text {
+    font: 600 15px/1 var(--md-font-family);
+    color: var(--md-primary);
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+}
+
+.calc-formula-example {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-on-surface-variant);
+    font-style: italic;
+}
+
+/* Быстрые правила */
+.calc-quick-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calc-quick-rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    border-radius: var(--md-shape-md);
+    font: 400 13px/18px var(--md-font-family);
+}
+
+.calc-quick-rule-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+/* Примеры расчётов */
+.calc-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.calc-example-card {
+    padding: 12px 14px;
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    border-radius: var(--md-shape-md);
+    border-left: 3px solid var(--md-tertiary);
+}
+
+.calc-example-scenario {
+    font: 500 13px/18px var(--md-font-family);
+    color: var(--md-on-surface);
+    margin-bottom: 6px;
+}
+
+.calc-example-calculation {
+    font: 400 12px/16px var(--md-font-family);
+    color: var(--md-primary);
+    padding-top: 6px;
+    border-top: 1px dashed var(--md-outline-variant);
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+}
+
+/* Таблица концентраций */
+.calc-concentrations-table {
+    width: 100%;
+    border-collapse: collapse;
+    font: 400 13px/1 var(--md-font-family);
+}
+
+.calc-concentrations-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--md-outline-variant);
+}
+
+.calc-concentrations-table td {
+    padding: 10px 12px;
+    color: var(--md-on-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.calc-concentrations-table tr:last-child td {
+    border-bottom: none;
+}
+
+.calc-concentrations-table td:last-child {
+    font-weight: 700;
+    color: var(--md-primary);
+    text-align: right;
+}
+
+/* Юридическая ссылка */
+.info-modal-legal {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-top: 16px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius: var(--md-shape-md);
+    font: 400 12px/18px var(--md-font-family);
+}
+
+.info-modal-legal .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-tertiary);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.info-modal-legal p {
+    margin: 0;
+    color: var(--md-on-tertiary-container);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 600px) {
+    .info-modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+    
+    .info-modal {
+        max-height: 90vh;
+        border-radius: 24px 24px 0 0;
+    }
+    
+    .info-modal-header {
+        padding: 16px 20px 12px;
+    }
+    
+    .info-modal-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .info-modal-icon .material-symbols-rounded {
+        font-size: 24px;
+    }
+    
+    .info-modal-title {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    
+    .info-modal-body {
+        padding: 12px 20px 24px;
+    }
+    
+    .info-modal-body p {
+        font-size: 13px;
+        line-height: 20px;
+    }
+    
+    .info-modal-note {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+    
+    .info-modal-note p {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    .calc-reference-title {
+        font-size: 11px;
+    }
+    
+    .calc-formula-card,
+    .calc-quick-rule,
+    .calc-example-card {
+        padding: 10px 12px;
+    }
+    
+    .calc-formula-name,
+    .calc-example-scenario {
+        font-size: 12px;
+    }
+    
+    .calc-formula-text {
+        font-size: 14px;
+    }
+    
+    .calc-formula-example,
+    .calc-example-calculation {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 400px) {
+    .info-modal-header {
+        padding: 14px 16px 10px;
+        gap: 10px;
+    }
+    
+    .info-modal-body {
+        padding: 10px 16px 20px;
+    }
+    
+    .calc-quick-rule {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
